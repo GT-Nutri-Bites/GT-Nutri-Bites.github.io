@@ -286,7 +286,7 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.75);
-            z-index: 1000;
+            z-index: 9998;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -299,7 +299,7 @@
 
         /* Mobile menu - must be above backdrop */
         .mobile-menu {
-            z-index: 1001;
+            z-index: 9999;
         }
 
         /* Decorative elements */
@@ -349,7 +349,7 @@
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
-            z-index: 999;
+            z-index: 900;
             box-shadow: 0 4px 15px rgba(45, 80, 22, 0.3);
         }
 
@@ -373,7 +373,7 @@
             border-top: 2px solid var(--primary);
             padding: 1.5rem;
             box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
+            z-index: 950;
             transform: translateY(100%);
             transition: transform 0.3s ease;
         }
@@ -784,7 +784,7 @@
             border-radius: 0.5rem;
             font-size: 0.875rem;
             white-space: nowrap;
-            z-index: 1000;
+            z-index: 100;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease;
@@ -863,7 +863,7 @@
     <div class="texture"></div>
 
     <!-- Navigation -->
-    <nav class="relative z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0">
+    <nav class="relative z-[1000] bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-4">
                 <!-- Logo -->

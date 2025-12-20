@@ -2008,7 +2008,10 @@
         }
 
         // Load products on page load
-        loadSearchProducts();
+        let productsLoaded = false;
+        loadSearchProducts().then(() => {
+            productsLoaded = true;
+        });
 
         searchBtn.addEventListener('click', () => {
             searchDropdown.classList.toggle('active');
@@ -2019,6 +2022,14 @@
 
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
+            
+            // Show loading message if products haven't loaded yet
+            if (!productsLoaded) {
+                searchResultsList.textContent = 'Loading products...';
+                searchResultsList.className = 'text-gray-500 text-sm p-3';
+                return;
+            }
+            
             if (query.length > 0) {
                 const filtered = searchProducts.filter(p => 
                     p.name.toLowerCase().includes(query) || 

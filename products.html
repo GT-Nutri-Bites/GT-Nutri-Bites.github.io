@@ -1085,10 +1085,12 @@
             }
             
             // Load products from JSON
+            // Note: loadProducts() handles error state by displaying error message in grid
             const loaded = await loadProducts();
             if (loaded) {
                 renderProducts();
             }
+            // If loadProducts() returns false, it has already set the grid to show an error message
             
             updateCartCount();
         }

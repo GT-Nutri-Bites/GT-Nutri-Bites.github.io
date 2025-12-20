@@ -286,7 +286,7 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.75);
-            z-index: 9998;
+            z-index: 1000;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -295,6 +295,11 @@
         .mobile-menu-backdrop.active {
             opacity: 1;
             visibility: visible;
+        }
+
+        /* Mobile menu - must be above backdrop */
+        .mobile-menu {
+            z-index: 1001;
         }
 
         /* Decorative elements */
@@ -926,7 +931,7 @@
         <div id="mobile-menu-backdrop" class="mobile-menu-backdrop"></div>
         
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-white shadow-2xl md:hidden z-[9999] p-6">
+        <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-white shadow-2xl md:hidden p-6">
             <button id="close-menu" class="absolute top-6 right-6 text-gray-700">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>

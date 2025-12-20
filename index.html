@@ -1983,16 +1983,35 @@
         const searchInput = document.getElementById('search-input');
         const searchResultsList = document.getElementById('search-results-list');
 
-        const products = [
-            { name: 'Premium California Almonds', category: 'Organic Almonds', price: '$18.99' },
-            { name: 'Chia Seeds Super Pack', category: 'Organic Seeds', price: '$14.99' },
-            { name: 'Roasted Cashews', category: 'Premium Nuts', price: '$22.99' },
-            { name: 'Energy Boost Mix', category: 'Trail Mix', price: '$16.99' },
-            { name: 'Sunflower Seeds', category: 'Premium Seeds', price: '$12.99' },
-            { name: 'Raw Walnuts', category: 'Organic Nuts', price: '$19.99' },
-            { name: 'Pumpkin Seeds', category: 'Superfood Seeds', price: '$13.99' },
-            { name: 'Deluxe Nut Mix', category: 'Premium Mix', price: '$24.99' }
-        ];
+        // Products will be loaded from JSON
+        let searchProducts = [];
+
+        // Load products from JSON for search
+        async function loadSearchProducts() {
+            try {
+                const response = await fetch('data/products.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load products');
+                }
+                const data = await response.json();
+                // Map to search-friendly format
+                searchProducts = data.products.map(p => ({
+                    name: p.name,
+                    category: p.category,
+                    price: `$${p.price.toFixed(2)}`
+                }));
+            } catch (error) {
+                console.error('Error loading products for search:', error);
+                // Fallback to empty array
+                searchProducts = [];
+            }
+        }
+
+        // Load products on page load
+        let productsLoaded = false;
+        loadSearchProducts().then(() => {
+            productsLoaded = true;
+        });
 
         searchBtn.addEventListener('click', () => {
             searchDropdown.classList.toggle('active');
@@ -2003,8 +2022,16 @@
 
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
+            
+            // Show loading message if products haven't loaded yet
+            if (!productsLoaded) {
+                searchResultsList.textContent = 'Loading products...';
+                searchResultsList.className = 'text-gray-500 text-sm p-3';
+                return;
+            }
+            
             if (query.length > 0) {
-                const filtered = products.filter(p => 
+                const filtered = searchProducts.filter(p => 
                     p.name.toLowerCase().includes(query) || 
                     p.category.toLowerCase().includes(query)
                 );

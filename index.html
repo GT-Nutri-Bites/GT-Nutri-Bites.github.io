@@ -867,15 +867,201 @@
                 border: 2px solid currentColor;
             }
         }
+        
+        /* Skip to main content link - accessibility */
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0 0 0.5rem 0.5rem;
+            z-index: 10002;
+            font-weight: 600;
+            transition: top 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+        
+        /* Toast notification styles */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10003;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            pointer-events: none;
+        }
+        
+        .toast {
+            background: var(--text-dark);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 280px;
+            max-width: 400px;
+            pointer-events: auto;
+            animation: toastIn 0.4s ease-out forwards;
+            font-size: 0.95rem;
+        }
+        
+        .toast.toast-success {
+            background: var(--primary);
+        }
+        
+        .toast.toast-error {
+            background: #DC2626;
+        }
+        
+        .toast.toast-info {
+            background: #2563EB;
+        }
+        
+        .toast.toast-out {
+            animation: toastOut 0.3s ease-in forwards;
+        }
+        
+        .toast-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .toast-message {
+            flex: 1;
+        }
+        
+        .toast-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0.25rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        .toast-close:hover {
+            opacity: 1;
+        }
+        
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes toastOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .toast-container {
+                left: 1rem;
+                right: 1rem;
+                transform: none;
+            }
+            
+            .toast {
+                min-width: auto;
+                max-width: none;
+            }
+        }
+        
+        /* Enhanced button ripple effect */
+        .btn-ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ripple-effect {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        /* Visual feedback for interactive elements */
+        .add-to-cart-btn.adding {
+            pointer-events: none;
+        }
+        
+        .add-to-cart-btn.adding span {
+            visibility: hidden;
+        }
+        
+        .add-to-cart-btn.adding::after {
+            content: '';
+            position: absolute;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid transparent;
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        
+        /* Improved card hover states */
+        .product-card {
+            will-change: transform, box-shadow;
+        }
+        
+        /* Image loading placeholder */
+        .img-loading {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
     </style>
 </head>
 <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link" aria-label="Skip to main content">Skip to main content</a>
+
+    <!-- Toast notification container -->
+    <div id="toast-container" class="toast-container" role="alert" aria-live="polite"></div>
+
     <!-- Scroll progress bar -->
-    <div class="scroll-progress" id="scroll-progress"></div>
+    <div class="scroll-progress" id="scroll-progress" role="progressbar" aria-label="Page scroll progress"></div>
 
     <!-- Background effects -->
-    <div class="organic-bg"></div>
-    <div class="texture"></div>
+    <div class="organic-bg" aria-hidden="true"></div>
+    <div class="texture" aria-hidden="true"></div>
 
     <!-- Navigation -->
     <nav class="relative z-[1000] bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0">
@@ -978,6 +1164,7 @@
     </div>
 
     <!-- Hero Section -->
+    <main id="main-content">
     <section class="relative pt-12 pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-amber-50 to-cream">
         <div class="max-w-7xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -1079,12 +1266,12 @@
                 <p class="text-gray-600">Discover our carefully curated selection</p>
             </div>
             <div class="flex flex-wrap justify-center gap-3">
-                <button class="category-pill active px-6 py-2.5 rounded-full font-semibold text-sm">All Products</button>
-                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm">Nuts</button>
-                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm">Seeds</button>
-                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm">Mix & Trail</button>
-                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm">Dried Fruits</button>
-                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm">Best Sellers</button>
+                <button class="category-pill active px-6 py-2.5 rounded-full font-semibold text-sm" role="button" aria-pressed="true">All Products</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" role="button" aria-pressed="false">Nuts</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" role="button" aria-pressed="false">Seeds</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" role="button" aria-pressed="false">Mix & Trail</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" role="button" aria-pressed="false">Dried Fruits</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" role="button" aria-pressed="false">Best Sellers</button>
             </div>
         </div>
     </section>
@@ -1634,6 +1821,7 @@
             </p>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8">
@@ -1743,6 +1931,71 @@
     </button>
 
     <script>
+        // ==========================================
+        // TOAST NOTIFICATION SYSTEM
+        // ==========================================
+        const ToastManager = {
+            container: null,
+            init() {
+                this.container = document.getElementById('toast-container');
+            },
+            show(message, type = 'success', duration = 3000) {
+                if (!this.container) this.init();
+                
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                
+                const iconSvg = this.getIcon(type);
+                
+                toast.innerHTML = `
+                    <span class="toast-icon">${iconSvg}</span>
+                    <span class="toast-message">${message}</span>
+                    <button class="toast-close" aria-label="Close notification">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                `;
+                
+                this.container.appendChild(toast);
+                
+                // Close button handler
+                toast.querySelector('.toast-close').addEventListener('click', () => {
+                    this.dismiss(toast);
+                });
+                
+                // Auto dismiss
+                if (duration > 0) {
+                    setTimeout(() => this.dismiss(toast), duration);
+                }
+                
+                return toast;
+            },
+            dismiss(toast) {
+                toast.classList.add('toast-out');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            },
+            getIcon(type) {
+                switch(type) {
+                    case 'success':
+                        return '<svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>';
+                    case 'error':
+                        return '<svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>';
+                    case 'info':
+                        return '<svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>';
+                    default:
+                        return '';
+                }
+            }
+        };
+        
+        // Initialize toast manager
+        ToastManager.init();
+
         // Mobile menu functionality
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -1753,12 +2006,19 @@
             mobileMenu.classList.add('active');
             mobileMenuBackdrop.classList.add('active');
             document.body.style.overflow = 'hidden';
+            // Set focus to first menu item for accessibility
+            setTimeout(() => {
+                const firstLink = mobileMenu.querySelector('a');
+                if (firstLink) firstLink.focus();
+            }, 300);
         }
 
         function closeMobileMenu() {
             mobileMenu.classList.remove('active');
             mobileMenuBackdrop.classList.remove('active');
             document.body.style.overflow = '';
+            // Return focus to menu button
+            mobileMenuBtn.focus();
         }
 
         mobileMenuBtn.addEventListener('click', openMobileMenu);
@@ -1776,13 +2036,23 @@
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return; // Skip if just '#'
+                
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const target = document.querySelector(href);
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    const navHeight = document.querySelector('nav').offsetHeight;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
                     });
+                    
+                    // Set focus to the target section for accessibility
+                    target.setAttribute('tabindex', '-1');
+                    target.focus({ preventScroll: true });
                 }
             });
         });
@@ -1791,8 +2061,12 @@
         const categoryPills = document.querySelectorAll('.category-pill');
         categoryPills.forEach(pill => {
             pill.addEventListener('click', function() {
-                categoryPills.forEach(p => p.classList.remove('active'));
+                categoryPills.forEach(p => {
+                    p.classList.remove('active');
+                    p.setAttribute('aria-pressed', 'false');
+                });
                 this.classList.add('active');
+                this.setAttribute('aria-pressed', 'true');
             });
         });
 
@@ -1849,13 +2123,16 @@
             });
         }
 
-        // Add to cart animation
+        // Add to cart with improved feedback
         document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function(e) {
                 const productKey = this.dataset.product;
                 const product = indexProducts[productKey];
                 
                 if (product) {
+                    // Add loading state
+                    this.classList.add('adding');
+                    
                     // Add to cart in localStorage
                     let cart = [];
                     try {
@@ -1881,18 +2158,35 @@
                     
                     try {
                         localStorage.setItem('cart', JSON.stringify(cart));
+                        // Show success toast
+                        ToastManager.show(`${product.name} added to cart!`, 'success');
                     } catch (e) {
                         console.error('Error saving cart:', e);
+                        ToastManager.show('Failed to add item to cart', 'error');
                     }
+                    
+                    // Remove loading state
+                    setTimeout(() => {
+                        this.classList.remove('adding');
+                    }, 300);
                 }
                 
-                // Simple feedback animation
+                // Visual feedback on button
                 const originalText = this.querySelector('span').textContent;
                 this.querySelector('span').textContent = 'Added! ✓';
                 this.style.backgroundColor = 'var(--primary-light)';
                 
                 // Update cart count
                 updateCartCount();
+                
+                // Animate cart badge
+                const cartBadge = document.getElementById('cart-count');
+                if (cartBadge) {
+                    cartBadge.style.transform = 'scale(1.3)';
+                    setTimeout(() => {
+                        cartBadge.style.transform = 'scale(1)';
+                    }, 200);
+                }
                 
                 setTimeout(() => {
                     this.querySelector('span').textContent = originalText;

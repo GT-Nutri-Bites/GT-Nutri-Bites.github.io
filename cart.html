@@ -593,7 +593,7 @@
             updateQuantity(productId, quantity) {
                 const item = this.cart.find(item => item.id === productId);
                 if (item) {
-                    item.quantity = Math.max(1, quantity);
+                    item.quantity = Math.max(1, Math.min(99, quantity));
                     this.saveCart();
                 }
             }
@@ -629,7 +629,13 @@
                 if (badge) {
                     const count = this.getItemCount();
                     badge.textContent = count;
-                    badge.style.display = count > 0 ? 'block' : 'none';
+                }
+                
+                // Update aria-label for cart link
+                const cartLink = document.querySelector('a[href="cart.html"]');
+                if (cartLink) {
+                    const count = this.getItemCount();
+                    cartLink.setAttribute('aria-label', `Shopping cart with ${count} ${count === 1 ? 'item' : 'items'}`);
                 }
             }
 
@@ -681,7 +687,7 @@
                             <div class="flex justify-between items-center">
                                 <div class="quantity-control">
                                     <button class="quantity-btn decrease-qty" data-product-id="${item.id}">−</button>
-                                    <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-product-id="${item.id}">
+                                    <input type="number" class="quantity-input" value="${item.quantity}" min="1" max="99" data-product-id="${item.id}">
                                     <button class="quantity-btn increase-qty" data-product-id="${item.id}">+</button>
                                 </div>
                                 <div class="text-right">
@@ -833,8 +839,10 @@
                 timestamp: new Date().toISOString()
             };
 
-            // Generate order number
-            const orderNumber = 'GT' + Date.now().toString().slice(-8);
+            // Generate unique order number (timestamp + random string)
+            const timestamp = Date.now().toString().slice(-8);
+            const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
+            const orderNumber = `GT${timestamp}${randomStr}`;
             document.getElementById('order-number').textContent = orderNumber;
 
             // Save order to localStorage (in a real app, this would be sent to a server)

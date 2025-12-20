@@ -1022,6 +1022,12 @@
                 }
                 const count = cart.reduce((total, item) => total + item.quantity, 0);
                 cartCount.textContent = count;
+                
+                // Update cart link aria-label
+                const cartLink = document.querySelector('a[href="cart.html"]');
+                if (cartLink) {
+                    cartLink.setAttribute('aria-label', `Shopping cart with ${count} ${count === 1 ? 'item' : 'items'}`);
+                }
             }
         }
 

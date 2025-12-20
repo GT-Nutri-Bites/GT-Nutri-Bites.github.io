@@ -1493,6 +1493,12 @@
             const count = cart.reduce((total, item) => total + item.quantity, 0);
             if (cartCount) cartCount.textContent = count;
             if (mobileCartCount) mobileCartCount.textContent = count;
+            
+            // Update cart link aria-label
+            const cartLinks = document.querySelectorAll('a[href="cart.html"]');
+            cartLinks.forEach(link => {
+                link.setAttribute('aria-label', `Shopping cart with ${count} ${count === 1 ? 'item' : 'items'}`);
+            });
         }
 
         // Add to cart animation

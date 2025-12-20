@@ -537,28 +537,29 @@
             </div>
         </div>
 
-        <!-- Mobile Menu Backdrop -->
-        <div id="mobile-menu-backdrop" class="mobile-menu-backdrop"></div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-white shadow-2xl md:hidden p-6">
-            <button id="close-menu" class="absolute top-6 right-6 text-gray-700">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-            <div class="mt-16 space-y-6">
-                <a href="index.html#shop" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Shop</a>
-                <a href="index.html#about" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">About</a>
-                <a href="index.html#benefits" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Health Benefits</a>
-                <a href="index.html#testimonials" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Reviews</a>
-                <a href="index.html#contact" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Contact</a>
-                <a href="index.html" class="btn-primary w-full px-6 py-3 rounded-full font-medium text-sm mt-4 block text-center">
-                    <span>Home</span>
-                </a>
-            </div>
-        </div>
     </nav>
+
+    <!-- Mobile Menu Backdrop - placed outside nav for proper z-index stacking -->
+    <div id="mobile-menu-backdrop" class="mobile-menu-backdrop"></div>
+    
+    <!-- Mobile Menu - placed outside nav for proper z-index stacking -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-white shadow-2xl md:hidden p-6">
+        <button id="close-menu" class="absolute top-6 right-6 text-gray-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <div class="mt-16 space-y-6">
+            <a href="index.html#shop" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Shop</a>
+            <a href="index.html#about" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">About</a>
+            <a href="index.html#benefits" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Health Benefits</a>
+            <a href="index.html#testimonials" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Reviews</a>
+            <a href="index.html#contact" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Contact</a>
+            <a href="index.html" class="btn-primary w-full px-6 py-3 rounded-full font-medium text-sm mt-4 block text-center">
+                <span>Home</span>
+            </a>
+        </div>
+    </div>
 
     <!-- Page Header -->
     <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-amber-50 to-cream">

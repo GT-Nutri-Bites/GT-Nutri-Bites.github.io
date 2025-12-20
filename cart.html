@@ -13,12 +13,7 @@
     <link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg">
     
     <!-- EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function() {
-            emailjs.init("Uj8MZl4CPDUZNnnXB");
-        })();
-    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -244,7 +239,6 @@
             transform: translateX(0);
         }
 
-        /* Mobile menu backdrop */
         .mobile-menu-backdrop {
             position: fixed;
             top: 0;
@@ -263,7 +257,6 @@
             visibility: visible;
         }
 
-        /* Mobile menu - must be above backdrop */
         .mobile-menu {
             z-index: 9999;
         }
@@ -288,6 +281,76 @@
             width: 100%;
         }
 
+        /* Loading Spinner */
+        .loading-spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Print Styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #print-area, #print-area * {
+                visibility: visible;
+            }
+            #print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        /* Bill styles */
+        .bill-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .bill-header {
+            text-align: center;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .bill-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .bill-table th,
+        .bill-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .bill-table th {
+            background: #f9fafb;
+            font-weight: 600;
+        }
+
         /* Enhanced Mobile Responsiveness */
         @media (max-width: 768px) {
             h1 {
@@ -300,14 +363,10 @@
                 line-height: 1.3 !important;
             }
             
-            button, a.btn-primary, a.btn-secondary, .category-pill {
+            button, a.btn-primary, a.btn-secondary {
                 min-height: 44px;
                 min-width: 44px;
                 padding: 0.75rem 1.5rem;
-            }
-            
-            nav {
-                padding: 0.75rem 0;
             }
             
             .cart-item {
@@ -322,79 +381,14 @@
                 font-size: 16px !important;
                 padding: 0.875rem;
             }
-            
-            section {
-                padding-top: 2.5rem !important;
-                padding-bottom: 2.5rem !important;
-            }
-            
-            .quantity-control button {
-                min-width: 40px;
-                min-height: 40px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.875rem !important;
-            }
-            
-            h2 {
-                font-size: 1.5rem !important;
-            }
-            
-            nav img[alt*="Logo"] {
-                height: 2.5rem !important;
-            }
-            
-            nav .text-2xl {
-                font-size: 1.25rem !important;
-            }
         }
 
-        /* Enhanced UI/UX Improvements */
         button:focus,
         a:focus,
         input:focus,
         select:focus {
             outline: 3px solid var(--accent);
             outline-offset: 2px;
-        }
-        
-        .btn-primary:focus,
-        .btn-secondary:focus {
-            outline-color: var(--primary-light);
-        }
-        
-        * {
-            -webkit-tap-highlight-color: rgba(45, 80, 22, 0.1);
-        }
-        
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        button:disabled,
-        .btn-primary:disabled,
-        .btn-secondary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        button:active,
-        .btn-primary:active,
-        .btn-secondary:active {
-            transform: translateY(0) !important;
-        }
-        
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
         }
     </style>
 </head>
@@ -405,13 +399,11 @@
     <nav class="sticky top-0 z-[1000] bg-white/95 backdrop-blur-md border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
                 <a href="index.html" class="flex items-center space-x-2">
                     <img src="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg" alt="GT Nutri Bites Logo" class="h-12 w-auto object-contain">
                     <span class="font-bold text-xl display-font text-gray-900">GT Nutri Bites</span>
                 </a>
 
-                <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="index.html#shop" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Shop</a>
                     <a href="index.html#about" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">About</a>
@@ -420,7 +412,6 @@
                     <a href="index.html#contact" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Contact</a>
                 </div>
 
-                <!-- Cart Icon & CTA -->
                 <div class="hidden md:flex items-center space-x-4">
                     <a href="cart.html" class="relative p-2 hover:bg-gray-100 rounded-full transition" aria-label="Shopping cart">
                         <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -433,7 +424,6 @@
                     </a>
                 </div>
 
-                <!-- Mobile menu button -->
                 <button id="mobile-menu-btn" class="md:hidden text-gray-700 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -441,13 +431,10 @@
                 </button>
             </div>
         </div>
-
     </nav>
 
-    <!-- Mobile Menu Backdrop - placed outside nav for proper z-index stacking -->
     <div id="mobile-menu-backdrop" class="mobile-menu-backdrop"></div>
     
-    <!-- Mobile Menu - placed outside nav for proper z-index stacking -->
     <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-white shadow-2xl md:hidden p-6">
         <button id="close-menu" class="absolute top-6 right-6 text-gray-700">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -479,21 +466,15 @@
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Page Header -->
         <div class="mb-8">
             <h1 class="text-3xl sm:text-4xl font-bold display-font text-gray-900 mb-2">Shopping Cart</h1>
             <p class="text-gray-600">Review your items and complete your order</p>
         </div>
 
-        <!-- Cart Content -->
         <div id="cart-content" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Cart Items (Left Section) -->
             <div class="lg:col-span-2">
-                <div id="cart-items-container">
-                    <!-- Cart items will be dynamically inserted here -->
-                </div>
+                <div id="cart-items-container"></div>
                 
-                <!-- Empty Cart Message -->
                 <div id="empty-cart" class="empty-cart hidden">
                     <svg class="w-24 h-24 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -506,10 +487,8 @@
                 </div>
             </div>
 
-            <!-- Order Summary & Customer Info (Right Section) -->
             <div class="lg:col-span-1">
                 <div id="checkout-section" class="hidden">
-                    <!-- Order Summary -->
                     <div class="order-summary mb-6">
                         <h2 class="text-xl font-bold display-font mb-4">Order Summary</h2>
                         <div class="space-y-3 mb-4 pb-4 border-b border-gray-200">
@@ -538,7 +517,7 @@
             </div>
         </div>
 
-        <!-- Customer Information Form (Shown after clicking Proceed to Checkout) -->
+        <!-- Customer Information Form -->
         <div id="customer-form-section" class="hidden mt-8">
             <div class="max-w-4xl mx-auto">
                 <h2 class="text-2xl font-bold display-font mb-6">Customer Information</h2>
@@ -555,19 +534,19 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="form-label">First Name <span class="required">*</span></label>
-                                <input type="text" id="first-name" class="form-input" required>
+                                <input type="text" id="first-name" name="first_name" class="form-input" required>
                             </div>
                             <div>
                                 <label class="form-label">Last Name <span class="required">*</span></label>
-                                <input type="text" id="last-name" class="form-input" required>
+                                <input type="text" id="last-name" name="last_name" class="form-input" required>
                             </div>
                             <div>
                                 <label class="form-label">Email Address <span class="required">*</span></label>
-                                <input type="email" id="email" class="form-input" required>
+                                <input type="email" id="email" name="email" class="form-input" required>
                             </div>
                             <div>
                                 <label class="form-label">Phone Number <span class="required">*</span></label>
-                                <input type="tel" id="phone" class="form-input" required placeholder="(555) 555-5555">
+                                <input type="tel" id="phone" name="phone" class="form-input" required placeholder="(555) 555-5555">
                             </div>
                         </div>
                     </div>
@@ -584,24 +563,24 @@
                         <div class="space-y-4">
                             <div>
                                 <label class="form-label">Street Address <span class="required">*</span></label>
-                                <input type="text" id="shipping-address" class="form-input" required>
+                                <input type="text" id="shipping-address" name="shipping_address" class="form-input" required>
                             </div>
                             <div>
                                 <label class="form-label">Apartment, Suite, etc. (Optional)</label>
-                                <input type="text" id="shipping-address2" class="form-input">
+                                <input type="text" id="shipping-address2" name="shipping_address2" class="form-input">
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
                                     <label class="form-label">City <span class="required">*</span></label>
-                                    <input type="text" id="shipping-city" class="form-input" required>
+                                    <input type="text" id="shipping-city" name="shipping_city" class="form-input" required>
                                 </div>
                                 <div>
                                     <label class="form-label">State <span class="required">*</span></label>
-                                    <input type="text" id="shipping-state" class="form-input" required placeholder="CA">
+                                    <input type="text" id="shipping-state" name="shipping_state" class="form-input" required placeholder="CA">
                                 </div>
                                 <div>
                                     <label class="form-label">ZIP Code <span class="required">*</span></label>
-                                    <input type="text" id="shipping-zip" class="form-input" required placeholder="12345">
+                                    <input type="text" id="shipping-zip" name="shipping_zip" class="form-input" required placeholder="12345">
                                 </div>
                             </div>
                         </div>
@@ -622,24 +601,24 @@
                         <div id="billing-address-fields" class="hidden mt-4 space-y-4">
                             <div>
                                 <label class="form-label">Street Address <span class="required">*</span></label>
-                                <input type="text" id="billing-address" class="form-input">
+                                <input type="text" id="billing-address" name="billing_address" class="form-input">
                             </div>
                             <div>
                                 <label class="form-label">Apartment, Suite, etc. (Optional)</label>
-                                <input type="text" id="billing-address2" class="form-input">
+                                <input type="text" id="billing-address2" name="billing_address2" class="form-input">
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
                                     <label class="form-label">City <span class="required">*</span></label>
-                                    <input type="text" id="billing-city" class="form-input">
+                                    <input type="text" id="billing-city" name="billing_city" class="form-input">
                                 </div>
                                 <div>
                                     <label class="form-label">State <span class="required">*</span></label>
-                                    <input type="text" id="billing-state" class="form-input" placeholder="CA">
+                                    <input type="text" id="billing-state" name="billing_state" class="form-input" placeholder="CA">
                                 </div>
                                 <div>
                                     <label class="form-label">ZIP Code <span class="required">*</span></label>
-                                    <input type="text" id="billing-zip" class="form-input" placeholder="12345">
+                                    <input type="text" id="billing-zip" name="billing_zip" class="form-input" placeholder="12345">
                                 </div>
                             </div>
                         </div>
@@ -657,11 +636,11 @@
                         <div class="space-y-4">
                             <div>
                                 <label class="form-label">Delivery Instructions (Optional)</label>
-                                <textarea id="delivery-instructions" class="form-input" rows="3" placeholder="Leave at front door, Ring doorbell, etc."></textarea>
+                                <textarea id="delivery-instructions" name="delivery_instructions" class="form-input" rows="3" placeholder="Leave at front door, Ring doorbell, etc."></textarea>
                             </div>
                             <div>
                                 <label class="form-label">Preferred Delivery Date (Optional)</label>
-                                <input type="date" id="delivery-date" class="form-input">
+                                <input type="date" id="delivery-date" name="delivery_date" class="form-input">
                             </div>
                         </div>
                     </div>
@@ -676,16 +655,15 @@
                         </h3>
                         <div>
                             <label class="form-label">Order Notes (Optional)</label>
-                            <textarea id="order-notes" class="form-input" rows="3" placeholder="Any special requests or notes about your order..."></textarea>
+                            <textarea id="order-notes" name="order_notes" class="form-input" rows="3" placeholder="Any special requests or notes about your order..."></textarea>
                         </div>
                     </div>
 
-                    <!-- Action Buttons -->
                     <div class="flex flex-col sm:flex-row gap-4 justify-end">
                         <button type="button" id="back-to-cart" class="btn-secondary px-8 py-3 rounded-full font-semibold">
                             Back to Cart
                         </button>
-                        <button type="submit" id="place-order-btn" class="btn-primary px-8 py-3 rounded-full font-semibold">
+                        <button type="submit" id="submit-order-btn" class="btn-primary px-8 py-3 rounded-full font-semibold">
                             Place Order
                         </button>
                     </div>
@@ -693,37 +671,99 @@
             </div>
         </div>
 
-        <!-- Order Confirmation Modal -->
+        <!-- Order Confirmation Modal with Bill -->
         <div id="confirmation-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-            <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center animate-fade-in">
-                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+            <div class="bg-white rounded-2xl p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-fade-in">
+                <div class="text-center mb-6">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold display-font mb-2">Order Confirmed!</h2>
+                    <p class="text-gray-600 mb-2">Thank you for your order. A confirmation email has been sent.</p>
+                    <p class="text-sm text-gray-500">Order #<span id="order-number"></span></p>
                 </div>
-                <h2 class="text-2xl font-bold display-font mb-2">Order Confirmed!</h2>
-                <p id="confirmation-message" class="text-gray-600 mb-4">Thank you for your order. We'll send you a confirmation email shortly.</p>
-                <p id="email-warning" class="text-amber-600 text-sm mb-4 hidden"></p>
-                <p class="text-sm text-gray-500 mb-6">Order #<span id="order-number"></span></p>
-                <a href="products.html" class="btn-primary px-8 py-3 rounded-full font-semibold inline-block">
-                    Continue Shopping
-                </a>
-            </div>
-        </div>
 
-        <!-- Error Modal -->
-        <div id="error-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-            <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center animate-fade-in">
-                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
+                <!-- Printable Bill -->
+                <div id="print-area" class="bill-container">
+                    <div class="bill-header">
+                        <div class="flex items-center justify-center space-x-2 mb-2">
+                            <img src="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg" alt="GT Nutri Bites Logo" class="h-12">
+                            <h1 class="text-2xl font-bold display-font">GT Nutri Bites</h1>
+                        </div>
+                        <p class="text-sm text-gray-600">Premium Organic Nuts & Seeds</p>
+                        <p class="text-sm text-gray-600">Order Invoice</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-8 mb-6">
+                        <div>
+                            <h4 class="font-bold mb-2">Customer Information:</h4>
+                            <p id="bill-customer-name" class="text-sm"></p>
+                            <p id="bill-customer-email" class="text-sm"></p>
+                            <p id="bill-customer-phone" class="text-sm"></p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-2">Shipping Address:</h4>
+                            <p id="bill-shipping-address" class="text-sm"></p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="font-bold mb-2">Order Details:</h4>
+                        <table class="bill-table">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Weight</th>
+                                    <th>Price</th>
+                                    <th>Qty</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bill-items">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="border-t-2 pt-4">
+                        <div class="flex justify-end">
+                            <div class="w-64">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-semibold">Subtotal:</span>
+                                    <span id="bill-subtotal">$0.00</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-semibold">Shipping:</span>
+                                    <span id="bill-shipping">$0.00</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-semibold">Tax (8%):</span>
+                                    <span id="bill-tax">$0.00</span>
+                                </div>
+                                <div class="flex justify-between text-lg font-bold border-t pt-2">
+                                    <span>Total:</span>
+                                    <span id="bill-total" class="text-green-700">$0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-6 border-t text-center text-sm text-gray-600">
+                        <p>Thank you for shopping with GT Nutri Bites!</p>
+                        <p class="mt-2">Order Date: <span id="bill-date"></span></p>
+                        <p class="mt-1">Questions? Contact us at support@gtnutribites.com</p>
+                    </div>
                 </div>
-                <h2 class="text-2xl font-bold display-font mb-2">Order Failed</h2>
-                <p class="text-gray-600 mb-4">There was an error processing your order. Please try again or contact support.</p>
-                <button id="close-error-modal" class="btn-primary px-8 py-3 rounded-full font-semibold">
-                    Try Again
-                </button>
+
+                <div class="mt-6 flex gap-4 justify-center no-print">
+                    <button onclick="window.print()" class="btn-secondary px-6 py-2.5 rounded-full font-semibold">
+                        🖨️ Print Bill
+                    </button>
+                    <a href="products.html" class="btn-primary px-6 py-2.5 rounded-full font-semibold inline-block">
+                        Continue Shopping
+                    </a>
+                </div>
             </div>
         </div>
     </main>
@@ -740,23 +780,6 @@
                     <p class="text-gray-400 text-sm mb-6 max-w-sm">
                         Your trusted source for premium organic nuts and seeds. Nourishing lives, one handful at a time.
                     </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-700 transition">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
-                            </svg>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-700 transition">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm1-18h-2v8h2V4zm0 10h-2v2h2v-2z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-700 transition">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                            </svg>
-                        </a>
-                    </div>
                 </div>
                 
                 <div>
@@ -765,8 +788,6 @@
                         <li><a href="products.html" class="hover:text-amber-400 transition">All Products</a></li>
                         <li><a href="products.html" class="hover:text-amber-400 transition">Nuts</a></li>
                         <li><a href="products.html" class="hover:text-amber-400 transition">Seeds</a></li>
-                        <li><a href="products.html" class="hover:text-amber-400 transition">Trail Mix</a></li>
-                        <li><a href="products.html" class="hover:text-amber-400 transition">Best Sellers</a></li>
                     </ul>
                 </div>
                 
@@ -774,10 +795,8 @@
                     <h4 class="font-bold text-lg mb-4">Company</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
                         <li><a href="index.html#about" class="hover:text-amber-400 transition">About Us</a></li>
-                        <li><a href="index.html#about" class="hover:text-amber-400 transition">Our Story</a></li>
-                        <li><a href="index.html#about" class="hover:text-amber-400 transition">Sustainability</a></li>
                         <li><a href="index.html#benefits" class="hover:text-amber-400 transition">Blog</a></li>
-                        <li><a href="index.html#contact" class="hover:text-amber-400 transition">Careers</a></li>
+                        <li><a href="index.html#contact" class="hover:text-amber-400 transition">Contact</a></li>
                     </ul>
                 </div>
                 
@@ -785,39 +804,39 @@
                     <h4 class="font-bold text-lg mb-4">Support</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
                         <li><a href="index.html#contact" class="hover:text-amber-400 transition">Contact Us</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">Shipping Info</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">Returns</a></li>
                         <li><a href="#" class="hover:text-amber-400 transition">FAQ</a></li>
                         <li><a href="#" class="hover:text-amber-400 transition">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
             
-            <div class="pt-8 border-t border-gray-800">
-                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p class="text-sm text-gray-400 text-center md:text-left">
-                        &copy; 2024 GT Nutri Bites. All rights reserved. Made with 🌱 for a healthier world.
-                    </p>
-                    <div class="flex items-center space-x-4">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='25' fill='%23fff'%3E%3Crect width='40' height='25' rx='3' fill='%23333'/%3E%3Ctext x='20' y='17' font-family='Arial' font-size='10' text-anchor='middle' fill='%23fff'%3EVISA%3C/text%3E%3C/svg%3E" alt="Visa" class="h-6">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='25' fill='%23fff'%3E%3Crect width='40' height='25' rx='3' fill='%23333'/%3E%3Ccircle cx='15' cy='12.5' r='6' fill='%23EB001B'/%3E%3Ccircle cx='25' cy='12.5' r='6' fill='%23F79E1B'/%3E%3C/svg%3E" alt="Mastercard" class="h-6">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='25' fill='%23fff'%3E%3Crect width='40' height='25' rx='3' fill='%23333'/%3E%3Ctext x='20' y='17' font-family='Arial' font-size='8' text-anchor='middle' fill='%23169BD7'%3EPayPal%3C/text%3E%3C/svg%3E" alt="PayPal" class="h-6">
-                    </div>
-                </div>
+            <div class="pt-8 border-t border-gray-800 text-center">
+                <p class="text-sm text-gray-400">
+                    &copy; 2024 GT Nutri Bites. All rights reserved. Made with 🌱 for a healthier world.
+                </p>
             </div>
         </div>
     </footer>
 
     <script>
-        // HTML escape helper function to prevent XSS
-        function escapeHtml(text) {
-            if (text == null) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
+        // ==========================================
+        // EMAILJS CONFIGURATION
+        // ==========================================
+        // Initialize EmailJS with your Public Key
+        // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+        (function() {
+            emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS Public Key
+        })();
 
-        // Cart Management System
+        // EmailJS Configuration
+        const EMAILJS_CONFIG = {
+            serviceID: 'YOUR_SERVICE_ID',    // Replace with your EmailJS Service ID
+            templateID: 'YOUR_TEMPLATE_ID',   // Replace with your EmailJS Template ID
+        };
+
+        // ==========================================
+        // CART MANAGEMENT SYSTEM
+        // ==========================================
         class CartManager {
             constructor() {
                 this.cart = this.loadCart();
@@ -902,13 +921,11 @@
                     badge.textContent = count;
                 }
                 
-                // Update mobile cart count
                 const mobileCartCount = document.getElementById('mobile-cart-count');
                 if (mobileCartCount) {
                     mobileCartCount.textContent = count;
                 }
                 
-                // Update aria-label for cart link
                 const cartLink = document.querySelector('a[href="cart.html"]');
                 if (cartLink) {
                     cartLink.setAttribute('aria-label', `Shopping cart with ${count} ${count === 1 ? 'item' : 'items'}`);
@@ -921,10 +938,11 @@
             }
         }
 
-        // Initialize cart manager
         const cartManager = new CartManager();
 
-        // Render cart items
+        // ==========================================
+        // RENDER CART
+        // ==========================================
         function renderCart() {
             const container = document.getElementById('cart-items-container');
             const emptyCart = document.getElementById('empty-cart');
@@ -976,14 +994,13 @@
                 </div>
             `).join('');
 
-            // Update order summary
             updateOrderSummary();
-
-            // Attach event listeners
             attachCartEventListeners();
         }
 
-        // Update order summary
+        // ==========================================
+        // UPDATE ORDER SUMMARY
+        // ==========================================
         function updateOrderSummary() {
             const subtotal = cartManager.getCartTotal();
             const shipping = cartManager.getShippingCost();
@@ -996,9 +1013,10 @@
             document.getElementById('total').textContent = `$${total.toFixed(2)}`;
         }
 
-        // Attach event listeners to cart items
+        // ==========================================
+        // ATTACH CART EVENT LISTENERS
+        // ==========================================
         function attachCartEventListeners() {
-            // Remove item buttons
             document.querySelectorAll('.remove-item').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const productId = parseInt(btn.dataset.productId);
@@ -1009,7 +1027,6 @@
                 });
             });
 
-            // Quantity buttons
             document.querySelectorAll('.increase-qty').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const productId = parseInt(btn.dataset.productId);
@@ -1032,7 +1049,6 @@
                 });
             });
 
-            // Quantity input
             document.querySelectorAll('.quantity-input').forEach(input => {
                 input.addEventListener('change', (e) => {
                     const productId = parseInt(input.dataset.productId);
@@ -1043,61 +1059,98 @@
             });
         }
 
-        // Show checkout form
-        document.getElementById('show-checkout-form').addEventListener('click', () => {
-            document.getElementById('customer-form-section').classList.remove('hidden');
-            document.getElementById('customer-form-section').scrollIntoView({ behavior: 'smooth' });
-        });
+        // ==========================================
+        // GENERATE ORDER ITEMS HTML FOR EMAIL
+        // ==========================================
+        function generateOrderItemsHTML() {
+            return cartManager.cart.map(item => `
+                <tr style="border-bottom: 1px solid #e5e7eb;">
+                    <td style="padding: 12px; text-align: left;">${item.name}</td>
+                    <td style="padding: 12px; text-align: center;">${item.weight}</td>
+                    <td style="padding: 12px; text-align: right;">$${item.price.toFixed(2)}</td>
+                    <td style="padding: 12px; text-align: center;">${item.quantity}</td>
+                    <td style="padding: 12px; text-align: right; font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</td>
+                </tr>
+            `).join('');
+        }
 
-        // Back to cart button
-        document.getElementById('back-to-cart').addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+        // ==========================================
+        // POPULATE BILL IN MODAL
+        // ==========================================
+        function populateBill(formData, orderNumber) {
+            // Customer info
+            document.getElementById('bill-customer-name').textContent = `${formData.personal.firstName} ${formData.personal.lastName}`;
+            document.getElementById('bill-customer-email').textContent = formData.personal.email;
+            document.getElementById('bill-customer-phone').textContent = formData.personal.phone;
 
-        // Same as shipping checkbox
-        document.getElementById('same-as-shipping').addEventListener('change', (e) => {
-            const billingFields = document.getElementById('billing-address-fields');
-            if (e.target.checked) {
-                billingFields.classList.add('hidden');
-                // Clear billing required attributes
-                billingFields.querySelectorAll('input').forEach(input => {
-                    input.removeAttribute('required');
-                });
-            } else {
-                billingFields.classList.remove('hidden');
-                // Add billing required attributes
-                document.getElementById('billing-address').setAttribute('required', 'required');
-                document.getElementById('billing-city').setAttribute('required', 'required');
-                document.getElementById('billing-state').setAttribute('required', 'required');
-                document.getElementById('billing-zip').setAttribute('required', 'required');
-            }
-        });
-
-        // Form submission
-        document.getElementById('checkout-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            // Get submit button and show loading state
-            const submitBtn = document.getElementById('place-order-btn');
-            const originalBtnText = submitBtn.innerHTML;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = `
-                <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Processing...
+            // Shipping address
+            const shippingAddress = `
+                ${formData.shipping.address}${formData.shipping.address2 ? ', ' + formData.shipping.address2 : ''}<br>
+                ${formData.shipping.city}, ${formData.shipping.state} ${formData.shipping.zip}
             `;
+            document.getElementById('bill-shipping-address').innerHTML = shippingAddress;
 
-            // Generate unique order number (timestamp + random string)
-            const timestamp = Date.now().toString().slice(-8);
-            const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
-            const orderNumber = `GT${timestamp}${randomStr}`;
+            // Order items
+            const billItemsHTML = cartManager.cart.map(item => `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.weight}</td>
+                    <td>$${item.price.toFixed(2)}</td>
+                    <td>${item.quantity}</td>
+                    <td>$${(item.price * item.quantity).toFixed(2)}</td>
+                </tr>
+            `).join('');
+            document.getElementById('bill-items').innerHTML = billItemsHTML;
 
-            // Get current date and time
+            // Totals
+            document.getElementById('bill-subtotal').textContent = `$${formData.totals.subtotal.toFixed(2)}`;
+            document.getElementById('bill-shipping').textContent = formData.totals.shipping === 0 ? 'FREE' : `$${formData.totals.shipping.toFixed(2)}`;
+            document.getElementById('bill-tax').textContent = `$${formData.totals.tax.toFixed(2)}`;
+            document.getElementById('bill-total').textContent = `$${formData.totals.total.toFixed(2)}`;
+
+            // Date
+            const orderDate = new Date().toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('bill-date').textContent = orderDate;
+
+            // Order number
+            document.getElementById('order-number').textContent = orderNumber;
+        }
+
+        // ==========================================
+        // SEND EMAIL VIA EMAILJS
+        // ==========================================
+        async function sendOrderEmail(formData, orderNumber) {
+            const orderItemsHTML = generateOrderItemsHTML();
+            
+            // Prepare shipping address
+            const shippingAddress = `${formData.shipping.address}${formData.shipping.address2 ? ', ' + formData.shipping.address2 : ''}, ${formData.shipping.city}, ${formData.shipping.state} ${formData.shipping.zip}`;
+            
+            // Prepare billing address
+            const billingAddress = formData.billing.sameAsShipping ? 
+                shippingAddress : 
+                `${formData.billing.address}${formData.billing.address2 ? ', ' + formData.billing.address2 : ''}, ${formData.billing.city}, ${formData.billing.state} ${formData.billing.zip}`;
+
+            // Generate order items for customer email (simplified format)
+            const orderItemsCustomer = cartManager.cart.map(item => `
+                <tr style="border-bottom: 1px solid #e5e7eb;">
+                    <td style="padding: 12px; text-align: left;">
+                        <strong style="color: #1F2937;">${item.name}</strong><br>
+                        <span style="color: #6B7280; font-size: 12px;">${item.category} • ${item.weight}</span>
+                    </td>
+                    <td style="padding: 12px; text-align: center; color: #1F2937; font-weight: 600;">${item.quantity}</td>
+                    <td style="padding: 12px; text-align: right; color: #2D5016; font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</td>
+                </tr>
+            `).join('');
+
+            // Current date and time
             const now = new Date();
             const orderDate = now.toLocaleDateString('en-US', { 
-                weekday: 'long', 
                 year: 'numeric', 
                 month: 'long', 
                 day: 'numeric' 
@@ -1107,6 +1160,134 @@
                 minute: '2-digit',
                 hour12: true 
             });
+
+            // Email template parameters for ADMIN
+            const adminEmailParams = {
+                order_number: orderNumber,
+                order_date: orderDate,
+                order_time: orderTime,
+                customer_name: `${formData.personal.firstName} ${formData.personal.lastName}`,
+                customer_email: formData.personal.email,
+                customer_phone: formData.personal.phone,
+                shipping_address: formData.shipping.address,
+                shipping_address2: formData.shipping.address2 || '',
+                shipping_city: formData.shipping.city,
+                shipping_state: formData.shipping.state,
+                shipping_zip: formData.shipping.zip,
+                billing_address: formData.billing.address || formData.shipping.address,
+                billing_address2: formData.billing.address2 || formData.shipping.address2 || '',
+                billing_city: formData.billing.city || formData.shipping.city,
+                billing_state: formData.billing.state || formData.shipping.state,
+                billing_zip: formData.billing.zip || formData.shipping.zip,
+                order_items: orderItemsHTML,
+                subtotal: formData.totals.subtotal.toFixed(2),
+                shipping_cost: formData.totals.shipping === 0 ? 'FREE' : formData.totals.shipping.toFixed(2),
+                tax: formData.totals.tax.toFixed(2),
+                total: formData.totals.total.toFixed(2),
+                delivery_instructions: formData.delivery.instructions || 'None',
+                delivery_date: formData.delivery.preferredDate || 'Not specified',
+                order_notes: formData.notes || 'None',
+                if_billing_different: !formData.billing.sameAsShipping,
+                if_delivery_notes: formData.delivery.instructions || formData.delivery.preferredDate,
+                if_order_notes: formData.notes,
+                if_delivery_instructions: formData.delivery.instructions,
+                if_delivery_date: formData.delivery.preferredDate
+            };
+
+            // Email template parameters for CUSTOMER
+            const customerEmailParams = {
+                order_number: orderNumber,
+                order_date: orderDate,
+                order_time: orderTime,
+                customer_name: `${formData.personal.firstName} ${formData.personal.lastName}`,
+                customer_first_name: formData.personal.firstName,
+                customer_email: formData.personal.email,
+                customer_phone: formData.personal.phone,
+                shipping_address: formData.shipping.address,
+                shipping_address2: formData.shipping.address2 || '',
+                shipping_city: formData.shipping.city,
+                shipping_state: formData.shipping.state,
+                shipping_zip: formData.shipping.zip,
+                order_items_customer: orderItemsCustomer,
+                subtotal: formData.totals.subtotal.toFixed(2),
+                shipping_cost: formData.totals.shipping === 0 ? 'FREE' : formData.totals.shipping.toFixed(2),
+                tax: formData.totals.tax.toFixed(2),
+                total: formData.totals.total.toFixed(2),
+                if_shipping_address2: formData.shipping.address2
+            };
+
+            try {
+                // Send admin notification email
+                const adminResponse = await emailjs.send(
+                    EMAILJS_CONFIG.serviceID,
+                    EMAILJS_CONFIG.adminTemplateID,
+                    adminEmailParams
+                );
+                
+                console.log('Admin email sent successfully:', adminResponse);
+
+                // Send customer confirmation email
+                const customerResponse = await emailjs.send(
+                    EMAILJS_CONFIG.serviceID,
+                    EMAILJS_CONFIG.customerTemplateID,
+                    customerEmailParams
+                );
+                
+                console.log('Customer email sent successfully:', customerResponse);
+                
+                return true;
+            } catch (error) {
+                console.error('Email sending failed:', error);
+                alert('Order placed successfully, but there was an issue sending confirmation emails. Our team will contact you shortly.');
+                return false;
+            }
+        }
+
+        // ==========================================
+        // SHOW CHECKOUT FORM
+        // ==========================================
+        document.getElementById('show-checkout-form').addEventListener('click', () => {
+            document.getElementById('customer-form-section').classList.remove('hidden');
+            document.getElementById('customer-form-section').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // ==========================================
+        // BACK TO CART
+        // ==========================================
+        document.getElementById('back-to-cart').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ==========================================
+        // SAME AS SHIPPING CHECKBOX
+        // ==========================================
+        document.getElementById('same-as-shipping').addEventListener('change', (e) => {
+            const billingFields = document.getElementById('billing-address-fields');
+            if (e.target.checked) {
+                billingFields.classList.add('hidden');
+                billingFields.querySelectorAll('input').forEach(input => {
+                    input.removeAttribute('required');
+                });
+            } else {
+                billingFields.classList.remove('hidden');
+                document.getElementById('billing-address').setAttribute('required', 'required');
+                document.getElementById('billing-city').setAttribute('required', 'required');
+                document.getElementById('billing-state').setAttribute('required', 'required');
+                document.getElementById('billing-zip').setAttribute('required', 'required');
+            }
+        });
+
+        // ==========================================
+        // FORM SUBMISSION
+        // ==========================================
+        document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Disable submit button to prevent double submission
+            const submitBtn = document.getElementById('submit-order-btn');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Processing Order<span class="loading-spinner"></span>';
 
             // Collect form data
             const formData = {
@@ -1146,155 +1327,40 @@
                 timestamp: new Date().toISOString()
             };
 
-            // Build order items HTML for email template (with HTML escaping)
-            const orderItemsHtml = cartManager.cart.map(item => `
-                <tr style="border-bottom: 1px solid #E5E7EB;">
-                    <td style="text-align: left; padding: 12px; font-size: 14px; color: #1F2937;">${escapeHtml(item.name)}</td>
-                    <td style="text-align: center; padding: 12px; font-size: 14px; color: #6B7280;">${escapeHtml(item.weight)}</td>
-                    <td style="text-align: right; padding: 12px; font-size: 14px; color: #1F2937;">$${item.price.toFixed(2)}</td>
-                    <td style="text-align: center; padding: 12px; font-size: 14px; color: #1F2937;">${item.quantity}</td>
-                    <td style="text-align: right; padding: 12px; font-size: 14px; font-weight: 600; color: #2D5016;">$${(item.price * item.quantity).toFixed(2)}</td>
-                </tr>
-            `).join('');
+            // Generate unique order number
+            const timestamp = Date.now().toString().slice(-8);
+            const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
+            const orderNumber = `GT${timestamp}${randomStr}`;
 
-            // Prepare EmailJS template parameters
-            const templateParams = {
-                order_number: orderNumber,
-                order_date: orderDate,
-                order_time: orderTime,
-                customer_name: `${formData.personal.firstName} ${formData.personal.lastName}`,
-                customer_email: formData.personal.email,
-                customer_phone: formData.personal.phone,
-                shipping_address: formData.shipping.address,
-                shipping_address2: formData.shipping.address2 || '',
-                shipping_city: formData.shipping.city,
-                shipping_state: formData.shipping.state,
-                shipping_zip: formData.shipping.zip,
-                billing_address: formData.billing.sameAsShipping ? formData.shipping.address : formData.billing.address,
-                billing_address2: formData.billing.sameAsShipping ? formData.shipping.address2 : formData.billing.address2,
-                billing_city: formData.billing.sameAsShipping ? formData.shipping.city : formData.billing.city,
-                billing_state: formData.billing.sameAsShipping ? formData.shipping.state : formData.billing.state,
-                billing_zip: formData.billing.sameAsShipping ? formData.shipping.zip : formData.billing.zip,
-                order_items: orderItemsHtml,
-                subtotal: formData.totals.subtotal.toFixed(2),
-                shipping_cost: formData.totals.shipping === 0 ? '0.00' : formData.totals.shipping.toFixed(2),
-                tax: formData.totals.tax.toFixed(2),
-                total: formData.totals.total.toFixed(2),
-                delivery_instructions: formData.delivery.instructions || '',
-                delivery_date: formData.delivery.preferredDate || '',
-                order_notes: formData.notes || ''
-            };
-
-            // Generate order items for customer email (simplified format with HTML escaping)
-            const orderItemsCustomer = cartManager.cart.map(item => `
-                <tr style="border-bottom: 1px solid #e5e7eb;">
-                    <td style="padding: 12px; text-align: left;">
-                        <strong style="color: #1F2937;">${escapeHtml(item.name)}</strong><br>
-                        <span style="color: #6B7280; font-size: 12px;">${escapeHtml(item.category)} • ${escapeHtml(item.weight)}</span>
-                    </td>
-                    <td style="padding: 12px; text-align: center; color: #1F2937; font-weight: 600;">${item.quantity}</td>
-                    <td style="padding: 12px; text-align: right; color: #2D5016; font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</td>
-                </tr>
-            `).join('');
-
-            // Email template parameters for CUSTOMER
-            const customerEmailParams = {
-                order_number: orderNumber,
-                order_date: orderDate,
-                order_time: orderTime,
-                customer_name: `${formData.personal.firstName} ${formData.personal.lastName}`,
-                customer_first_name: formData.personal.firstName,
-                customer_email: formData.personal.email,
-                customer_phone: formData.personal.phone,
-                shipping_address: formData.shipping.address,
-                shipping_address2: formData.shipping.address2 || '',
-                shipping_city: formData.shipping.city,
-                shipping_state: formData.shipping.state,
-                shipping_zip: formData.shipping.zip,
-                order_items_customer: orderItemsCustomer,
-                subtotal: formData.totals.subtotal.toFixed(2),
-                shipping_cost: formData.totals.shipping === 0 ? 'FREE' : formData.totals.shipping.toFixed(2),
-                tax: formData.totals.tax.toFixed(2),
-                total: formData.totals.total.toFixed(2),
-                if_shipping_address2: formData.shipping.address2
-            };
-
+            // Save order to localStorage
             try {
-                // Send admin notification email
-                const adminResponse = await emailjs.send(
-                    'service_e14q4pw',
-                    'template_a1t1vju',
-                    templateParams
-                );
-
-                console.log('Admin email sent successfully:', adminResponse);
-
-                // Track if customer email was sent successfully
-                let customerEmailSent = false;
-
-                // Send customer confirmation email
-                try {
-                    const customerResponse = await emailjs.send(
-                        'service_e14q4pw',
-                        'template_v2md02b',
-                        customerEmailParams
-                    );
-                    console.log('Customer email sent successfully:', customerResponse);
-                    customerEmailSent = true;
-                } catch (customerEmailError) {
-                    // Log error but don't fail the order - admin email was sent
-                    console.error('Customer email failed, but order was placed:', customerEmailError);
-                }
-
-                // Update order number display
-                document.getElementById('order-number').textContent = orderNumber;
-
-                // Update confirmation message based on email status
-                const confirmationMessage = document.getElementById('confirmation-message');
-                const emailWarning = document.getElementById('email-warning');
-                
-                if (customerEmailSent) {
-                    confirmationMessage.textContent = 'Thank you for your order. A confirmation email has been sent to your inbox.';
-                    emailWarning.classList.add('hidden');
-                } else {
-                    confirmationMessage.textContent = 'Thank you for your order. Your order has been received.';
-                    emailWarning.textContent = 'Note: There was an issue sending your confirmation email. Our team will contact you shortly.';
-                    emailWarning.classList.remove('hidden');
-                }
-
-                // Save order to localStorage
-                try {
-                    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-                    orders.push({ orderNumber, ...formData });
-                    localStorage.setItem('orders', JSON.stringify(orders));
-                } catch (storageError) {
-                    console.error('Error saving order to localStorage:', storageError);
-                }
-
-                // Clear cart
-                cartManager.clearCart();
-
-                // Show confirmation modal
-                document.getElementById('confirmation-modal').classList.remove('hidden');
-
-            } catch (error) {
-                console.error('Error sending email:', error);
-                
-                // Show error modal to user
-                document.getElementById('error-modal').classList.remove('hidden');
-                
-                // Re-enable submit button
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnText;
+                const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+                orders.push({ orderNumber, ...formData });
+                localStorage.setItem('orders', JSON.stringify(orders));
+            } catch (e) {
+                console.error('Error saving order:', e);
             }
+
+            // Send emails
+            const emailSent = await sendOrderEmail(formData, orderNumber);
+
+            // Populate bill in modal
+            populateBill(formData, orderNumber);
+
+            // Clear cart
+            cartManager.clearCart();
+
+            // Re-enable submit button
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+
+            // Show confirmation modal
+            document.getElementById('confirmation-modal').classList.remove('hidden');
         });
 
-        // Close error modal
-        document.getElementById('close-error-modal').addEventListener('click', () => {
-            document.getElementById('error-modal').classList.add('hidden');
-        });
-
-        // Mobile menu
+        // ==========================================
+        // MOBILE MENU
+        // ==========================================
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
@@ -1314,16 +1380,15 @@
 
         mobileMenuBtn.addEventListener('click', openMobileMenu);
         closeMenuBtn.addEventListener('click', closeMobileMenu);
-
-        // Close mobile menu when clicking on backdrop
         mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
 
-        // Close mobile menu when clicking on a link
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', closeMobileMenu);
         });
 
-        // Initialize page
+        // ==========================================
+        // INITIALIZE PAGE
+        // ==========================================
         cartManager.updateCartBadge();
         renderCart();
     </script>

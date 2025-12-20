@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GT Nutri Bites - Browse our complete collection of premium organic nuts and seeds. 100% organic, sustainably sourced, and delivered fresh to your door.">
+    <meta name="keywords" content="organic nuts, premium seeds, healthy snacks, almonds, cashews, trail mix, superfood, GT Nutri Bites, products">
+    <meta name="author" content="GT Nutri Bites">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="GT Nutri Bites - Premium Products Collection">
+    <meta property="og:description" content="Browse our complete collection of premium organic nuts and seeds.">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GT Nutri Bites - Premium Products Collection">
+    <meta name="twitter:description" content="Browse our complete collection of premium organic nuts and seeds.">
+    
+    <title>Products - GT Nutri Bites</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%232D5016'/%3E%3Ctext x='50' y='65' font-size='50' text-anchor='middle' fill='%23FFF8F0' font-family='Arial, sans-serif' font-weight='bold'%3EGT%3C/text%3E%3C/svg%3E">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2D5016;
+            --primary-light: #4A7C24;
+            --accent: #E8B44C;
+            --accent-dark: #D9A03D;
+            --cream: #FFF8F0;
+            --text-dark: #1F2937;
+            --text-muted: #6B7280;
+            --earth: #8B6F47;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .display-font {
+            font-family: 'Libre Baskerville', serif;
+        }
+
+        /* Background effects */
+        .organic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(74, 124, 36, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(232, 180, 76, 0.08) 0%, transparent 50%);
+        }
+
+        .texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            opacity: 0.015;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .delay-100 { animation-delay: 0.1s; opacity: 0; }
+        .delay-200 { animation-delay: 0.2s; opacity: 0; }
+        .delay-300 { animation-delay: 0.3s; opacity: 0; }
+
+        /* Navigation */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--primary-light);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+
+        .btn-primary:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(45, 80, 22, 0.2);
+        }
+
+        /* Product cards */
+        .product-card {
+            background: white;
+            border: 2px solid #F3F4F6;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(45, 80, 22, 0.12);
+            border-color: var(--accent);
+        }
+
+        .product-badge {
+            background: var(--primary);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 10;
+        }
+
+        .price-tag {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .old-price {
+            color: var(--text-muted);
+            text-decoration: line-through;
+            font-size: 1rem;
+        }
+
+        /* Wishlist heart */
+        .wishlist-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .wishlist-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .wishlist-btn.active svg {
+            fill: #EF4444;
+            stroke: #EF4444;
+        }
+
+        /* Category pills */
+        .category-pill {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-pill:hover,
+        .category-pill.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(45, 80, 22, 0.3);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(45, 80, 22, 0.4);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        /* Product detail modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 1.5rem;
+            max-width: 1000px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .cart-badge {
+            background: var(--accent);
+            color: var(--text-dark);
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -6px;
+            right: -6px;
+        }
+
+        @media (max-width: 640px) {
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background effects -->
+    <div class="organic-bg"></div>
+    <div class="texture"></div>
+
+    <!-- Navigation -->
+    <nav class="relative z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2 animate-fade-in">
+                    <a href="index.html" class="flex items-center space-x-1">
+                        <svg class="w-8 h-8 text-green-700" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                        </svg>
+                        <span class="text-2xl font-bold display-font text-green-800">GT Nutri Bites</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8 animate-fade-in delay-200">
+                    <a href="index.html#shop" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Shop</a>
+                    <a href="index.html#about" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">About</a>
+                    <a href="index.html#benefits" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Health Benefits</a>
+                    <a href="index.html#testimonials" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Reviews</a>
+                    <a href="index.html#contact" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Contact</a>
+                </div>
+
+                <!-- Cart & CTA -->
+                <div class="hidden md:flex items-center space-x-4 animate-fade-in delay-300">
+                    <button class="relative p-2 hover:bg-gray-100 rounded-full transition" aria-label="Shopping cart">
+                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="cart-badge" id="cart-count">3</span>
+                    </button>
+                    <a href="index.html" class="btn-primary px-6 py-2.5 rounded-full font-medium text-sm">
+                        <span>Home</span>
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-white shadow-2xl md:hidden z-50 p-6">
+            <button id="close-menu" class="absolute top-6 right-6 text-gray-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <div class="mt-16 space-y-6">
+                <a href="index.html#shop" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Shop</a>
+                <a href="index.html#about" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">About</a>
+                <a href="index.html#benefits" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Health Benefits</a>
+                <a href="index.html#testimonials" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Reviews</a>
+                <a href="index.html#contact" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Contact</a>
+                <a href="index.html" class="btn-primary w-full px-6 py-3 rounded-full font-medium text-sm mt-4 block text-center">
+                    <span>Home</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-amber-50 to-cream">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-4xl sm:text-5xl font-bold display-font text-gray-900 mb-4 animate-fade-in-up">
+                Our Premium Products
+            </h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto animate-fade-in-up delay-100">
+                Explore our carefully curated selection of premium organic nuts and seeds
+            </p>
+        </div>
+    </section>
+
+    <!-- Category Filter -->
+    <section class="py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-wrap justify-center gap-3">
+                <button class="category-pill active px-6 py-2.5 rounded-full font-semibold text-sm" data-category="all">All Products</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" data-category="nuts">Nuts</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" data-category="seeds">Seeds</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" data-category="mix">Mix & Trail</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div id="products-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Products will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="p-6 sm:p-8">
+                <button id="close-modal" class="float-right text-gray-500 hover:text-gray-700">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <div id="modal-content" class="mt-4">
+                    <!-- Product details will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8 mt-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <svg class="w-8 h-8 text-amber-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                        </svg>
+                        <span class="text-2xl font-bold display-font">GT Nutri Bites</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 max-w-sm">
+                        Your trusted source for premium organic nuts and seeds. Nourishing lives, one handful at a time.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Shop</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="products.html" class="hover:text-amber-400 transition">All Products</a></li>
+                        <li><a href="index.html#shop" class="hover:text-amber-400 transition">Featured</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Best Sellers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="index.html#about" class="hover:text-amber-400 transition">About Us</a></li>
+                        <li><a href="index.html#benefits" class="hover:text-amber-400 transition">Health Benefits</a></li>
+                        <li><a href="index.html#testimonials" class="hover:text-amber-400 transition">Reviews</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="index.html#contact" class="hover:text-amber-400 transition">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">FAQ</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800 text-center">
+                <p class="text-sm text-gray-400">
+                    &copy; 2024 GT Nutri Bites. All rights reserved. Made with 🌱 for a healthier world.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product data with detailed information
+        const products = [
+            {
+                id: 1,
+                name: 'Premium California Almonds',
+                category: 'Organic Almonds',
+                type: 'nuts',
+                price: 18.99,
+                oldPrice: 24.99,
+                weight: '500g',
+                badge: 'BEST SELLER',
+                badgeColor: 'bg-green-700',
+                description: 'Raw, unsalted, and packed with nutrients',
+                fullDescription: 'Our Premium California Almonds are sourced directly from sustainable farms in California. These raw, unsalted almonds are carefully selected for their superior quality and freshness. Rich in vitamin E, magnesium, and healthy fats, they make the perfect nutritious snack or ingredient for your favorite recipes.',
+                benefits: ['High in Vitamin E', 'Rich in healthy fats', 'Good source of protein', 'Contains magnesium and fiber'],
+                nutrition: {
+                    calories: '170 per 28g serving',
+                    protein: '6g',
+                    fat: '15g',
+                    carbs: '6g',
+                    fiber: '3.5g'
+                },
+                icon: 'amber'
+            },
+            {
+                id: 2,
+                name: 'Chia Seeds Super Pack',
+                category: 'Organic Seeds',
+                type: 'seeds',
+                price: 14.99,
+                oldPrice: null,
+                weight: '400g',
+                badge: 'NEW',
+                badgeColor: 'bg-amber-500',
+                description: 'Omega-3 rich superfood',
+                fullDescription: 'Experience the power of ancient nutrition with our Chia Seeds Super Pack. These tiny seeds are loaded with omega-3 fatty acids, fiber, and antioxidants. Perfect for adding to smoothies, yogurt, or making delicious chia pudding. Our chia seeds are certified organic and sourced from trusted farmers.',
+                benefits: ['Extremely high in Omega-3', 'Loaded with antioxidants', 'High in quality protein', 'May reduce heart disease risk'],
+                nutrition: {
+                    calories: '138 per 28g serving',
+                    protein: '4.7g',
+                    fat: '8.7g',
+                    carbs: '12g',
+                    fiber: '9.8g'
+                },
+                icon: 'green'
+            },
+            {
+                id: 3,
+                name: 'Roasted Cashews',
+                category: 'Premium Nuts',
+                type: 'nuts',
+                price: 22.99,
+                oldPrice: null,
+                weight: '600g',
+                badge: null,
+                badgeColor: null,
+                description: 'Lightly salted perfection',
+                fullDescription: 'Indulge in our perfectly roasted cashews, lightly salted to enhance their natural buttery flavor. These premium cashews are roasted in small batches to ensure perfect texture and taste. Rich in copper, magnesium, and heart-healthy monounsaturated fats, they\'re both delicious and nutritious.',
+                benefits: ['Heart-healthy fats', 'Rich in copper and magnesium', 'Supports bone health', 'May help with weight management'],
+                nutrition: {
+                    calories: '157 per 28g serving',
+                    protein: '5g',
+                    fat: '12g',
+                    carbs: '9g',
+                    fiber: '1g'
+                },
+                icon: 'orange'
+            },
+            {
+                id: 4,
+                name: 'Energy Boost Mix',
+                category: 'Trail Mix',
+                type: 'mix',
+                price: 16.99,
+                oldPrice: 21.99,
+                weight: '450g',
+                badge: 'SALE',
+                badgeColor: 'bg-red-600',
+                description: 'Perfect blend of nuts & dried fruits',
+                fullDescription: 'Our signature Energy Boost Mix combines premium almonds, cashews, dried cranberries, and raisins for the ultimate nutritious snack. Perfect for hiking, post-workout recovery, or anytime you need a quick energy boost. Each ingredient is carefully selected for quality and freshness.',
+                benefits: ['Quick energy source', 'Balanced nutrients', 'Great for active lifestyles', 'Natural ingredients only'],
+                nutrition: {
+                    calories: '150 per 30g serving',
+                    protein: '4g',
+                    fat: '8g',
+                    carbs: '16g',
+                    fiber: '2g'
+                },
+                icon: 'purple'
+            },
+            {
+                id: 5,
+                name: 'Sunflower Seeds',
+                category: 'Premium Seeds',
+                type: 'seeds',
+                price: 12.99,
+                oldPrice: null,
+                weight: '350g',
+                badge: null,
+                badgeColor: null,
+                description: 'Roasted & lightly salted',
+                fullDescription: 'Our premium sunflower seeds are lightly roasted and salted to perfection. These nutrient-dense seeds are an excellent source of vitamin E, selenium, and healthy fats. Perfect for snacking, adding to salads, or baking.',
+                benefits: ['High in Vitamin E', 'Rich in selenium', 'Anti-inflammatory properties', 'Supports immune health'],
+                nutrition: {
+                    calories: '165 per 28g serving',
+                    protein: '5.5g',
+                    fat: '14g',
+                    carbs: '7g',
+                    fiber: '3g'
+                },
+                icon: 'yellow'
+            },
+            {
+                id: 6,
+                name: 'Raw Walnuts',
+                category: 'Organic Nuts',
+                type: 'nuts',
+                price: 19.99,
+                oldPrice: null,
+                weight: '500g',
+                badge: null,
+                badgeColor: null,
+                description: 'Heart-healthy omega-3',
+                fullDescription: 'Our raw organic walnuts are nature\'s brain food. Packed with omega-3 fatty acids, antioxidants, and minerals, these premium walnuts support heart and brain health. Use them in baking, salads, or enjoy them as a nutritious snack.',
+                benefits: ['Rich in Omega-3 ALA', 'Supports brain health', 'Anti-inflammatory', 'Good for heart health'],
+                nutrition: {
+                    calories: '185 per 28g serving',
+                    protein: '4.3g',
+                    fat: '18.5g',
+                    carbs: '4g',
+                    fiber: '1.9g'
+                },
+                icon: 'red'
+            },
+            {
+                id: 7,
+                name: 'Pumpkin Seeds',
+                category: 'Superfood Seeds',
+                type: 'seeds',
+                price: 13.99,
+                oldPrice: null,
+                weight: '400g',
+                badge: null,
+                badgeColor: null,
+                description: 'High in zinc & magnesium',
+                fullDescription: 'Our premium pumpkin seeds are a nutritional powerhouse, rich in zinc, magnesium, and antioxidants. These lightly roasted seeds support immune function, prostate health, and sleep quality. Perfect for snacking or adding to your favorite dishes.',
+                benefits: ['High in zinc and magnesium', 'Supports prostate health', 'Rich in antioxidants', 'May improve sleep quality'],
+                nutrition: {
+                    calories: '151 per 28g serving',
+                    protein: '7g',
+                    fat: '13g',
+                    carbs: '5g',
+                    fiber: '1.7g'
+                },
+                icon: 'lime'
+            },
+            {
+                id: 8,
+                name: 'Deluxe Nut Mix',
+                category: 'Premium Mix',
+                type: 'mix',
+                price: 24.99,
+                oldPrice: null,
+                weight: '600g',
+                badge: 'ORGANIC',
+                badgeColor: 'bg-green-600',
+                description: 'Almonds, cashews & pistachios',
+                fullDescription: 'Our Deluxe Nut Mix features a premium blend of organic almonds, cashews, and pistachios. Each nut is carefully selected for quality and freshness. This luxurious mix provides a perfect balance of flavors and textures while delivering comprehensive nutrition.',
+                benefits: ['Variety of nutrients', 'Premium organic quality', 'Heart-healthy fats', 'Perfect for entertaining'],
+                nutrition: {
+                    calories: '170 per 28g serving',
+                    protein: '5.5g',
+                    fat: '15g',
+                    carbs: '7g',
+                    fiber: '2.5g'
+                },
+                icon: 'pink'
+            }
+        ];
+
+        // Icon color mapping
+        const iconColors = {
+            'amber': 'text-amber-600',
+            'green': 'text-green-600',
+            'orange': 'text-orange-600',
+            'purple': 'text-purple-600',
+            'yellow': 'text-yellow-700',
+            'red': 'text-red-700',
+            'lime': 'text-lime-700',
+            'pink': 'text-pink-700'
+        };
+
+        // Render products
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('products-grid');
+            const filteredProducts = filter === 'all' ? products : products.filter(p => p.type === filter);
+            
+            grid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card rounded-2xl overflow-hidden animate-fade-in-up">
+                    ${product.badge ? `<div class="product-badge ${product.badgeColor}">${product.badge}</div>` : ''}
+                    <button class="wishlist-btn" aria-label="Add to wishlist" data-product="${product.id}">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </button>
+                    <div class="product-image-placeholder aspect-square flex items-center justify-center p-6 bg-gradient-to-br from-gray-100 to-gray-200">
+                        <svg class="w-32 h-32 ${iconColors[product.icon]}" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-green-700 font-semibold mb-2">${product.category}</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">${product.name}</h3>
+                        <p class="text-gray-600 text-sm mb-4">${product.description}</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span class="price-tag">$${product.price.toFixed(2)}</span>
+                                ${product.oldPrice ? `<span class="old-price ml-2">$${product.oldPrice.toFixed(2)}</span>` : ''}
+                            </div>
+                            <div class="text-sm text-gray-500">${product.weight}</div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="btn-primary flex-1 py-3 rounded-full font-semibold text-sm add-to-cart-btn" data-product="${product.id}">
+                                <span>Add to Cart</span>
+                            </button>
+                            <button class="px-4 py-3 rounded-full font-semibold text-sm border-2 border-green-700 text-green-700 hover:bg-green-700 hover:text-white transition view-details-btn" data-product="${product.id}">
+                                <span>Details</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Reattach event listeners
+            attachProductEventListeners();
+        }
+
+        // Show product details in modal
+        function showProductDetails(productId) {
+            const product = products.find(p => p.id === parseInt(productId));
+            if (!product) return;
+
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = `
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center mb-4">
+                            <svg class="w-48 h-48 ${iconColors[product.icon]}" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                            </svg>
+                        </div>
+                        ${product.badge ? `<span class="inline-block px-4 py-2 ${product.badgeColor} text-white rounded-full text-sm font-semibold">${product.badge}</span>` : ''}
+                    </div>
+                    <div>
+                        <div class="text-sm text-green-700 font-semibold mb-2">${product.category}</div>
+                        <h2 class="text-3xl font-bold display-font text-gray-900 mb-4">${product.name}</h2>
+                        <div class="flex items-center gap-4 mb-6">
+                            <span class="price-tag">$${product.price.toFixed(2)}</span>
+                            ${product.oldPrice ? `<span class="old-price">$${product.oldPrice.toFixed(2)}</span>` : ''}
+                            <span class="text-gray-500">${product.weight}</span>
+                        </div>
+                        
+                        <p class="text-gray-600 leading-relaxed mb-6">${product.fullDescription}</p>
+                        
+                        <div class="mb-6">
+                            <h3 class="font-bold text-lg mb-3">Health Benefits:</h3>
+                            <ul class="space-y-2">
+                                ${product.benefits.map(benefit => `
+                                    <li class="flex items-start">
+                                        <svg class="w-5 h-5 text-green-700 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span class="text-gray-700">${benefit}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-green-50 rounded-xl p-4 mb-6">
+                            <h3 class="font-bold text-lg mb-3">Nutrition Facts (per serving):</h3>
+                            <div class="grid grid-cols-2 gap-2 text-sm">
+                                <div><span class="font-semibold">Calories:</span> ${product.nutrition.calories}</div>
+                                <div><span class="font-semibold">Protein:</span> ${product.nutrition.protein}</div>
+                                <div><span class="font-semibold">Total Fat:</span> ${product.nutrition.fat}</div>
+                                <div><span class="font-semibold">Carbs:</span> ${product.nutrition.carbs}</div>
+                                <div><span class="font-semibold">Fiber:</span> ${product.nutrition.fiber}</div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-primary w-full py-4 rounded-full font-semibold add-to-cart-btn" data-product="${product.id}">
+                            <span>Add to Cart - $${product.price.toFixed(2)}</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('product-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Attach add to cart listener in modal
+            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', handleAddToCart);
+            });
+        }
+
+        // Handle add to cart
+        function handleAddToCart(e) {
+            const btn = e.currentTarget;
+            const originalText = btn.querySelector('span').textContent;
+            btn.querySelector('span').textContent = 'Added! ✓';
+            btn.style.backgroundColor = 'var(--primary-light)';
+            
+            // Update cart count
+            const cartCount = document.getElementById('cart-count');
+            if (cartCount) {
+                const currentCount = parseInt(cartCount.textContent);
+                cartCount.textContent = currentCount + 1;
+            }
+            
+            setTimeout(() => {
+                btn.querySelector('span').textContent = originalText;
+                btn.style.backgroundColor = '';
+            }, 1500);
+        }
+
+        // Attach event listeners to product cards
+        function attachProductEventListeners() {
+            // Wishlist buttons
+            let wishlist = [];
+            try {
+                wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            } catch (e) {
+                console.error('Error loading wishlist:', e);
+                wishlist = [];
+            }
+
+            document.querySelectorAll('.wishlist-btn').forEach(btn => {
+                const productId = btn.dataset.product;
+                
+                if (wishlist.includes(productId)) {
+                    btn.classList.add('active');
+                }
+                
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    
+                    if (wishlist.includes(productId)) {
+                        wishlist = wishlist.filter(p => p !== productId);
+                        btn.classList.remove('active');
+                    } else {
+                        wishlist.push(productId);
+                        btn.classList.add('active');
+                    }
+                    
+                    try {
+                        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                    } catch (e) {
+                        console.error('Error saving wishlist:', e);
+                    }
+                });
+            });
+
+            // Add to cart buttons
+            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', handleAddToCart);
+            });
+
+            // View details buttons
+            document.querySelectorAll('.view-details-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const productId = btn.dataset.product;
+                    showProductDetails(productId);
+                });
+            });
+        }
+
+        // Category filter
+        document.querySelectorAll('.category-pill').forEach(pill => {
+            pill.addEventListener('click', function() {
+                document.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                renderProducts(this.dataset.category);
+            });
+        });
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenuBtn = document.getElementById('close-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Modal controls
+        document.getElementById('close-modal').addEventListener('click', () => {
+            document.getElementById('product-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Close modal on background click
+        document.getElementById('product-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'product-modal') {
+                document.getElementById('product-modal').classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Back to top button
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Keyboard accessibility
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('product-modal').classList.remove('active');
+                document.body.style.overflow = '';
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Initialize page
+        renderProducts();
+    </script>
+</body>
+</html>

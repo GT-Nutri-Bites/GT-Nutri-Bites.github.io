@@ -856,7 +856,7 @@
                     <div class="product-image-placeholder aspect-square flex items-center justify-center p-6 bg-gradient-to-br from-gray-100 to-gray-200">
                         ${product.useEmoji ? 
                             `<div class="text-8xl">${product.emoji}</div>` :
-                            `<svg class="w-32 h-32 ${iconColors[product.icon]}" fill="currentColor" viewBox="0 0 24 24">
+                            `<svg class="w-32 h-32 ${iconColors[product.icon] || 'text-gray-600'}" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
                             </svg>`
                         }
@@ -900,7 +900,7 @@
                         <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center mb-4">
                             ${product.useEmoji ? 
                                 `<div class="text-9xl">${product.emoji}</div>` :
-                                `<svg class="w-48 h-48 ${iconColors[product.icon]}" fill="currentColor" viewBox="0 0 24 24">
+                                `<svg class="w-48 h-48 ${iconColors[product.icon] || 'text-gray-600'}" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
                                 </svg>`
                             }

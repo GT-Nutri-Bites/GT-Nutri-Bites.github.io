@@ -3,7 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NutriNest - Premium Nuts & Seeds Online</title>
+    <meta name="description" content="GT Nutri Bites - Your trusted source for premium organic nuts and seeds. 100% organic, sustainably sourced, and delivered fresh to your door.">
+    <meta name="keywords" content="organic nuts, premium seeds, healthy snacks, almonds, cashews, trail mix, superfood, GT Nutri Bites">
+    <meta name="author" content="GT Nutri Bites">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="GT Nutri Bites - Premium Nuts & Seeds Online">
+    <meta property="og:description" content="Premium quality organic nuts and seeds, sourced directly from sustainable farms. Packed with nutrients for your healthy lifestyle.">
+    <meta property="og:image" content="https://gt-nutri-bites.github.io/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GT Nutri Bites - Premium Nuts & Seeds Online">
+    <meta name="twitter:description" content="Premium quality organic nuts and seeds, sourced directly from sustainable farms.">
+    
+    <title>GT Nutri Bites - Premium Nuts & Seeds Online</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%232D5016'/%3E%3Ctext x='50' y='65' font-size='50' text-anchor='middle' fill='%23FFF8F0' font-family='Arial, sans-serif' font-weight='bold'%3EGT%3C/text%3E%3C/svg%3E">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -277,6 +296,184 @@
             opacity: 0.2;
         }
 
+        /* Scroll progress bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(45, 80, 22, 0.3);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(45, 80, 22, 0.4);
+        }
+
+        /* Cookie consent banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 2px solid var(--primary);
+            padding: 1.5rem;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 9998;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .cookie-banner.visible {
+            transform: translateY(0);
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 1.5rem;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        /* Search box */
+        .search-box {
+            position: relative;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            margin-top: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 100;
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        /* Wishlist heart */
+        .wishlist-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .wishlist-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .wishlist-btn.active svg {
+            fill: #EF4444;
+            stroke: #EF4444;
+        }
+
+        /* Loading spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive utilities */
+        @media (max-width: 640px) {
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+        }
+
         /* Shopping cart badge */
         .cart-badge {
             background: var(--accent);
@@ -332,6 +529,9 @@
     </style>
 </head>
 <body>
+    <!-- Scroll progress bar -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
     <!-- Background effects -->
     <div class="organic-bg"></div>
     <div class="texture"></div>
@@ -346,7 +546,7 @@
                         <svg class="w-8 h-8 text-green-700" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
                         </svg>
-                        <span class="text-2xl font-bold display-font text-green-800">NutriNest</span>
+                        <span class="text-2xl font-bold display-font text-green-800">GT Nutri Bites</span>
                     </div>
                 </div>
 
@@ -355,16 +555,39 @@
                     <a href="#shop" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Shop</a>
                     <a href="#about" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">About</a>
                     <a href="#benefits" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Health Benefits</a>
+                    <a href="#testimonials" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Reviews</a>
                     <a href="#contact" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Contact</a>
                 </div>
 
-                <!-- Cart & CTA -->
+                <!-- Search & Cart & CTA -->
                 <div class="hidden md:flex items-center space-x-4 animate-fade-in delay-300">
-                    <button class="relative p-2 hover:bg-gray-100 rounded-full transition">
+                    <!-- Search -->
+                    <div class="search-box relative">
+                        <button id="search-btn" class="p-2 hover:bg-gray-100 rounded-full transition" aria-label="Search products">
+                            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </button>
+                        <div id="search-dropdown" class="search-results">
+                            <div class="p-4">
+                                <input 
+                                    type="text" 
+                                    id="search-input" 
+                                    placeholder="Search products..." 
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
+                                    aria-label="Search input"
+                                />
+                                <div id="search-results-list" class="mt-3 space-y-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cart -->
+                    <button class="relative p-2 hover:bg-gray-100 rounded-full transition" aria-label="Shopping cart with 3 items">
                         <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
-                        <span class="cart-badge">3</span>
+                        <span class="cart-badge" id="cart-count">3</span>
                     </button>
                     <button class="btn-primary px-6 py-2.5 rounded-full font-medium text-sm">
                         <span>Shop Now</span>
@@ -391,6 +614,7 @@
                 <a href="#shop" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Shop</a>
                 <a href="#about" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">About</a>
                 <a href="#benefits" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Health Benefits</a>
+                <a href="#testimonials" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Reviews</a>
                 <a href="#contact" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Contact</a>
                 <div class="pt-4 border-t border-gray-200">
                     <button class="relative w-full flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition">
@@ -536,6 +760,11 @@
                 <!-- Product Card 1 -->
                 <div class="product-card rounded-2xl overflow-hidden animate-fade-in-up delay-100">
                     <div class="product-badge">BEST SELLER</div>
+                    <button class="wishlist-btn" aria-label="Add to wishlist" data-product="almonds">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </button>
                     <div class="product-image-placeholder aspect-square flex items-center justify-center p-6">
                         <svg class="w-32 h-32 text-amber-600" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
@@ -552,7 +781,7 @@
                             </div>
                             <div class="text-sm text-gray-500">500g</div>
                         </div>
-                        <button class="btn-primary w-full py-3 rounded-full font-semibold text-sm">
+                        <button class="btn-primary w-full py-3 rounded-full font-semibold text-sm add-to-cart-btn" data-product="almonds">
                             <span>Add to Cart</span>
                         </button>
                     </div>
@@ -807,7 +1036,7 @@
                 <div>
                     <h2 class="text-4xl sm:text-5xl font-bold display-font text-gray-900 mb-6">
                         Why Choose
-                        <span class="text-green-700">NutriNest?</span>
+                        <span class="text-green-700">GT Nutri Bites?</span>
                     </h2>
                     <p class="text-lg text-gray-600 mb-8 leading-relaxed">
                         We're passionate about bringing you the finest quality nuts and seeds, sourced ethically and sustainably from trusted farms around the world.
@@ -882,6 +1111,119 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-cream to-amber-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl sm:text-5xl font-bold display-font text-gray-900 mb-4">What Our Customers Say</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Join thousands of satisfied customers who trust GT Nutri Bites for their healthy snacking
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                    </div>
+                    <p class="text-gray-600 mb-6 leading-relaxed italic">
+                        "The quality is outstanding! The almonds are so fresh and crunchy. GT Nutri Bites has become my go-to source for healthy snacks. Highly recommended!"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center font-bold text-green-800">
+                            SJ
+                        </div>
+                        <div class="ml-3">
+                            <div class="font-semibold text-gray-900">Sarah Johnson</div>
+                            <div class="text-sm text-gray-500">Verified Customer</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                    </div>
+                    <p class="text-gray-600 mb-6 leading-relaxed italic">
+                        "Amazing service and even better products! The variety is excellent and everything arrives fresh. Perfect for my family's healthy lifestyle."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-amber-200 rounded-full flex items-center justify-center font-bold text-amber-800">
+                            MP
+                        </div>
+                        <div class="ml-3">
+                            <div class="font-semibold text-gray-900">Michael Patel</div>
+                            <div class="text-sm text-gray-500">Verified Customer</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                    </div>
+                    <p class="text-gray-600 mb-6 leading-relaxed italic">
+                        "I've tried many brands, but GT Nutri Bites stands out. The organic certification and sustainable practices make me feel good about my purchases."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center font-bold text-blue-800">
+                            EC
+                        </div>
+                        <div class="ml-3">
+                            <div class="font-semibold text-gray-900">Emma Chen</div>
+                            <div class="text-sm text-gray-500">Verified Customer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Newsletter CTA Section -->
     <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-700 to-green-800">
         <div class="max-w-4xl mx-auto text-center">
@@ -893,16 +1235,20 @@
             </p>
             
             <div class="max-w-md mx-auto mb-8 animate-fade-in-up delay-200">
-                <div class="flex flex-col sm:flex-row gap-3">
+                <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3">
                     <input 
                         type="email" 
+                        id="newsletter-email"
                         placeholder="Enter your email" 
+                        required
                         class="flex-1 px-6 py-4 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                        aria-label="Email address for newsletter"
                     />
-                    <button class="btn-secondary px-8 py-4 rounded-full font-semibold whitespace-nowrap">
+                    <button type="submit" class="btn-secondary px-8 py-4 rounded-full font-semibold whitespace-nowrap">
                         Subscribe Now
                     </button>
-                </div>
+                </form>
+                <p id="newsletter-message" class="mt-2 text-sm text-center hidden"></p>
             </div>
 
             <p class="text-sm text-green-200 animate-fade-in-up delay-300">
@@ -920,7 +1266,7 @@
                         <svg class="w-8 h-8 text-amber-400" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
                         </svg>
-                        <span class="text-2xl font-bold display-font">NutriNest</span>
+                        <span class="text-2xl font-bold display-font">GT Nutri Bites</span>
                     </div>
                     <p class="text-gray-400 text-sm mb-6 max-w-sm">
                         Your trusted source for premium organic nuts and seeds. Nourishing lives, one handful at a time.
@@ -981,7 +1327,7 @@
             <div class="pt-8 border-t border-gray-800">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                     <p class="text-sm text-gray-400 text-center md:text-left">
-                        &copy; 2024 NutriNest. All rights reserved. Made with 🌱 for a healthier world.
+                        &copy; 2024 GT Nutri Bites. All rights reserved. Made with 🌱 for a healthier world.
                     </p>
                     <div class="flex items-center space-x-4">
                         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='25' fill='%23fff'%3E%3Crect width='40' height='25' rx='3' fill='%23333'/%3E%3Ctext x='20' y='17' font-family='Arial' font-size='10' text-anchor='middle' fill='%23fff'%3EVISA%3C/text%3E%3C/svg%3E" alt="Visa" class="h-6">
@@ -992,6 +1338,33 @@
             </div>
         </div>
     </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner" class="cookie-banner">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex-1">
+                <p class="text-gray-700 text-sm">
+                    <strong>🍪 We use cookies</strong> to enhance your browsing experience and analyze our traffic. 
+                    By continuing to use our site, you accept our use of cookies.
+                </p>
+            </div>
+            <div class="flex gap-3">
+                <button id="cookie-accept" class="btn-primary px-6 py-2 rounded-full text-sm font-semibold">
+                    <span>Accept</span>
+                </button>
+                <button id="cookie-decline" class="px-6 py-2 rounded-full text-sm font-semibold border-2 border-gray-300 text-gray-700 hover:border-gray-400 transition">
+                    Decline
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
 
     <script>
         // Mobile menu functionality
@@ -1059,18 +1432,186 @@
         });
 
         // Add to cart animation
-        document.querySelectorAll('.product-card button').forEach(button => {
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
             button.addEventListener('click', function() {
                 // Simple feedback animation
                 const originalText = this.querySelector('span').textContent;
                 this.querySelector('span').textContent = 'Added! ✓';
                 this.style.backgroundColor = 'var(--primary-light)';
                 
+                // Update cart count
+                const cartCount = document.getElementById('cart-count');
+                if (cartCount) {
+                    const currentCount = parseInt(cartCount.textContent);
+                    cartCount.textContent = currentCount + 1;
+                }
+                
                 setTimeout(() => {
                     this.querySelector('span').textContent = originalText;
                     this.style.backgroundColor = '';
                 }, 1500);
             });
+        });
+
+        // Scroll progress bar
+        window.addEventListener('scroll', () => {
+            const scrollProgress = document.getElementById('scroll-progress');
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            scrollProgress.style.width = scrolled + '%';
+        });
+
+        // Back to top button
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Cookie consent
+        const cookieBanner = document.getElementById('cookie-banner');
+        const cookieAccept = document.getElementById('cookie-accept');
+        const cookieDecline = document.getElementById('cookie-decline');
+
+        // Show cookie banner if not accepted/declined
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookieBanner.classList.add('visible');
+            }, 1000);
+        }
+
+        cookieAccept.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieBanner.classList.remove('visible');
+        });
+
+        cookieDecline.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieBanner.classList.remove('visible');
+        });
+
+        // Newsletter form validation
+        const newsletterForm = document.getElementById('newsletter-form');
+        const newsletterMessage = document.getElementById('newsletter-message');
+
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('newsletter-email').value;
+            
+            // Simple email validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailPattern.test(email)) {
+                newsletterMessage.textContent = '✓ Thank you for subscribing!';
+                newsletterMessage.className = 'mt-2 text-sm text-center text-green-200';
+                newsletterMessage.classList.remove('hidden');
+                newsletterForm.reset();
+                
+                setTimeout(() => {
+                    newsletterMessage.classList.add('hidden');
+                }, 5000);
+            } else {
+                newsletterMessage.textContent = '✗ Please enter a valid email address';
+                newsletterMessage.className = 'mt-2 text-sm text-center text-red-200';
+                newsletterMessage.classList.remove('hidden');
+            }
+        });
+
+        // Search functionality
+        const searchBtn = document.getElementById('search-btn');
+        const searchDropdown = document.getElementById('search-dropdown');
+        const searchInput = document.getElementById('search-input');
+        const searchResultsList = document.getElementById('search-results-list');
+
+        const products = [
+            { name: 'Premium California Almonds', category: 'Organic Almonds', price: '$18.99' },
+            { name: 'Chia Seeds Super Pack', category: 'Organic Seeds', price: '$14.99' },
+            { name: 'Roasted Cashews', category: 'Premium Nuts', price: '$22.99' },
+            { name: 'Energy Boost Mix', category: 'Trail Mix', price: '$16.99' },
+            { name: 'Sunflower Seeds', category: 'Premium Seeds', price: '$12.99' },
+            { name: 'Raw Walnuts', category: 'Organic Nuts', price: '$19.99' },
+            { name: 'Pumpkin Seeds', category: 'Superfood Seeds', price: '$13.99' },
+            { name: 'Deluxe Nut Mix', category: 'Premium Mix', price: '$24.99' }
+        ];
+
+        searchBtn.addEventListener('click', () => {
+            searchDropdown.classList.toggle('active');
+            if (searchDropdown.classList.contains('active')) {
+                searchInput.focus();
+            }
+        });
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            if (query.length > 0) {
+                const filtered = products.filter(p => 
+                    p.name.toLowerCase().includes(query) || 
+                    p.category.toLowerCase().includes(query)
+                );
+                
+                if (filtered.length > 0) {
+                    searchResultsList.innerHTML = filtered.map(p => `
+                        <div class="p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition">
+                            <div class="font-semibold text-gray-900">${p.name}</div>
+                            <div class="text-sm text-gray-500">${p.category} • ${p.price}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    searchResultsList.innerHTML = '<p class="text-gray-500 text-sm p-3">No products found</p>';
+                }
+            } else {
+                searchResultsList.innerHTML = '<p class="text-gray-500 text-sm p-3">Start typing to search...</p>';
+            }
+        });
+
+        // Close search on click outside
+        document.addEventListener('click', (e) => {
+            if (!searchBtn.contains(e.target) && !searchDropdown.contains(e.target)) {
+                searchDropdown.classList.remove('active');
+            }
+        });
+
+        // Wishlist functionality
+        let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+
+        document.querySelectorAll('.wishlist-btn').forEach(btn => {
+            const product = btn.dataset.product;
+            
+            // Set initial state
+            if (wishlist.includes(product)) {
+                btn.classList.add('active');
+            }
+            
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                if (wishlist.includes(product)) {
+                    wishlist = wishlist.filter(p => p !== product);
+                    btn.classList.remove('active');
+                } else {
+                    wishlist.push(product);
+                    btn.classList.add('active');
+                }
+                
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            });
+        });
+
+        // Keyboard accessibility for mobile menu
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                mobileMenu.classList.remove('active');
+                searchDropdown.classList.remove('active');
+            }
         });
     </script>
 </body>

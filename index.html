@@ -1594,17 +1594,30 @@
                 );
                 
                 if (filtered.length > 0) {
-                    searchResultsList.innerHTML = filtered.map(p => `
-                        <div class="p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition">
-                            <div class="font-semibold text-gray-900">${p.name}</div>
-                            <div class="text-sm text-gray-500">${p.category} • ${p.price}</div>
-                        </div>
-                    `).join('');
+                    searchResultsList.innerHTML = '';
+                    filtered.forEach(p => {
+                        const resultDiv = document.createElement('div');
+                        resultDiv.className = 'p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition';
+                        
+                        const nameDiv = document.createElement('div');
+                        nameDiv.className = 'font-semibold text-gray-900';
+                        nameDiv.textContent = p.name;
+                        
+                        const detailsDiv = document.createElement('div');
+                        detailsDiv.className = 'text-sm text-gray-500';
+                        detailsDiv.textContent = `${p.category} • ${p.price}`;
+                        
+                        resultDiv.appendChild(nameDiv);
+                        resultDiv.appendChild(detailsDiv);
+                        searchResultsList.appendChild(resultDiv);
+                    });
                 } else {
-                    searchResultsList.innerHTML = '<p class="text-gray-500 text-sm p-3">No products found</p>';
+                    searchResultsList.textContent = 'No products found';
+                    searchResultsList.className = 'text-gray-500 text-sm p-3';
                 }
             } else {
-                searchResultsList.innerHTML = '<p class="text-gray-500 text-sm p-3">Start typing to search...</p>';
+                searchResultsList.textContent = 'Start typing to search...';
+                searchResultsList.className = 'text-gray-500 text-sm p-3';
             }
         });
 
@@ -1616,7 +1629,14 @@
         });
 
         // Wishlist functionality
-        let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        let wishlist = [];
+        try {
+            wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        } catch (e) {
+            console.error('Error loading wishlist from localStorage:', e);
+            wishlist = [];
+            localStorage.removeItem('wishlist');
+        }
 
         document.querySelectorAll('.wishlist-btn').forEach(btn => {
             const product = btn.dataset.product;
@@ -1637,7 +1657,11 @@
                     btn.classList.add('active');
                 }
                 
-                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                try {
+                    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                } catch (e) {
+                    console.error('Error saving wishlist to localStorage:', e);
+                }
             });
         });
 

@@ -702,7 +702,8 @@
                     </svg>
                 </div>
                 <h2 class="text-2xl font-bold display-font mb-2">Order Confirmed!</h2>
-                <p class="text-gray-600 mb-4">Thank you for your order. We'll send you a confirmation email shortly.</p>
+                <p id="confirmation-message" class="text-gray-600 mb-4">Thank you for your order. We'll send you a confirmation email shortly.</p>
+                <p id="email-warning" class="text-amber-600 text-sm mb-4 hidden"></p>
                 <p class="text-sm text-gray-500 mb-6">Order #<span id="order-number"></span></p>
                 <a href="products.html" class="btn-primary px-8 py-3 rounded-full font-semibold inline-block">
                     Continue Shopping
@@ -1228,6 +1229,9 @@
 
                 console.log('Admin email sent successfully:', adminResponse);
 
+                // Track if customer email was sent successfully
+                let customerEmailSent = false;
+
                 // Send customer confirmation email
                 try {
                     const customerResponse = await emailjs.send(
@@ -1236,14 +1240,27 @@
                         customerEmailParams
                     );
                     console.log('Customer email sent successfully:', customerResponse);
+                    customerEmailSent = true;
                 } catch (customerEmailError) {
                     // Log error but don't fail the order - admin email was sent
                     console.error('Customer email failed, but order was placed:', customerEmailError);
-                    alert('Order placed successfully! Note: There was an issue sending your confirmation email. Our team will contact you shortly.');
                 }
 
                 // Update order number display
                 document.getElementById('order-number').textContent = orderNumber;
+
+                // Update confirmation message based on email status
+                const confirmationMessage = document.getElementById('confirmation-message');
+                const emailWarning = document.getElementById('email-warning');
+                
+                if (customerEmailSent) {
+                    confirmationMessage.textContent = 'Thank you for your order. A confirmation email has been sent to your inbox.';
+                    emailWarning.classList.add('hidden');
+                } else {
+                    confirmationMessage.textContent = 'Thank you for your order. Your order has been received.';
+                    emailWarning.textContent = 'Note: There was an issue sending your confirmation email. Our team will contact you shortly.';
+                    emailWarning.classList.remove('hidden');
+                }
 
                 // Save order to localStorage
                 try {

@@ -384,12 +384,12 @@
 
                 <!-- Cart & CTA -->
                 <div class="hidden md:flex items-center space-x-4 animate-fade-in delay-300">
-                    <button class="relative p-2 hover:bg-gray-100 rounded-full transition" aria-label="Shopping cart">
+                    <a href="cart.html" class="relative p-2 hover:bg-gray-100 rounded-full transition" aria-label="Shopping cart">
                         <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
-                        <span class="cart-badge" id="cart-count">3</span>
-                    </button>
+                        <span class="cart-badge" id="cart-count">0</span>
+                    </a>
                     <a href="index.html" class="btn-primary px-6 py-2.5 rounded-full font-medium text-sm">
                         <span>Home</span>
                     </a>
@@ -962,21 +962,67 @@
         // Handle add to cart
         function handleAddToCart(e) {
             const btn = e.currentTarget;
+            const productId = parseInt(btn.dataset.product);
+            const product = products.find(p => p.id === productId);
+            
+            if (!product) return;
+            
+            // Add to cart in localStorage
+            let cart = [];
+            try {
+                cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            } catch (e) {
+                console.error('Error loading cart:', e);
+                cart = [];
+            }
+            
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    weight: product.weight,
+                    category: product.category,
+                    quantity: 1
+                });
+            }
+            
+            try {
+                localStorage.setItem('cart', JSON.stringify(cart));
+            } catch (e) {
+                console.error('Error saving cart:', e);
+            }
+            
+            // Update UI
             const originalText = btn.querySelector('span').textContent;
             btn.querySelector('span').textContent = 'Added! ✓';
             btn.style.backgroundColor = 'var(--primary-light)';
             
             // Update cart count
-            const cartCount = document.getElementById('cart-count');
-            if (cartCount) {
-                const currentCount = parseInt(cartCount.textContent);
-                cartCount.textContent = currentCount + 1;
-            }
+            updateCartCount();
             
             setTimeout(() => {
                 btn.querySelector('span').textContent = originalText;
                 btn.style.backgroundColor = '';
             }, 1500);
+        }
+        
+        // Update cart count badge
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            if (cartCount) {
+                let cart = [];
+                try {
+                    cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                } catch (e) {
+                    console.error('Error loading cart:', e);
+                }
+                const count = cart.reduce((total, item) => total + item.quantity, 0);
+                cartCount.textContent = count;
+            }
         }
 
         // Attach event listeners to product cards
@@ -1101,6 +1147,7 @@
 
         // Initialize page
         renderProducts();
+        updateCartCount();
     </script>
 </body>
 </html>

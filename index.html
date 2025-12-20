@@ -583,12 +583,12 @@
                     </div>
                     
                     <!-- Cart -->
-                    <button class="relative p-2 hover:bg-gray-100 rounded-full transition" aria-label="Shopping cart with 3 items">
+                    <a href="cart.html" class="relative p-2 hover:bg-gray-100 rounded-full transition" aria-label="Shopping cart">
                         <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
-                        <span class="cart-badge" id="cart-count">3</span>
-                    </button>
+                        <span class="cart-badge" id="cart-count">0</span>
+                    </a>
                     <a href="products.html" class="btn-primary px-6 py-2.5 rounded-full font-medium text-sm">
                         <span>Shop Now</span>
                     </a>
@@ -617,15 +617,15 @@
                 <a href="#testimonials" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Reviews</a>
                 <a href="#contact" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Contact</a>
                 <div class="pt-4 border-t border-gray-200">
-                    <button class="relative w-full flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition">
+                    <a href="cart.html" class="relative w-full flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition">
                         <span class="font-medium text-gray-700">Shopping Cart</span>
                         <div class="relative">
                             <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                             </svg>
-                            <span class="cart-badge">3</span>
+                            <span class="cart-badge" id="mobile-cart-count">0</span>
                         </div>
-                    </button>
+                    </a>
                 </div>
                 <a href="products.html" class="btn-primary w-full px-6 py-3 rounded-full font-medium text-sm mt-4 block text-center">
                     <span>Shop Now</span>
@@ -1468,20 +1468,77 @@
             observer.observe(element);
         });
 
+        // Sample product data for index page
+        const indexProducts = {
+            'almonds': { id: 1, name: 'Premium Almonds', price: 14.99, weight: '500g', category: 'Organic Nuts' },
+            'chia-seeds': { id: 2, name: 'Chia Seeds', price: 12.99, weight: '400g', category: 'Superfood Seeds' },
+            'cashews': { id: 3, name: 'Raw Cashews', price: 15.99, weight: '450g', category: 'Premium Nuts' },
+            'trail-mix': { id: 4, name: 'Energy Boost Mix', price: 16.99, weight: '450g', category: 'Trail Mix' },
+            'sunflower': { id: 5, name: 'Sunflower Seeds', price: 12.99, weight: '350g', category: 'Premium Seeds' },
+            'walnuts': { id: 6, name: 'Raw Walnuts', price: 19.99, weight: '500g', category: 'Organic Nuts' },
+            'pumpkin': { id: 7, name: 'Pumpkin Seeds', price: 13.99, weight: '400g', category: 'Superfood Seeds' },
+            'deluxe-mix': { id: 8, name: 'Deluxe Nut Mix', price: 24.99, weight: '600g', category: 'Premium Mix' }
+        };
+
+        // Update cart count badge
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            const mobileCartCount = document.getElementById('mobile-cart-count');
+            let cart = [];
+            try {
+                cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            } catch (e) {
+                console.error('Error loading cart:', e);
+            }
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            if (cartCount) cartCount.textContent = count;
+            if (mobileCartCount) mobileCartCount.textContent = count;
+        }
+
         // Add to cart animation
         document.querySelectorAll('.add-to-cart-btn').forEach(button => {
             button.addEventListener('click', function() {
+                const productKey = this.dataset.product;
+                const product = indexProducts[productKey];
+                
+                if (product) {
+                    // Add to cart in localStorage
+                    let cart = [];
+                    try {
+                        cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                    } catch (e) {
+                        console.error('Error loading cart:', e);
+                        cart = [];
+                    }
+                    
+                    const existingItem = cart.find(item => item.id === product.id);
+                    if (existingItem) {
+                        existingItem.quantity += 1;
+                    } else {
+                        cart.push({
+                            id: product.id,
+                            name: product.name,
+                            price: product.price,
+                            weight: product.weight,
+                            category: product.category,
+                            quantity: 1
+                        });
+                    }
+                    
+                    try {
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                    } catch (e) {
+                        console.error('Error saving cart:', e);
+                    }
+                }
+                
                 // Simple feedback animation
                 const originalText = this.querySelector('span').textContent;
                 this.querySelector('span').textContent = 'Added! ✓';
                 this.style.backgroundColor = 'var(--primary-light)';
                 
                 // Update cart count
-                const cartCount = document.getElementById('cart-count');
-                if (cartCount) {
-                    const currentCount = parseInt(cartCount.textContent);
-                    cartCount.textContent = currentCount + 1;
-                }
+                updateCartCount();
                 
                 setTimeout(() => {
                     this.querySelector('span').textContent = originalText;
@@ -1489,6 +1546,9 @@
                 }, 1500);
             });
         });
+
+        // Initialize cart count on page load
+        updateCartCount();
 
         // Scroll progress bar
         window.addEventListener('scroll', () => {

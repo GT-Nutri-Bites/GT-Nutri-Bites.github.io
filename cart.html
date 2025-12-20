@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GT Nutri Bites - Shopping Cart & Checkout. Complete your order for premium organic nuts and seeds.">
+    <meta name="keywords" content="shopping cart, checkout, GT Nutri Bites, organic nuts, order">
+    <meta name="author" content="GT Nutri Bites">
+    
+    <title>Shopping Cart - GT Nutri Bites</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%232D5016'/%3E%3Ctext x='50' y='65' font-size='50' text-anchor='middle' fill='%23FFF8F0' font-family='Arial, sans-serif' font-weight='bold'%3EGT%3C/text%3E%3C/svg%3E">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2D5016;
+            --primary-light: #4A7C24;
+            --accent: #E8B44C;
+            --accent-dark: #D9A03D;
+            --cream: #FFF8F0;
+            --text-dark: #1F2937;
+            --text-muted: #6B7280;
+            --earth: #8B6F47;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .display-font {
+            font-family: 'Libre Baskerville', serif;
+        }
+
+        /* Background effects */
+        .organic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(74, 124, 36, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(232, 180, 76, 0.08) 0%, transparent 50%);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--cream);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 80, 22, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cart-item {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .cart-item:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 2px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .quantity-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 0.25rem;
+            font-weight: 600;
+        }
+
+        .order-summary {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 2rem;
+        }
+
+        .form-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .required {
+            color: #DC2626;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #DC2626;
+            color: white;
+            border-radius: 12px;
+            padding: 2px 6px;
+            font-size: 11px;
+            font-weight: 700;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="organic-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-700 to-green-600 flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">GT</span>
+                    </div>
+                    <span class="font-bold text-xl display-font text-gray-900">GT Nutri Bites</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Home</a>
+                    <a href="products.html" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Products</a>
+                    <a href="index.html#about" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">About</a>
+                    <a href="index.html#contact" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Contact</a>
+                </div>
+
+                <!-- Cart Icon & CTA -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="cart.html" class="relative p-2 hover:bg-gray-100 rounded-full transition" aria-label="Shopping cart">
+                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="cart-badge" id="cart-count">0</span>
+                    </a>
+                    <a href="products.html" class="btn-primary px-6 py-2.5 rounded-full font-medium text-sm">
+                        <span>Shop Now</span>
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-white shadow-2xl md:hidden z-50 p-6">
+            <button id="close-menu" class="absolute top-6 right-6 text-gray-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <div class="mt-16 space-y-6">
+                <a href="index.html" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Home</a>
+                <a href="products.html" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Products</a>
+                <a href="index.html#about" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">About</a>
+                <a href="index.html#contact" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold display-font text-gray-900 mb-2">Shopping Cart</h1>
+            <p class="text-gray-600">Review your items and complete your order</p>
+        </div>
+
+        <!-- Cart Content -->
+        <div id="cart-content" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Cart Items (Left Section) -->
+            <div class="lg:col-span-2">
+                <div id="cart-items-container">
+                    <!-- Cart items will be dynamically inserted here -->
+                </div>
+                
+                <!-- Empty Cart Message -->
+                <div id="empty-cart" class="empty-cart hidden">
+                    <svg class="w-24 h-24 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                    <h2 class="text-2xl font-bold text-gray-700 mb-2">Your cart is empty</h2>
+                    <p class="text-gray-500 mb-6">Start shopping to add items to your cart</p>
+                    <a href="products.html" class="btn-primary px-8 py-3 rounded-full font-semibold inline-block">
+                        Browse Products
+                    </a>
+                </div>
+            </div>
+
+            <!-- Order Summary & Customer Info (Right Section) -->
+            <div class="lg:col-span-1">
+                <div id="checkout-section" class="hidden">
+                    <!-- Order Summary -->
+                    <div class="order-summary mb-6">
+                        <h2 class="text-xl font-bold display-font mb-4">Order Summary</h2>
+                        <div class="space-y-3 mb-4 pb-4 border-b border-gray-200">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Subtotal</span>
+                                <span class="font-semibold" id="subtotal">$0.00</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Shipping</span>
+                                <span class="font-semibold" id="shipping">$5.99</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Tax (8%)</span>
+                                <span class="font-semibold" id="tax">$0.00</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between text-lg font-bold mb-4">
+                            <span>Total</span>
+                            <span id="total" class="text-green-700">$0.00</span>
+                        </div>
+                        <button id="show-checkout-form" class="btn-primary w-full py-3 rounded-full font-semibold">
+                            Proceed to Checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Information Form (Shown after clicking Proceed to Checkout) -->
+        <div id="customer-form-section" class="hidden mt-8">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-2xl font-bold display-font mb-6">Customer Information</h2>
+
+                <form id="checkout-form">
+                    <!-- Personal Information -->
+                    <div class="form-section">
+                        <h3 class="text-lg font-bold mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            Personal Information
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="form-label">First Name <span class="required">*</span></label>
+                                <input type="text" id="first-name" class="form-input" required>
+                            </div>
+                            <div>
+                                <label class="form-label">Last Name <span class="required">*</span></label>
+                                <input type="text" id="last-name" class="form-input" required>
+                            </div>
+                            <div>
+                                <label class="form-label">Email Address <span class="required">*</span></label>
+                                <input type="email" id="email" class="form-input" required>
+                            </div>
+                            <div>
+                                <label class="form-label">Phone Number <span class="required">*</span></label>
+                                <input type="tel" id="phone" class="form-input" required placeholder="(555) 555-5555">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shipping Address -->
+                    <div class="form-section">
+                        <h3 class="text-lg font-bold mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            Shipping Address
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="form-label">Street Address <span class="required">*</span></label>
+                                <input type="text" id="shipping-address" class="form-input" required>
+                            </div>
+                            <div>
+                                <label class="form-label">Apartment, Suite, etc. (Optional)</label>
+                                <input type="text" id="shipping-address2" class="form-input">
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="form-label">City <span class="required">*</span></label>
+                                    <input type="text" id="shipping-city" class="form-input" required>
+                                </div>
+                                <div>
+                                    <label class="form-label">State <span class="required">*</span></label>
+                                    <input type="text" id="shipping-state" class="form-input" required placeholder="CA">
+                                </div>
+                                <div>
+                                    <label class="form-label">ZIP Code <span class="required">*</span></label>
+                                    <input type="text" id="shipping-zip" class="form-input" required placeholder="12345">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Billing Address -->
+                    <div class="form-section">
+                        <h3 class="text-lg font-bold mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                            </svg>
+                            Billing Address
+                        </h3>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="same-as-shipping" checked>
+                            <label for="same-as-shipping" class="cursor-pointer text-sm">Same as shipping address</label>
+                        </div>
+                        <div id="billing-address-fields" class="hidden mt-4 space-y-4">
+                            <div>
+                                <label class="form-label">Street Address <span class="required">*</span></label>
+                                <input type="text" id="billing-address" class="form-input">
+                            </div>
+                            <div>
+                                <label class="form-label">Apartment, Suite, etc. (Optional)</label>
+                                <input type="text" id="billing-address2" class="form-input">
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="form-label">City <span class="required">*</span></label>
+                                    <input type="text" id="billing-city" class="form-input">
+                                </div>
+                                <div>
+                                    <label class="form-label">State <span class="required">*</span></label>
+                                    <input type="text" id="billing-state" class="form-input" placeholder="CA">
+                                </div>
+                                <div>
+                                    <label class="form-label">ZIP Code <span class="required">*</span></label>
+                                    <input type="text" id="billing-zip" class="form-input" placeholder="12345">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Preferences -->
+                    <div class="form-section">
+                        <h3 class="text-lg font-bold mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path>
+                            </svg>
+                            Delivery Preferences
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="form-label">Delivery Instructions (Optional)</label>
+                                <textarea id="delivery-instructions" class="form-input" rows="3" placeholder="Leave at front door, Ring doorbell, etc."></textarea>
+                            </div>
+                            <div>
+                                <label class="form-label">Preferred Delivery Date (Optional)</label>
+                                <input type="date" id="delivery-date" class="form-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Notes -->
+                    <div class="form-section">
+                        <h3 class="text-lg font-bold mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                            </svg>
+                            Additional Notes
+                        </h3>
+                        <div>
+                            <label class="form-label">Order Notes (Optional)</label>
+                            <textarea id="order-notes" class="form-input" rows="3" placeholder="Any special requests or notes about your order..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-end">
+                        <button type="button" id="back-to-cart" class="btn-secondary px-8 py-3 rounded-full font-semibold">
+                            Back to Cart
+                        </button>
+                        <button type="submit" class="btn-primary px-8 py-3 rounded-full font-semibold">
+                            Place Order
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Order Confirmation Modal -->
+        <div id="confirmation-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center animate-fade-in">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold display-font mb-2">Order Confirmed!</h2>
+                <p class="text-gray-600 mb-4">Thank you for your order. We'll send you a confirmation email shortly.</p>
+                <p class="text-sm text-gray-500 mb-6">Order #<span id="order-number"></span></p>
+                <a href="products.html" class="btn-primary px-8 py-3 rounded-full font-semibold inline-block">
+                    Continue Shopping
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm">&copy; 2024 GT Nutri Bites. All rights reserved.</p>
+            <p class="text-xs mt-2">Premium Organic Nuts & Seeds</p>
+        </div>
+    </footer>
+
+    <script>
+        // Cart Management System
+        class CartManager {
+            constructor() {
+                this.cart = this.loadCart();
+                this.TAX_RATE = 0.08;
+                this.SHIPPING_COST = 5.99;
+                this.FREE_SHIPPING_THRESHOLD = 50;
+            }
+
+            loadCart() {
+                try {
+                    return JSON.parse(localStorage.getItem('cart') || '[]');
+                } catch (e) {
+                    console.error('Error loading cart:', e);
+                    return [];
+                }
+            }
+
+            saveCart() {
+                try {
+                    localStorage.setItem('cart', JSON.stringify(this.cart));
+                    this.updateCartBadge();
+                } catch (e) {
+                    console.error('Error saving cart:', e);
+                }
+            }
+
+            addItem(product, quantity = 1) {
+                const existingItem = this.cart.find(item => item.id === product.id);
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    this.cart.push({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        weight: product.weight,
+                        category: product.category,
+                        quantity: quantity
+                    });
+                }
+                this.saveCart();
+            }
+
+            updateQuantity(productId, quantity) {
+                const item = this.cart.find(item => item.id === productId);
+                if (item) {
+                    item.quantity = Math.max(1, quantity);
+                    this.saveCart();
+                }
+            }
+
+            removeItem(productId) {
+                this.cart = this.cart.filter(item => item.id !== productId);
+                this.saveCart();
+            }
+
+            getCartTotal() {
+                return this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            }
+
+            getShippingCost() {
+                const subtotal = this.getCartTotal();
+                return subtotal >= this.FREE_SHIPPING_THRESHOLD ? 0 : this.SHIPPING_COST;
+            }
+
+            getTax() {
+                return this.getCartTotal() * this.TAX_RATE;
+            }
+
+            getTotal() {
+                return this.getCartTotal() + this.getShippingCost() + this.getTax();
+            }
+
+            getItemCount() {
+                return this.cart.reduce((count, item) => count + item.quantity, 0);
+            }
+
+            updateCartBadge() {
+                const badge = document.getElementById('cart-count');
+                if (badge) {
+                    const count = this.getItemCount();
+                    badge.textContent = count;
+                    badge.style.display = count > 0 ? 'block' : 'none';
+                }
+            }
+
+            clearCart() {
+                this.cart = [];
+                this.saveCart();
+            }
+        }
+
+        // Initialize cart manager
+        const cartManager = new CartManager();
+
+        // Render cart items
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const emptyCart = document.getElementById('empty-cart');
+            const checkoutSection = document.getElementById('checkout-section');
+
+            if (cartManager.cart.length === 0) {
+                container.innerHTML = '';
+                emptyCart.classList.remove('hidden');
+                checkoutSection.classList.add('hidden');
+                return;
+            }
+
+            emptyCart.classList.add('hidden');
+            checkoutSection.classList.remove('hidden');
+
+            container.innerHTML = cartManager.cart.map(item => `
+                <div class="cart-item" data-product-id="${item.id}">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-20 h-20 bg-gradient-to-br from-green-100 to-amber-50 rounded-lg flex items-center justify-center">
+                                <span class="text-3xl">🥜</span>
+                            </div>
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h3 class="font-bold text-lg">${item.name}</h3>
+                                    <p class="text-sm text-gray-500">${item.category} • ${item.weight}</p>
+                                </div>
+                                <button class="remove-item text-red-600 hover:text-red-800 p-2" data-product-id="${item.id}">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="quantity-control">
+                                    <button class="quantity-btn decrease-qty" data-product-id="${item.id}">−</button>
+                                    <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-product-id="${item.id}">
+                                    <button class="quantity-btn increase-qty" data-product-id="${item.id}">+</button>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-bold text-green-700">$${(item.price * item.quantity).toFixed(2)}</p>
+                                    <p class="text-xs text-gray-500">$${item.price.toFixed(2)} each</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Update order summary
+            updateOrderSummary();
+
+            // Attach event listeners
+            attachCartEventListeners();
+        }
+
+        // Update order summary
+        function updateOrderSummary() {
+            const subtotal = cartManager.getCartTotal();
+            const shipping = cartManager.getShippingCost();
+            const tax = cartManager.getTax();
+            const total = cartManager.getTotal();
+
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('shipping').textContent = shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+        }
+
+        // Attach event listeners to cart items
+        function attachCartEventListeners() {
+            // Remove item buttons
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const productId = parseInt(btn.dataset.productId);
+                    if (confirm('Remove this item from your cart?')) {
+                        cartManager.removeItem(productId);
+                        renderCart();
+                    }
+                });
+            });
+
+            // Quantity buttons
+            document.querySelectorAll('.increase-qty').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const productId = parseInt(btn.dataset.productId);
+                    const item = cartManager.cart.find(i => i.id === productId);
+                    if (item) {
+                        cartManager.updateQuantity(productId, item.quantity + 1);
+                        renderCart();
+                    }
+                });
+            });
+
+            document.querySelectorAll('.decrease-qty').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const productId = parseInt(btn.dataset.productId);
+                    const item = cartManager.cart.find(i => i.id === productId);
+                    if (item && item.quantity > 1) {
+                        cartManager.updateQuantity(productId, item.quantity - 1);
+                        renderCart();
+                    }
+                });
+            });
+
+            // Quantity input
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.addEventListener('change', (e) => {
+                    const productId = parseInt(input.dataset.productId);
+                    const quantity = parseInt(input.value) || 1;
+                    cartManager.updateQuantity(productId, quantity);
+                    renderCart();
+                });
+            });
+        }
+
+        // Show checkout form
+        document.getElementById('show-checkout-form').addEventListener('click', () => {
+            document.getElementById('customer-form-section').classList.remove('hidden');
+            document.getElementById('customer-form-section').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Back to cart button
+        document.getElementById('back-to-cart').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Same as shipping checkbox
+        document.getElementById('same-as-shipping').addEventListener('change', (e) => {
+            const billingFields = document.getElementById('billing-address-fields');
+            if (e.target.checked) {
+                billingFields.classList.add('hidden');
+                // Clear billing required attributes
+                billingFields.querySelectorAll('input').forEach(input => {
+                    input.removeAttribute('required');
+                });
+            } else {
+                billingFields.classList.remove('hidden');
+                // Add billing required attributes
+                document.getElementById('billing-address').setAttribute('required', 'required');
+                document.getElementById('billing-city').setAttribute('required', 'required');
+                document.getElementById('billing-state').setAttribute('required', 'required');
+                document.getElementById('billing-zip').setAttribute('required', 'required');
+            }
+        });
+
+        // Form submission
+        document.getElementById('checkout-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Collect form data
+            const formData = {
+                personal: {
+                    firstName: document.getElementById('first-name').value,
+                    lastName: document.getElementById('last-name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value
+                },
+                shipping: {
+                    address: document.getElementById('shipping-address').value,
+                    address2: document.getElementById('shipping-address2').value,
+                    city: document.getElementById('shipping-city').value,
+                    state: document.getElementById('shipping-state').value,
+                    zip: document.getElementById('shipping-zip').value
+                },
+                billing: {
+                    sameAsShipping: document.getElementById('same-as-shipping').checked,
+                    address: document.getElementById('billing-address').value,
+                    address2: document.getElementById('billing-address2').value,
+                    city: document.getElementById('billing-city').value,
+                    state: document.getElementById('billing-state').value,
+                    zip: document.getElementById('billing-zip').value
+                },
+                delivery: {
+                    instructions: document.getElementById('delivery-instructions').value,
+                    preferredDate: document.getElementById('delivery-date').value
+                },
+                notes: document.getElementById('order-notes').value,
+                cart: cartManager.cart,
+                totals: {
+                    subtotal: cartManager.getCartTotal(),
+                    shipping: cartManager.getShippingCost(),
+                    tax: cartManager.getTax(),
+                    total: cartManager.getTotal()
+                },
+                timestamp: new Date().toISOString()
+            };
+
+            // Generate order number
+            const orderNumber = 'GT' + Date.now().toString().slice(-8);
+            document.getElementById('order-number').textContent = orderNumber;
+
+            // Save order to localStorage (in a real app, this would be sent to a server)
+            try {
+                const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+                orders.push({ orderNumber, ...formData });
+                localStorage.setItem('orders', JSON.stringify(orders));
+            } catch (e) {
+                console.error('Error saving order:', e);
+            }
+
+            // Clear cart
+            cartManager.clearCart();
+
+            // Show confirmation modal
+            document.getElementById('confirmation-modal').classList.remove('hidden');
+        });
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenuBtn = document.getElementById('close-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Initialize page
+        cartManager.updateCartBadge();
+        renderCart();
+    </script>
+</body>
+</html>

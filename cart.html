@@ -820,577 +820,603 @@
 
     <script>
         // ==========================================
-        // EMAILJS CONFIGURATION
-        // ==========================================
-        // Initialize EmailJS with your Public Key
-        // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
-        (function() {
-            emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS Public Key
-        })();
+// EMAILJS CONFIGURATION
+// ==========================================
+// Initialize EmailJS with your Public Key
+(function() {
+    emailjs.init('Uj8MZl4CPDUZNnnXB'); // Replace with your EmailJS Public Key
+})();
 
-        // EmailJS Configuration
-        const EMAILJS_CONFIG = {
-            serviceID: 'YOUR_SERVICE_ID',    // Replace with your EmailJS Service ID
-            templateID: 'YOUR_TEMPLATE_ID',   // Replace with your EmailJS Template ID
-        };
+// EmailJS Configuration - UPDATED WITH ALL THREE TEMPLATES
+const EMAILJS_CONFIG = {
+    serviceID: 'service_e14q4pw',    // Replace with your EmailJS Service ID
+    
+    // Admin notification (detailed order info for your team)
+    adminTemplateID: 'template_a1t1vju',   
+    
+    // Customer order received confirmation (immediate auto-reply)
+    orderReceivedTemplateID: 'template_v2md02b',
+};
 
-        // ==========================================
-        // CART MANAGEMENT SYSTEM
-        // ==========================================
-        class CartManager {
-            constructor() {
-                this.cart = this.loadCart();
-                this.TAX_RATE = 0.08;
-                this.SHIPPING_COST = 5.99;
-                this.FREE_SHIPPING_THRESHOLD = 50;
-            }
+// ==========================================
+// CART MANAGEMENT SYSTEM
+// ==========================================
+class CartManager {
+    constructor() {
+        this.cart = this.loadCart();
+        this.TAX_RATE = 0.08;
+        this.SHIPPING_COST = 5.99;
+        this.FREE_SHIPPING_THRESHOLD = 50;
+    }
 
-            loadCart() {
-                try {
-                    return JSON.parse(localStorage.getItem('cart') || '[]');
-                } catch (e) {
-                    console.error('Error loading cart:', e);
-                    return [];
-                }
-            }
-
-            saveCart() {
-                try {
-                    localStorage.setItem('cart', JSON.stringify(this.cart));
-                    this.updateCartBadge();
-                } catch (e) {
-                    console.error('Error saving cart:', e);
-                }
-            }
-
-            addItem(product, quantity = 1) {
-                const existingItem = this.cart.find(item => item.id === product.id);
-                if (existingItem) {
-                    existingItem.quantity += quantity;
-                } else {
-                    this.cart.push({
-                        id: product.id,
-                        name: product.name,
-                        price: product.price,
-                        weight: product.weight,
-                        category: product.category,
-                        quantity: quantity
-                    });
-                }
-                this.saveCart();
-            }
-
-            updateQuantity(productId, quantity) {
-                const item = this.cart.find(item => item.id === productId);
-                if (item) {
-                    item.quantity = Math.max(1, Math.min(99, quantity));
-                    this.saveCart();
-                }
-            }
-
-            removeItem(productId) {
-                this.cart = this.cart.filter(item => item.id !== productId);
-                this.saveCart();
-            }
-
-            getCartTotal() {
-                return this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-            }
-
-            getShippingCost() {
-                const subtotal = this.getCartTotal();
-                return subtotal >= this.FREE_SHIPPING_THRESHOLD ? 0 : this.SHIPPING_COST;
-            }
-
-            getTax() {
-                return this.getCartTotal() * this.TAX_RATE;
-            }
-
-            getTotal() {
-                return this.getCartTotal() + this.getShippingCost() + this.getTax();
-            }
-
-            getItemCount() {
-                return this.cart.reduce((count, item) => count + item.quantity, 0);
-            }
-
-            updateCartBadge() {
-                const badge = document.getElementById('cart-count');
-                const count = this.getItemCount();
-                if (badge) {
-                    badge.textContent = count;
-                }
-                
-                const mobileCartCount = document.getElementById('mobile-cart-count');
-                if (mobileCartCount) {
-                    mobileCartCount.textContent = count;
-                }
-                
-                const cartLink = document.querySelector('a[href="cart.html"]');
-                if (cartLink) {
-                    cartLink.setAttribute('aria-label', `Shopping cart with ${count} ${count === 1 ? 'item' : 'items'}`);
-                }
-            }
-
-            clearCart() {
-                this.cart = [];
-                this.saveCart();
-            }
+    loadCart() {
+        try {
+            return JSON.parse(localStorage.getItem('cart') || '[]');
+        } catch (e) {
+            console.error('Error loading cart:', e);
+            return [];
         }
+    }
 
-        const cartManager = new CartManager();
+    saveCart() {
+        try {
+            localStorage.setItem('cart', JSON.stringify(this.cart));
+            this.updateCartBadge();
+        } catch (e) {
+            console.error('Error saving cart:', e);
+        }
+    }
 
-        // ==========================================
-        // RENDER CART
-        // ==========================================
-        function renderCart() {
-            const container = document.getElementById('cart-items-container');
-            const emptyCart = document.getElementById('empty-cart');
-            const checkoutSection = document.getElementById('checkout-section');
+    addItem(product, quantity = 1) {
+        const existingItem = this.cart.find(item => item.id === product.id);
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            this.cart.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                weight: product.weight,
+                category: product.category,
+                quantity: quantity
+            });
+        }
+        this.saveCart();
+    }
 
-            if (cartManager.cart.length === 0) {
-                container.innerHTML = '';
-                emptyCart.classList.remove('hidden');
-                checkoutSection.classList.add('hidden');
-                return;
-            }
+    updateQuantity(productId, quantity) {
+        const item = this.cart.find(item => item.id === productId);
+        if (item) {
+            item.quantity = Math.max(1, Math.min(99, quantity));
+            this.saveCart();
+        }
+    }
 
-            emptyCart.classList.add('hidden');
-            checkoutSection.classList.remove('hidden');
+    removeItem(productId) {
+        this.cart = this.cart.filter(item => item.id !== productId);
+        this.saveCart();
+    }
 
-            container.innerHTML = cartManager.cart.map(item => `
-                <div class="cart-item" data-product-id="${item.id}">
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <div class="flex-shrink-0">
-                            <div class="w-20 h-20 bg-gradient-to-br from-green-100 to-amber-50 rounded-lg flex items-center justify-center">
-                                <span class="text-3xl">🥜</span>
-                            </div>
+    getCartTotal() {
+        return this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    }
+
+    getShippingCost() {
+        const subtotal = this.getCartTotal();
+        return subtotal >= this.FREE_SHIPPING_THRESHOLD ? 0 : this.SHIPPING_COST;
+    }
+
+    getTax() {
+        return this.getCartTotal() * this.TAX_RATE;
+    }
+
+    getTotal() {
+        return this.getCartTotal() + this.getShippingCost() + this.getTax();
+    }
+
+    getItemCount() {
+        return this.cart.reduce((count, item) => count + item.quantity, 0);
+    }
+
+    updateCartBadge() {
+        const badge = document.getElementById('cart-count');
+        const count = this.getItemCount();
+        if (badge) {
+            badge.textContent = count;
+        }
+        
+        const mobileCartCount = document.getElementById('mobile-cart-count');
+        if (mobileCartCount) {
+            mobileCartCount.textContent = count;
+        }
+        
+        const cartLink = document.querySelector('a[href="cart.html"]');
+        if (cartLink) {
+            cartLink.setAttribute('aria-label', `Shopping cart with ${count} ${count === 1 ? 'item' : 'items'}`);
+        }
+    }
+
+    clearCart() {
+        this.cart = [];
+        this.saveCart();
+    }
+}
+
+const cartManager = new CartManager();
+
+// ==========================================
+// RENDER CART
+// ==========================================
+function renderCart() {
+    const container = document.getElementById('cart-items-container');
+    const emptyCart = document.getElementById('empty-cart');
+    const checkoutSection = document.getElementById('checkout-section');
+
+    if (cartManager.cart.length === 0) {
+        container.innerHTML = '';
+        emptyCart.classList.remove('hidden');
+        checkoutSection.classList.add('hidden');
+        return;
+    }
+
+    emptyCart.classList.add('hidden');
+    checkoutSection.classList.remove('hidden');
+
+    container.innerHTML = cartManager.cart.map(item => `
+        <div class="cart-item" data-product-id="${item.id}">
+            <div class="flex flex-col sm:flex-row gap-4">
+                <div class="flex-shrink-0">
+                    <div class="w-20 h-20 bg-gradient-to-br from-green-100 to-amber-50 rounded-lg flex items-center justify-center">
+                        <span class="text-3xl">🥜</span>
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="font-bold text-lg">${item.name}</h3>
+                            <p class="text-sm text-gray-500">${item.category} • ${item.weight}</p>
                         </div>
-                        <div class="flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <div>
-                                    <h3 class="font-bold text-lg">${item.name}</h3>
-                                    <p class="text-sm text-gray-500">${item.category} • ${item.weight}</p>
-                                </div>
-                                <button class="remove-item text-red-600 hover:text-red-800 p-2" data-product-id="${item.id}">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <div class="quantity-control">
-                                    <button class="quantity-btn decrease-qty" data-product-id="${item.id}">−</button>
-                                    <input type="number" class="quantity-input" value="${item.quantity}" min="1" max="99" data-product-id="${item.id}">
-                                    <button class="quantity-btn increase-qty" data-product-id="${item.id}">+</button>
-                                </div>
-                                <div class="text-right">
-                                    <p class="text-lg font-bold text-green-700">$${(item.price * item.quantity).toFixed(2)}</p>
-                                    <p class="text-xs text-gray-500">$${item.price.toFixed(2)} each</p>
-                                </div>
-                            </div>
+                        <button class="remove-item text-red-600 hover:text-red-800 p-2" data-product-id="${item.id}">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="quantity-control">
+                            <button class="quantity-btn decrease-qty" data-product-id="${item.id}">−</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" max="99" data-product-id="${item.id}">
+                            <button class="quantity-btn increase-qty" data-product-id="${item.id}">+</button>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-lg font-bold text-green-700">$${(item.price * item.quantity).toFixed(2)}</p>
+                            <p class="text-xs text-gray-500">$${item.price.toFixed(2)} each</p>
                         </div>
                     </div>
                 </div>
-            `).join('');
+            </div>
+        </div>
+    `).join('');
 
-            updateOrderSummary();
-            attachCartEventListeners();
-        }
+    updateOrderSummary();
+    attachCartEventListeners();
+}
 
-        // ==========================================
-        // UPDATE ORDER SUMMARY
-        // ==========================================
-        function updateOrderSummary() {
-            const subtotal = cartManager.getCartTotal();
-            const shipping = cartManager.getShippingCost();
-            const tax = cartManager.getTax();
-            const total = cartManager.getTotal();
+// ==========================================
+// UPDATE ORDER SUMMARY
+// ==========================================
+function updateOrderSummary() {
+    const subtotal = cartManager.getCartTotal();
+    const shipping = cartManager.getShippingCost();
+    const tax = cartManager.getTax();
+    const total = cartManager.getTotal();
 
-            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
-            document.getElementById('shipping').textContent = shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`;
-            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
-            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
-        }
+    document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+    document.getElementById('shipping').textContent = shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`;
+    document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+    document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+}
 
-        // ==========================================
-        // ATTACH CART EVENT LISTENERS
-        // ==========================================
-        function attachCartEventListeners() {
-            document.querySelectorAll('.remove-item').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const productId = parseInt(btn.dataset.productId);
-                    if (confirm('Remove this item from your cart?')) {
-                        cartManager.removeItem(productId);
-                        renderCart();
-                    }
-                });
-            });
-
-            document.querySelectorAll('.increase-qty').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const productId = parseInt(btn.dataset.productId);
-                    const item = cartManager.cart.find(i => i.id === productId);
-                    if (item) {
-                        cartManager.updateQuantity(productId, item.quantity + 1);
-                        renderCart();
-                    }
-                });
-            });
-
-            document.querySelectorAll('.decrease-qty').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const productId = parseInt(btn.dataset.productId);
-                    const item = cartManager.cart.find(i => i.id === productId);
-                    if (item && item.quantity > 1) {
-                        cartManager.updateQuantity(productId, item.quantity - 1);
-                        renderCart();
-                    }
-                });
-            });
-
-            document.querySelectorAll('.quantity-input').forEach(input => {
-                input.addEventListener('change', (e) => {
-                    const productId = parseInt(input.dataset.productId);
-                    const quantity = parseInt(input.value) || 1;
-                    cartManager.updateQuantity(productId, quantity);
-                    renderCart();
-                });
-            });
-        }
-
-        // ==========================================
-        // GENERATE ORDER ITEMS HTML FOR EMAIL
-        // ==========================================
-        function generateOrderItemsHTML() {
-            return cartManager.cart.map(item => `
-                <tr style="border-bottom: 1px solid #e5e7eb;">
-                    <td style="padding: 12px; text-align: left;">${item.name}</td>
-                    <td style="padding: 12px; text-align: center;">${item.weight}</td>
-                    <td style="padding: 12px; text-align: right;">$${item.price.toFixed(2)}</td>
-                    <td style="padding: 12px; text-align: center;">${item.quantity}</td>
-                    <td style="padding: 12px; text-align: right; font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</td>
-                </tr>
-            `).join('');
-        }
-
-        // ==========================================
-        // POPULATE BILL IN MODAL
-        // ==========================================
-        function populateBill(formData, orderNumber) {
-            // Customer info
-            document.getElementById('bill-customer-name').textContent = `${formData.personal.firstName} ${formData.personal.lastName}`;
-            document.getElementById('bill-customer-email').textContent = formData.personal.email;
-            document.getElementById('bill-customer-phone').textContent = formData.personal.phone;
-
-            // Shipping address
-            const shippingAddress = `
-                ${formData.shipping.address}${formData.shipping.address2 ? ', ' + formData.shipping.address2 : ''}<br>
-                ${formData.shipping.city}, ${formData.shipping.state} ${formData.shipping.zip}
-            `;
-            document.getElementById('bill-shipping-address').innerHTML = shippingAddress;
-
-            // Order items
-            const billItemsHTML = cartManager.cart.map(item => `
-                <tr>
-                    <td>${item.name}</td>
-                    <td>${item.weight}</td>
-                    <td>$${item.price.toFixed(2)}</td>
-                    <td>${item.quantity}</td>
-                    <td>$${(item.price * item.quantity).toFixed(2)}</td>
-                </tr>
-            `).join('');
-            document.getElementById('bill-items').innerHTML = billItemsHTML;
-
-            // Totals
-            document.getElementById('bill-subtotal').textContent = `$${formData.totals.subtotal.toFixed(2)}`;
-            document.getElementById('bill-shipping').textContent = formData.totals.shipping === 0 ? 'FREE' : `$${formData.totals.shipping.toFixed(2)}`;
-            document.getElementById('bill-tax').textContent = `$${formData.totals.tax.toFixed(2)}`;
-            document.getElementById('bill-total').textContent = `$${formData.totals.total.toFixed(2)}`;
-
-            // Date
-            const orderDate = new Date().toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-            document.getElementById('bill-date').textContent = orderDate;
-
-            // Order number
-            document.getElementById('order-number').textContent = orderNumber;
-        }
-
-        // ==========================================
-        // SEND EMAIL VIA EMAILJS
-        // ==========================================
-        async function sendOrderEmail(formData, orderNumber) {
-            const orderItemsHTML = generateOrderItemsHTML();
-            
-            // Prepare shipping address
-            const shippingAddress = `${formData.shipping.address}${formData.shipping.address2 ? ', ' + formData.shipping.address2 : ''}, ${formData.shipping.city}, ${formData.shipping.state} ${formData.shipping.zip}`;
-            
-            // Prepare billing address
-            const billingAddress = formData.billing.sameAsShipping ? 
-                shippingAddress : 
-                `${formData.billing.address}${formData.billing.address2 ? ', ' + formData.billing.address2 : ''}, ${formData.billing.city}, ${formData.billing.state} ${formData.billing.zip}`;
-
-            // Generate order items for customer email (simplified format)
-            const orderItemsCustomer = cartManager.cart.map(item => `
-                <tr style="border-bottom: 1px solid #e5e7eb;">
-                    <td style="padding: 12px; text-align: left;">
-                        <strong style="color: #1F2937;">${item.name}</strong><br>
-                        <span style="color: #6B7280; font-size: 12px;">${item.category} • ${item.weight}</span>
-                    </td>
-                    <td style="padding: 12px; text-align: center; color: #1F2937; font-weight: 600;">${item.quantity}</td>
-                    <td style="padding: 12px; text-align: right; color: #2D5016; font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</td>
-                </tr>
-            `).join('');
-
-            // Current date and time
-            const now = new Date();
-            const orderDate = now.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-            const orderTime = now.toLocaleTimeString('en-US', { 
-                hour: '2-digit', 
-                minute: '2-digit',
-                hour12: true 
-            });
-
-            // Email template parameters for ADMIN
-            const adminEmailParams = {
-                order_number: orderNumber,
-                order_date: orderDate,
-                order_time: orderTime,
-                customer_name: `${formData.personal.firstName} ${formData.personal.lastName}`,
-                customer_email: formData.personal.email,
-                customer_phone: formData.personal.phone,
-                shipping_address: formData.shipping.address,
-                shipping_address2: formData.shipping.address2 || '',
-                shipping_city: formData.shipping.city,
-                shipping_state: formData.shipping.state,
-                shipping_zip: formData.shipping.zip,
-                billing_address: formData.billing.address || formData.shipping.address,
-                billing_address2: formData.billing.address2 || formData.shipping.address2 || '',
-                billing_city: formData.billing.city || formData.shipping.city,
-                billing_state: formData.billing.state || formData.shipping.state,
-                billing_zip: formData.billing.zip || formData.shipping.zip,
-                order_items: orderItemsHTML,
-                subtotal: formData.totals.subtotal.toFixed(2),
-                shipping_cost: formData.totals.shipping === 0 ? 'FREE' : formData.totals.shipping.toFixed(2),
-                tax: formData.totals.tax.toFixed(2),
-                total: formData.totals.total.toFixed(2),
-                delivery_instructions: formData.delivery.instructions || 'None',
-                delivery_date: formData.delivery.preferredDate || 'Not specified',
-                order_notes: formData.notes || 'None',
-                if_billing_different: !formData.billing.sameAsShipping,
-                if_delivery_notes: formData.delivery.instructions || formData.delivery.preferredDate,
-                if_order_notes: formData.notes,
-                if_delivery_instructions: formData.delivery.instructions,
-                if_delivery_date: formData.delivery.preferredDate
-            };
-
-            // Email template parameters for CUSTOMER
-            const customerEmailParams = {
-                order_number: orderNumber,
-                order_date: orderDate,
-                order_time: orderTime,
-                customer_name: `${formData.personal.firstName} ${formData.personal.lastName}`,
-                customer_first_name: formData.personal.firstName,
-                customer_email: formData.personal.email,
-                customer_phone: formData.personal.phone,
-                shipping_address: formData.shipping.address,
-                shipping_address2: formData.shipping.address2 || '',
-                shipping_city: formData.shipping.city,
-                shipping_state: formData.shipping.state,
-                shipping_zip: formData.shipping.zip,
-                order_items_customer: orderItemsCustomer,
-                subtotal: formData.totals.subtotal.toFixed(2),
-                shipping_cost: formData.totals.shipping === 0 ? 'FREE' : formData.totals.shipping.toFixed(2),
-                tax: formData.totals.tax.toFixed(2),
-                total: formData.totals.total.toFixed(2),
-                if_shipping_address2: formData.shipping.address2
-            };
-
-            try {
-                // Send admin notification email
-                const adminResponse = await emailjs.send(
-                    EMAILJS_CONFIG.serviceID,
-                    EMAILJS_CONFIG.adminTemplateID,
-                    adminEmailParams
-                );
-                
-                console.log('Admin email sent successfully:', adminResponse);
-
-                // Send customer confirmation email
-                const customerResponse = await emailjs.send(
-                    EMAILJS_CONFIG.serviceID,
-                    EMAILJS_CONFIG.customerTemplateID,
-                    customerEmailParams
-                );
-                
-                console.log('Customer email sent successfully:', customerResponse);
-                
-                return true;
-            } catch (error) {
-                console.error('Email sending failed:', error);
-                alert('Order placed successfully, but there was an issue sending confirmation emails. Our team will contact you shortly.');
-                return false;
-            }
-        }
-
-        // ==========================================
-        // SHOW CHECKOUT FORM
-        // ==========================================
-        document.getElementById('show-checkout-form').addEventListener('click', () => {
-            document.getElementById('customer-form-section').classList.remove('hidden');
-            document.getElementById('customer-form-section').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // ==========================================
-        // BACK TO CART
-        // ==========================================
-        document.getElementById('back-to-cart').addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // ==========================================
-        // SAME AS SHIPPING CHECKBOX
-        // ==========================================
-        document.getElementById('same-as-shipping').addEventListener('change', (e) => {
-            const billingFields = document.getElementById('billing-address-fields');
-            if (e.target.checked) {
-                billingFields.classList.add('hidden');
-                billingFields.querySelectorAll('input').forEach(input => {
-                    input.removeAttribute('required');
-                });
-            } else {
-                billingFields.classList.remove('hidden');
-                document.getElementById('billing-address').setAttribute('required', 'required');
-                document.getElementById('billing-city').setAttribute('required', 'required');
-                document.getElementById('billing-state').setAttribute('required', 'required');
-                document.getElementById('billing-zip').setAttribute('required', 'required');
+// ==========================================
+// ATTACH CART EVENT LISTENERS
+// ==========================================
+function attachCartEventListeners() {
+    document.querySelectorAll('.remove-item').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const productId = parseInt(btn.dataset.productId);
+            if (confirm('Remove this item from your cart?')) {
+                cartManager.removeItem(productId);
+                renderCart();
             }
         });
+    });
 
-        // ==========================================
-        // FORM SUBMISSION
-        // ==========================================
-        document.getElementById('checkout-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            // Disable submit button to prevent double submission
-            const submitBtn = document.getElementById('submit-order-btn');
-            const originalBtnText = submitBtn.innerHTML;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = 'Processing Order<span class="loading-spinner"></span>';
-
-            // Collect form data
-            const formData = {
-                personal: {
-                    firstName: document.getElementById('first-name').value,
-                    lastName: document.getElementById('last-name').value,
-                    email: document.getElementById('email').value,
-                    phone: document.getElementById('phone').value
-                },
-                shipping: {
-                    address: document.getElementById('shipping-address').value,
-                    address2: document.getElementById('shipping-address2').value,
-                    city: document.getElementById('shipping-city').value,
-                    state: document.getElementById('shipping-state').value,
-                    zip: document.getElementById('shipping-zip').value
-                },
-                billing: {
-                    sameAsShipping: document.getElementById('same-as-shipping').checked,
-                    address: document.getElementById('billing-address').value,
-                    address2: document.getElementById('billing-address2').value,
-                    city: document.getElementById('billing-city').value,
-                    state: document.getElementById('billing-state').value,
-                    zip: document.getElementById('billing-zip').value
-                },
-                delivery: {
-                    instructions: document.getElementById('delivery-instructions').value,
-                    preferredDate: document.getElementById('delivery-date').value
-                },
-                notes: document.getElementById('order-notes').value,
-                cart: cartManager.cart,
-                totals: {
-                    subtotal: cartManager.getCartTotal(),
-                    shipping: cartManager.getShippingCost(),
-                    tax: cartManager.getTax(),
-                    total: cartManager.getTotal()
-                },
-                timestamp: new Date().toISOString()
-            };
-
-            // Generate unique order number
-            const timestamp = Date.now().toString().slice(-8);
-            const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
-            const orderNumber = `GT${timestamp}${randomStr}`;
-
-            // Save order to localStorage
-            try {
-                const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-                orders.push({ orderNumber, ...formData });
-                localStorage.setItem('orders', JSON.stringify(orders));
-            } catch (e) {
-                console.error('Error saving order:', e);
+    document.querySelectorAll('.increase-qty').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const productId = parseInt(btn.dataset.productId);
+            const item = cartManager.cart.find(i => i.id === productId);
+            if (item) {
+                cartManager.updateQuantity(productId, item.quantity + 1);
+                renderCart();
             }
-
-            // Send emails
-            const emailSent = await sendOrderEmail(formData, orderNumber);
-
-            // Populate bill in modal
-            populateBill(formData, orderNumber);
-
-            // Clear cart
-            cartManager.clearCart();
-
-            // Re-enable submit button
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalBtnText;
-
-            // Show confirmation modal
-            document.getElementById('confirmation-modal').classList.remove('hidden');
         });
+    });
 
-        // ==========================================
-        // MOBILE MENU
-        // ==========================================
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
-        const closeMenuBtn = document.getElementById('close-menu');
-
-        function openMobileMenu() {
-            mobileMenu.classList.add('active');
-            mobileMenuBackdrop.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeMobileMenu() {
-            mobileMenu.classList.remove('active');
-            mobileMenuBackdrop.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        mobileMenuBtn.addEventListener('click', openMobileMenu);
-        closeMenuBtn.addEventListener('click', closeMobileMenu);
-        mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
-
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', closeMobileMenu);
+    document.querySelectorAll('.decrease-qty').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const productId = parseInt(btn.dataset.productId);
+            const item = cartManager.cart.find(i => i.id === productId);
+            if (item && item.quantity > 1) {
+                cartManager.updateQuantity(productId, item.quantity - 1);
+                renderCart();
+            }
         });
+    });
 
-        // ==========================================
-        // INITIALIZE PAGE
-        // ==========================================
-        cartManager.updateCartBadge();
-        renderCart();
+    document.querySelectorAll('.quantity-input').forEach(input => {
+        input.addEventListener('change', (e) => {
+            const productId = parseInt(input.dataset.productId);
+            const quantity = parseInt(input.value) || 1;
+            cartManager.updateQuantity(productId, quantity);
+            renderCart();
+        });
+    });
+}
+
+// ==========================================
+// GENERATE ORDER ITEMS HTML FOR ADMIN EMAIL
+// ==========================================
+function generateOrderItemsHTML() {
+    return cartManager.cart.map(item => `
+        <tr style="border-bottom: 1px solid #e5e7eb;">
+            <td style="padding: 12px; text-align: left;">${item.name}</td>
+            <td style="padding: 12px; text-align: center;">${item.weight}</td>
+            <td style="padding: 12px; text-align: right;">$${item.price.toFixed(2)}</td>
+            <td style="padding: 12px; text-align: center;">${item.quantity}</td>
+            <td style="padding: 12px; text-align: right; font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</td>
+        </tr>
+    `).join('');
+}
+
+// ==========================================
+// GENERATE ORDER ITEMS HTML FOR CUSTOMER EMAIL
+// ==========================================
+function generateCustomerOrderItemsHTML() {
+    return cartManager.cart.map(item => `
+        <tr style="border-bottom: 1px solid #e5e7eb;">
+            <td style="padding: 12px; text-align: left;">
+                <strong style="color: #1F2937;">${item.name}</strong><br>
+                <span style="color: #6B7280; font-size: 12px;">${item.category} • ${item.weight}</span>
+            </td>
+            <td style="padding: 12px; text-align: center; color: #1F2937; font-weight: 600;">${item.quantity}</td>
+            <td style="padding: 12px; text-align: right; color: #2D5016; font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</td>
+        </tr>
+    `).join('');
+}
+
+// ==========================================
+// POPULATE BILL IN MODAL
+// ==========================================
+function populateBill(formData, orderNumber) {
+    // Customer info
+    document.getElementById('bill-customer-name').textContent = `${formData.personal.firstName} ${formData.personal.lastName}`;
+    document.getElementById('bill-customer-email').textContent = formData.personal.email;
+    document.getElementById('bill-customer-phone').textContent = formData.personal.phone;
+
+    // Shipping address
+    const shippingAddress = `
+        ${formData.shipping.address}${formData.shipping.address2 ? ', ' + formData.shipping.address2 : ''}<br>
+        ${formData.shipping.city}, ${formData.shipping.state} ${formData.shipping.zip}
+    `;
+    document.getElementById('bill-shipping-address').innerHTML = shippingAddress;
+
+    // Order items
+    const billItemsHTML = cartManager.cart.map(item => `
+        <tr>
+            <td>${item.name}</td>
+            <td>${item.weight}</td>
+            <td>$${item.price.toFixed(2)}</td>
+            <td>${item.quantity}</td>
+            <td>$${(item.price * item.quantity).toFixed(2)}</td>
+        </tr>
+    `).join('');
+    document.getElementById('bill-items').innerHTML = billItemsHTML;
+
+    // Totals
+    document.getElementById('bill-subtotal').textContent = `$${formData.totals.subtotal.toFixed(2)}`;
+    document.getElementById('bill-shipping').textContent = formData.totals.shipping === 0 ? 'FREE' : `$${formData.totals.shipping.toFixed(2)}`;
+    document.getElementById('bill-tax').textContent = `$${formData.totals.tax.toFixed(2)}`;
+    document.getElementById('bill-total').textContent = `$${formData.totals.total.toFixed(2)}`;
+
+    // Date
+    const orderDate = new Date().toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    document.getElementById('bill-date').textContent = orderDate;
+
+    // Order number
+    document.getElementById('order-number').textContent = orderNumber;
+}
+
+// ==========================================
+// SEND EMAILS VIA EMAILJS - FIXED VERSION
+// ==========================================
+async function sendOrderEmail(formData, orderNumber) {
+    // Generate order items HTML for both email types
+    const orderItemsHTML = generateOrderItemsHTML();
+    const orderItemsCustomer = generateCustomerOrderItemsHTML();
+    
+    // Current date and time
+    const now = new Date();
+    const orderDate = now.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    });
+    const orderTime = now.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: true 
+    });
+
+    // ==========================================
+    // ADMIN EMAIL PARAMETERS
+    // ==========================================
+    const adminEmailParams = {
+        order_number: orderNumber,
+        order_date: orderDate,
+        order_time: orderTime,
+        customer_name: `${formData.personal.firstName} ${formData.personal.lastName}`,
+        customer_email: formData.personal.email,
+        customer_phone: formData.personal.phone,
+        shipping_address: formData.shipping.address,
+        shipping_address2: formData.shipping.address2 || '',
+        shipping_city: formData.shipping.city,
+        shipping_state: formData.shipping.state,
+        shipping_zip: formData.shipping.zip,
+        billing_address: formData.billing.address || formData.shipping.address,
+        billing_address2: formData.billing.address2 || formData.shipping.address2 || '',
+        billing_city: formData.billing.city || formData.shipping.city,
+        billing_state: formData.billing.state || formData.shipping.state,
+        billing_zip: formData.billing.zip || formData.shipping.zip,
+        order_items: orderItemsHTML,
+        subtotal: formData.totals.subtotal.toFixed(2),
+        shipping_cost: formData.totals.shipping === 0 ? 'FREE' : formData.totals.shipping.toFixed(2),
+        tax: formData.totals.tax.toFixed(2),
+        total: formData.totals.total.toFixed(2),
+        delivery_instructions: formData.delivery.instructions || 'None',
+        delivery_date: formData.delivery.preferredDate || 'Not specified',
+        order_notes: formData.notes || 'None',
+        if_billing_different: !formData.billing.sameAsShipping,
+        if_delivery_notes: formData.delivery.instructions || formData.delivery.preferredDate,
+        if_order_notes: formData.notes,
+        if_delivery_instructions: formData.delivery.instructions,
+        if_delivery_date: formData.delivery.preferredDate
+    };
+
+    // ==========================================
+    // CUSTOMER EMAIL PARAMETERS (Order Received Confirmation)
+    // ==========================================
+    const customerEmailParams = {
+        order_number: orderNumber,
+        order_date: orderDate,
+        order_time: orderTime,
+        customer_name: `${formData.personal.firstName} ${formData.personal.lastName}`,
+        customer_first_name: formData.personal.firstName,
+        customer_email: formData.personal.email,
+        customer_phone: formData.personal.phone,
+        shipping_address: formData.shipping.address,
+        shipping_address2: formData.shipping.address2 || '',
+        shipping_city: formData.shipping.city,
+        shipping_state: formData.shipping.state,
+        shipping_zip: formData.shipping.zip,
+        order_items_customer: orderItemsCustomer,
+        subtotal: formData.totals.subtotal.toFixed(2),
+        shipping_cost: formData.totals.shipping === 0 ? 'FREE' : formData.totals.shipping.toFixed(2),
+        tax: formData.totals.tax.toFixed(2),
+        total: formData.totals.total.toFixed(2),
+        if_shipping_address2: formData.shipping.address2 ? true : false
+    };
+
+    // ==========================================
+    // SEND EMAILS
+    // ==========================================
+    try {
+        console.log('Starting email sending process...');
+        
+        // 1. Send ADMIN notification email
+        console.log('Sending admin notification...');
+        const adminResponse = await emailjs.send(
+            EMAILJS_CONFIG.serviceID,
+            EMAILJS_CONFIG.adminTemplateID,
+            adminEmailParams
+        );
+        console.log('✅ Admin email sent successfully:', adminResponse);
+
+        // 2. Send CUSTOMER order received confirmation email
+        console.log('Sending customer order received confirmation...');
+        const customerResponse = await emailjs.send(
+            EMAILJS_CONFIG.serviceID,
+            EMAILJS_CONFIG.orderReceivedTemplateID,
+            customerEmailParams
+        );
+        console.log('✅ Customer confirmation email sent successfully:', customerResponse);
+        
+        return true;
+    } catch (error) {
+        console.error('❌ Email sending failed:', error);
+        console.error('Error details:', error.text || error.message);
+        
+        // Show user-friendly error message
+        alert('Order placed successfully! However, there was an issue sending confirmation emails. Our team has received your order and will contact you shortly at ' + formData.personal.email);
+        
+        return false;
+    }
+}
+
+// ==========================================
+// SHOW CHECKOUT FORM
+// ==========================================
+document.getElementById('show-checkout-form').addEventListener('click', () => {
+    document.getElementById('customer-form-section').classList.remove('hidden');
+    document.getElementById('customer-form-section').scrollIntoView({ behavior: 'smooth' });
+});
+
+// ==========================================
+// BACK TO CART
+// ==========================================
+document.getElementById('back-to-cart').addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ==========================================
+// SAME AS SHIPPING CHECKBOX
+// ==========================================
+document.getElementById('same-as-shipping').addEventListener('change', (e) => {
+    const billingFields = document.getElementById('billing-address-fields');
+    if (e.target.checked) {
+        billingFields.classList.add('hidden');
+        billingFields.querySelectorAll('input').forEach(input => {
+            input.removeAttribute('required');
+        });
+    } else {
+        billingFields.classList.remove('hidden');
+        document.getElementById('billing-address').setAttribute('required', 'required');
+        document.getElementById('billing-city').setAttribute('required', 'required');
+        document.getElementById('billing-state').setAttribute('required', 'required');
+        document.getElementById('billing-zip').setAttribute('required', 'required');
+    }
+});
+
+// ==========================================
+// FORM SUBMISSION
+// ==========================================
+document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Disable submit button to prevent double submission
+    const submitBtn = document.getElementById('submit-order-btn');
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Processing Order<span class="loading-spinner"></span>';
+
+    // Collect form data
+    const formData = {
+        personal: {
+            firstName: document.getElementById('first-name').value,
+            lastName: document.getElementById('last-name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value
+        },
+        shipping: {
+            address: document.getElementById('shipping-address').value,
+            address2: document.getElementById('shipping-address2').value,
+            city: document.getElementById('shipping-city').value,
+            state: document.getElementById('shipping-state').value,
+            zip: document.getElementById('shipping-zip').value
+        },
+        billing: {
+            sameAsShipping: document.getElementById('same-as-shipping').checked,
+            address: document.getElementById('billing-address').value,
+            address2: document.getElementById('billing-address2').value,
+            city: document.getElementById('billing-city').value,
+            state: document.getElementById('billing-state').value,
+            zip: document.getElementById('billing-zip').value
+        },
+        delivery: {
+            instructions: document.getElementById('delivery-instructions').value,
+            preferredDate: document.getElementById('delivery-date').value
+        },
+        notes: document.getElementById('order-notes').value,
+        cart: cartManager.cart,
+        totals: {
+            subtotal: cartManager.getCartTotal(),
+            shipping: cartManager.getShippingCost(),
+            tax: cartManager.getTax(),
+            total: cartManager.getTotal()
+        },
+        timestamp: new Date().toISOString()
+    };
+
+    // Generate unique order number
+    const timestamp = Date.now().toString().slice(-8);
+    const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
+    const orderNumber = `GT${timestamp}${randomStr}`;
+
+    // Save order to localStorage
+    try {
+        const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+        orders.push({ orderNumber, ...formData });
+        localStorage.setItem('orders', JSON.stringify(orders));
+        console.log('✅ Order saved to localStorage');
+    } catch (e) {
+        console.error('❌ Error saving order:', e);
+    }
+
+    // Send emails (admin + customer)
+    console.log('📧 Attempting to send emails...');
+    const emailSent = await sendOrderEmail(formData, orderNumber);
+
+    // Populate bill in modal
+    populateBill(formData, orderNumber);
+
+    // Clear cart
+    cartManager.clearCart();
+    console.log('✅ Cart cleared');
+
+    // Re-enable submit button
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalBtnText;
+
+    // Show confirmation modal
+    document.getElementById('confirmation-modal').classList.remove('hidden');
+    console.log('✅ Order process completed');
+});
+
+// ==========================================
+// MOBILE MENU
+// ==========================================
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+const closeMenuBtn = document.getElementById('close-menu');
+
+function openMobileMenu() {
+    mobileMenu.classList.add('active');
+    mobileMenuBackdrop.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeMobileMenu() {
+    mobileMenu.classList.remove('active');
+    mobileMenuBackdrop.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+mobileMenuBtn.addEventListener('click', openMobileMenu);
+closeMenuBtn.addEventListener('click', closeMobileMenu);
+mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+
+document.querySelectorAll('#mobile-menu a').forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+});
+
+// ==========================================
+// INITIALIZE PAGE
+// ==========================================
+cartManager.updateCartBadge();
+renderCart();
+
+console.log('✅ GT Nutri Bites Cart System Initialized');
+console.log('📧 EmailJS Configuration:', {
+    serviceID: EMAILJS_CONFIG.serviceID,
+    adminTemplate: EMAILJS_CONFIG.adminTemplateID,
+    customerTemplate: EMAILJS_CONFIG.orderReceivedTemplateID
+});
     </script>
 </body>
 </html>

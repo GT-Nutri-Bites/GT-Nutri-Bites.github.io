@@ -12,6 +12,14 @@
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg">
     
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("Uj8MZl4CPDUZNnnXB");
+        })();
+    </script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -677,7 +685,7 @@
                         <button type="button" id="back-to-cart" class="btn-secondary px-8 py-3 rounded-full font-semibold">
                             Back to Cart
                         </button>
-                        <button type="submit" class="btn-primary px-8 py-3 rounded-full font-semibold">
+                        <button type="submit" id="place-order-btn" class="btn-primary px-8 py-3 rounded-full font-semibold">
                             Place Order
                         </button>
                     </div>
@@ -699,6 +707,22 @@
                 <a href="products.html" class="btn-primary px-8 py-3 rounded-full font-semibold inline-block">
                     Continue Shopping
                 </a>
+            </div>
+        </div>
+
+        <!-- Error Modal -->
+        <div id="error-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center animate-fade-in">
+                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold display-font mb-2">Order Failed</h2>
+                <p class="text-gray-600 mb-4">There was an error processing your order. Please try again or contact support.</p>
+                <button id="close-error-modal" class="btn-primary px-8 py-3 rounded-full font-semibold">
+                    Try Again
+                </button>
             </div>
         </div>
     </main>
@@ -1041,8 +1065,39 @@
         });
 
         // Form submission
-        document.getElementById('checkout-form').addEventListener('submit', (e) => {
+        document.getElementById('checkout-form').addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            // Get submit button and show loading state
+            const submitBtn = document.getElementById('place-order-btn');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+            `;
+
+            // Generate unique order number (timestamp + random string)
+            const timestamp = Date.now().toString().slice(-8);
+            const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
+            const orderNumber = `GT${timestamp}${randomStr}`;
+
+            // Get current date and time
+            const now = new Date();
+            const orderDate = now.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            const orderTime = now.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: true 
+            });
 
             // Collect form data
             const formData = {
@@ -1082,26 +1137,88 @@
                 timestamp: new Date().toISOString()
             };
 
-            // Generate unique order number (timestamp + random string)
-            const timestamp = Date.now().toString().slice(-8);
-            const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
-            const orderNumber = `GT${timestamp}${randomStr}`;
-            document.getElementById('order-number').textContent = orderNumber;
+            // Build order items HTML for email template
+            const orderItemsHtml = cartManager.cart.map(item => `
+                <tr style="border-bottom: 1px solid #E5E7EB;">
+                    <td style="text-align: left; padding: 12px; font-size: 14px; color: #1F2937;">${item.name}</td>
+                    <td style="text-align: center; padding: 12px; font-size: 14px; color: #6B7280;">${item.weight}</td>
+                    <td style="text-align: right; padding: 12px; font-size: 14px; color: #1F2937;">$${item.price.toFixed(2)}</td>
+                    <td style="text-align: center; padding: 12px; font-size: 14px; color: #1F2937;">${item.quantity}</td>
+                    <td style="text-align: right; padding: 12px; font-size: 14px; font-weight: 600; color: #2D5016;">$${(item.price * item.quantity).toFixed(2)}</td>
+                </tr>
+            `).join('');
 
-            // Save order to localStorage (in a real app, this would be sent to a server)
+            // Prepare EmailJS template parameters
+            const templateParams = {
+                order_number: orderNumber,
+                order_date: orderDate,
+                order_time: orderTime,
+                customer_name: `${formData.personal.firstName} ${formData.personal.lastName}`,
+                customer_email: formData.personal.email,
+                customer_phone: formData.personal.phone,
+                shipping_address: formData.shipping.address,
+                shipping_address2: formData.shipping.address2 || '',
+                shipping_city: formData.shipping.city,
+                shipping_state: formData.shipping.state,
+                shipping_zip: formData.shipping.zip,
+                billing_address: formData.billing.sameAsShipping ? formData.shipping.address : formData.billing.address,
+                billing_address2: formData.billing.sameAsShipping ? formData.shipping.address2 : formData.billing.address2,
+                billing_city: formData.billing.sameAsShipping ? formData.shipping.city : formData.billing.city,
+                billing_state: formData.billing.sameAsShipping ? formData.shipping.state : formData.billing.state,
+                billing_zip: formData.billing.sameAsShipping ? formData.shipping.zip : formData.billing.zip,
+                order_items: orderItemsHtml,
+                subtotal: formData.totals.subtotal.toFixed(2),
+                shipping_cost: formData.totals.shipping === 0 ? '0.00' : formData.totals.shipping.toFixed(2),
+                tax: formData.totals.tax.toFixed(2),
+                total: formData.totals.total.toFixed(2),
+                delivery_instructions: formData.delivery.instructions || '',
+                delivery_date: formData.delivery.preferredDate || '',
+                order_notes: formData.notes || ''
+            };
+
             try {
-                const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-                orders.push({ orderNumber, ...formData });
-                localStorage.setItem('orders', JSON.stringify(orders));
-            } catch (e) {
-                console.error('Error saving order:', e);
+                // Send email via EmailJS
+                const response = await emailjs.send(
+                    'service_e14q4pw',
+                    'template_a1t1vju',
+                    templateParams
+                );
+
+                console.log('Email sent successfully:', response);
+
+                // Update order number display
+                document.getElementById('order-number').textContent = orderNumber;
+
+                // Save order to localStorage
+                try {
+                    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+                    orders.push({ orderNumber, ...formData });
+                    localStorage.setItem('orders', JSON.stringify(orders));
+                } catch (storageError) {
+                    console.error('Error saving order to localStorage:', storageError);
+                }
+
+                // Clear cart
+                cartManager.clearCart();
+
+                // Show confirmation modal
+                document.getElementById('confirmation-modal').classList.remove('hidden');
+
+            } catch (error) {
+                console.error('Error sending email:', error);
+                
+                // Show error modal to user
+                document.getElementById('error-modal').classList.remove('hidden');
+                
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
             }
+        });
 
-            // Clear cart
-            cartManager.clearCart();
-
-            // Show confirmation modal
-            document.getElementById('confirmation-modal').classList.remove('hidden');
+        // Close error modal
+        document.getElementById('close-error-modal').addEventListener('click', () => {
+            document.getElementById('error-modal').classList.add('hidden');
         });
 
         // Mobile menu

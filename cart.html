@@ -76,6 +76,44 @@
                 radial-gradient(circle at 80% 80%, rgba(232, 180, 76, 0.08) 0%, transparent 50%);
         }
 
+        /* Scroll progress bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            z-index: 10001;
+            transition: width 0.1s ease;
+        }
+
+        /* Search box */
+        .search-box {
+            position: relative;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            margin-top: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 100;
+            min-width: 300px;
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
         .btn-primary {
             background: var(--primary);
             color: var(--cream);
@@ -569,18 +607,25 @@
     </style>
 </head>
 <body>
+    <!-- Scroll progress bar -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
     <div class="organic-bg"></div>
 
     <!-- Navigation -->
-    <nav class="sticky top-0 z-[1000] bg-white/95 backdrop-blur-md border-b border-gray-100">
+    <nav class="relative z-[1000] bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <a href="index.html" class="flex items-center space-x-2">
-                    <img src="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg" alt="GT Nutri Bites Logo" class="h-12 w-auto object-contain">
-                    <span class="font-bold text-xl display-font text-gray-900">GT Nutri Bites</span>
-                </a>
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2 animate-fade-in">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <img src="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg" alt="GT Nutri Bites Logo" class="h-12 w-auto object-contain">
+                        <span class="text-2xl font-bold display-font text-green-800">GT Nutri Bites</span>
+                    </a>
+                </div>
 
-                <div class="hidden md:flex items-center space-x-8">
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8 animate-fade-in delay-200">
                     <a href="index.html#shop" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Shop</a>
                     <a href="index.html#about" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">About</a>
                     <a href="index.html#benefits" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Health Benefits</a>
@@ -588,7 +633,30 @@
                     <a href="index.html#contact" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Contact</a>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-4">
+                <!-- Search & Cart & CTA -->
+                <div class="hidden md:flex items-center space-x-4 animate-fade-in delay-300">
+                    <!-- Search -->
+                    <div class="search-box relative">
+                        <button id="search-btn" class="p-2 hover:bg-gray-100 rounded-full transition" aria-label="Search products">
+                            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </button>
+                        <div id="search-dropdown" class="search-results">
+                            <div class="p-4">
+                                <input 
+                                    type="text" 
+                                    id="search-input" 
+                                    placeholder="Search products..." 
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
+                                    aria-label="Search input"
+                                />
+                                <div id="search-results-list" class="mt-3 space-y-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cart -->
                     <a href="cart.html" class="relative p-2 hover:bg-gray-100 rounded-full transition" aria-label="Shopping cart">
                         <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -600,6 +668,7 @@
                     </a>
                 </div>
 
+                <!-- Mobile menu button -->
                 <button id="mobile-menu-btn" class="md:hidden text-gray-700 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -607,6 +676,7 @@
                 </button>
             </div>
         </div>
+
     </nav>
 
     <div id="mobile-menu-backdrop" class="mobile-menu-backdrop"></div>
@@ -956,6 +1026,23 @@
                     <p class="text-gray-400 text-sm mb-6 max-w-sm">
                         Your trusted source for premium organic nuts and seeds. Nourishing lives, one handful at a time.
                     </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-700 transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-700 transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm1-18h-2v8h2V4zm0 10h-2v2h2v-2z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-700 transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
                 
                 <div>
@@ -964,6 +1051,8 @@
                         <li><a href="products.html" class="hover:text-amber-400 transition">All Products</a></li>
                         <li><a href="products.html" class="hover:text-amber-400 transition">Nuts</a></li>
                         <li><a href="products.html" class="hover:text-amber-400 transition">Seeds</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Trail Mix</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Best Sellers</a></li>
                     </ul>
                 </div>
                 
@@ -971,8 +1060,10 @@
                     <h4 class="font-bold text-lg mb-4">Company</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
                         <li><a href="index.html#about" class="hover:text-amber-400 transition">About Us</a></li>
+                        <li><a href="index.html#about" class="hover:text-amber-400 transition">Our Story</a></li>
+                        <li><a href="index.html#about" class="hover:text-amber-400 transition">Sustainability</a></li>
                         <li><a href="index.html#benefits" class="hover:text-amber-400 transition">Blog</a></li>
-                        <li><a href="index.html#contact" class="hover:text-amber-400 transition">Contact</a></li>
+                        <li><a href="index.html#contact" class="hover:text-amber-400 transition">Careers</a></li>
                     </ul>
                 </div>
                 
@@ -980,16 +1071,25 @@
                     <h4 class="font-bold text-lg mb-4">Support</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
                         <li><a href="index.html#contact" class="hover:text-amber-400 transition">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">Shipping Info</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">Returns</a></li>
                         <li><a href="#" class="hover:text-amber-400 transition">FAQ</a></li>
                         <li><a href="#" class="hover:text-amber-400 transition">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
             
-            <div class="pt-8 border-t border-gray-800 text-center">
-                <p class="text-sm text-gray-400">
-                    &copy; 2024 GT Nutri Bites. All rights reserved. Made with 🌱 for a healthier world.
-                </p>
+            <div class="pt-8 border-t border-gray-800">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-gray-400 text-center md:text-left">
+                        &copy; 2024 GT Nutri Bites. All rights reserved. Made with 🌱 for a healthier world.
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='25' fill='%23fff'%3E%3Crect width='40' height='25' rx='3' fill='%23333'/%3E%3Ctext x='20' y='17' font-family='Arial' font-size='10' text-anchor='middle' fill='%23fff'%3EVISA%3C/text%3E%3C/svg%3E" alt="Visa" class="h-6">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='25' fill='%23fff'%3E%3Crect width='40' height='25' rx='3' fill='%23333'/%3E%3Ccircle cx='15' cy='12.5' r='6' fill='%23EB001B'/%3E%3Ccircle cx='25' cy='12.5' r='6' fill='%23F79E1B'/%3E%3C/svg%3E" alt="Mastercard" class="h-6">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='25' fill='%23fff'%3E%3Crect width='40' height='25' rx='3' fill='%23333'/%3E%3Ctext x='20' y='17' font-family='Arial' font-size='8' text-anchor='middle' fill='%23169BD7'%3EPayPal%3C/text%3E%3C/svg%3E" alt="PayPal" class="h-6">
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
@@ -1581,6 +1681,122 @@ mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
 
 document.querySelectorAll('#mobile-menu a').forEach(link => {
     link.addEventListener('click', closeMobileMenu);
+});
+
+// ==========================================
+// SCROLL PROGRESS BAR
+// ==========================================
+window.addEventListener('scroll', () => {
+    const scrollProgress = document.getElementById('scroll-progress');
+    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (window.scrollY / windowHeight) * 100;
+    scrollProgress.style.width = scrolled + '%';
+});
+
+// ==========================================
+// SEARCH FUNCTIONALITY
+// ==========================================
+const searchBtn = document.getElementById('search-btn');
+const searchDropdown = document.getElementById('search-dropdown');
+const searchInput = document.getElementById('search-input');
+const searchResultsList = document.getElementById('search-results-list');
+
+// Products will be loaded from JSON
+let searchProducts = [];
+
+// Load products from JSON for search
+async function loadSearchProducts() {
+    try {
+        const response = await fetch('data/products.json');
+        if (!response.ok) {
+            throw new Error('Failed to load products');
+        }
+        const data = await response.json();
+        // Map to search-friendly format
+        searchProducts = data.products.map(p => ({
+            name: p.name,
+            category: p.category,
+            price: `$${p.price.toFixed(2)}`
+        }));
+    } catch (error) {
+        console.error('Error loading products for search:', error);
+        // Fallback to empty array
+        searchProducts = [];
+    }
+}
+
+// Load products on page load
+let productsLoaded = false;
+loadSearchProducts().then(() => {
+    productsLoaded = true;
+});
+
+searchBtn.addEventListener('click', () => {
+    searchDropdown.classList.toggle('active');
+    if (searchDropdown.classList.contains('active')) {
+        searchInput.focus();
+    }
+});
+
+searchInput.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase();
+    
+    // Show loading message if products haven't loaded yet
+    if (!productsLoaded) {
+        searchResultsList.textContent = 'Loading products...';
+        searchResultsList.className = 'text-gray-500 text-sm p-3';
+        return;
+    }
+    
+    if (query.length > 0) {
+        const filtered = searchProducts.filter(p => 
+            p.name.toLowerCase().includes(query) || 
+            p.category.toLowerCase().includes(query)
+        );
+        
+        if (filtered.length > 0) {
+            searchResultsList.innerHTML = '';
+            filtered.forEach(p => {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition';
+                
+                const nameDiv = document.createElement('div');
+                nameDiv.className = 'font-semibold text-gray-900';
+                nameDiv.textContent = p.name;
+                
+                const detailsDiv = document.createElement('div');
+                detailsDiv.className = 'text-sm text-gray-500';
+                detailsDiv.textContent = `${p.category} • ${p.price}`;
+                
+                resultDiv.appendChild(nameDiv);
+                resultDiv.appendChild(detailsDiv);
+                searchResultsList.appendChild(resultDiv);
+            });
+        } else {
+            searchResultsList.textContent = 'No products found';
+            searchResultsList.className = 'text-gray-500 text-sm p-3';
+        }
+    } else {
+        searchResultsList.textContent = 'Start typing to search...';
+        searchResultsList.className = 'text-gray-500 text-sm p-3';
+    }
+});
+
+// Close search on click outside
+document.addEventListener('click', (e) => {
+    if (!searchBtn.contains(e.target) && !searchDropdown.contains(e.target)) {
+        searchDropdown.classList.remove('active');
+    }
+});
+
+// Keyboard accessibility
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        mobileMenu.classList.remove('active');
+        mobileMenuBackdrop.classList.remove('active');
+        document.body.style.overflow = '';
+        searchDropdown.classList.remove('active');
+    }
 });
 
 // ==========================================

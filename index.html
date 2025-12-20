@@ -1,1 +1,1077 @@
-Test
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriNest - Premium Nuts & Seeds Online</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2D5016;
+            --primary-light: #4A7C24;
+            --accent: #E8B44C;
+            --accent-dark: #D9A03D;
+            --cream: #FFF8F0;
+            --text-dark: #1F2937;
+            --text-muted: #6B7280;
+            --earth: #8B6F47;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .display-font {
+            font-family: 'Libre Baskerville', serif;
+        }
+
+        /* Background effects */
+        .organic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(74, 124, 36, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(232, 180, 76, 0.08) 0%, transparent 50%);
+        }
+
+        .texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            opacity: 0.015;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.2); }
+            50% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.4); }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .animate-slide-in-right {
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .delay-100 { animation-delay: 0.1s; opacity: 0; }
+        .delay-200 { animation-delay: 0.2s; opacity: 0; }
+        .delay-300 { animation-delay: 0.3s; opacity: 0; }
+        .delay-400 { animation-delay: 0.4s; opacity: 0; }
+        .delay-500 { animation-delay: 0.5s; opacity: 0; }
+        .delay-600 { animation-delay: 0.6s; opacity: 0; }
+
+        /* Custom components */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--primary-light);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+
+        .btn-primary:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(45, 80, 22, 0.2);
+        }
+
+        .btn-secondary {
+            background: var(--accent);
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(232, 180, 76, 0.3);
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #F3F4F6;
+            transition: all 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(45, 80, 22, 0.15);
+        }
+
+        .product-card {
+            background: white;
+            border: 2px solid #F3F4F6;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(45, 80, 22, 0.12);
+            border-color: var(--accent);
+        }
+
+        .product-badge {
+            background: var(--primary);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 10;
+        }
+
+        .price-tag {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .old-price {
+            color: var(--text-muted);
+            text-decoration: line-through;
+            font-size: 1rem;
+        }
+
+        .stat-number {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        /* Decorative elements */
+        .accent-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .leaf-icon {
+            color: var(--primary);
+        }
+
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0.2;
+        }
+
+        /* Shopping cart badge */
+        .cart-badge {
+            background: var(--accent);
+            color: var(--text-dark);
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -6px;
+            right: -6px;
+        }
+
+        /* Category pills */
+        .category-pill {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-pill:hover,
+        .category-pill.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Trust badges */
+        .trust-badge {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .trust-badge:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Image placeholder gradient for products */
+        .product-image-placeholder {
+            background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background effects -->
+    <div class="organic-bg"></div>
+    <div class="texture"></div>
+
+    <!-- Navigation -->
+    <nav class="relative z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2 animate-fade-in">
+                    <div class="flex items-center space-x-1">
+                        <svg class="w-8 h-8 text-green-700" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                        </svg>
+                        <span class="text-2xl font-bold display-font text-green-800">NutriNest</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8 animate-fade-in delay-200">
+                    <a href="#shop" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Shop</a>
+                    <a href="#about" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">About</a>
+                    <a href="#benefits" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Health Benefits</a>
+                    <a href="#contact" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Contact</a>
+                </div>
+
+                <!-- Cart & CTA -->
+                <div class="hidden md:flex items-center space-x-4 animate-fade-in delay-300">
+                    <button class="relative p-2 hover:bg-gray-100 rounded-full transition">
+                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="cart-badge">3</span>
+                    </button>
+                    <button class="btn-primary px-6 py-2.5 rounded-full font-medium text-sm">
+                        <span>Shop Now</span>
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-white shadow-2xl md:hidden z-50 p-6">
+            <button id="close-menu" class="absolute top-6 right-6 text-gray-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <div class="mt-16 space-y-6">
+                <a href="#shop" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Shop</a>
+                <a href="#about" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">About</a>
+                <a href="#benefits" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Health Benefits</a>
+                <a href="#contact" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Contact</a>
+                <div class="pt-4 border-t border-gray-200">
+                    <button class="relative w-full flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition">
+                        <span class="font-medium text-gray-700">Shopping Cart</span>
+                        <div class="relative">
+                            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            <span class="cart-badge">3</span>
+                        </div>
+                    </button>
+                </div>
+                <button class="btn-primary w-full px-6 py-3 rounded-full font-medium text-sm mt-4">
+                    <span>Shop Now</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-12 pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-amber-50 to-cream">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-flex items-center space-x-2 bg-green-100 text-green-800 px-4 py-2 rounded-full mb-6 animate-fade-in-up">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="text-sm font-semibold">100% Organic & Fresh</span>
+                    </div>
+                    
+                    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold display-font leading-tight mb-6 text-gray-900 animate-fade-in-up delay-100">
+                        Nature's Finest
+                        <span class="block text-green-700">
+                            Nuts & Seeds
+                        </span>
+                    </h1>
+                    
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed animate-fade-in-up delay-200">
+                        Premium quality nuts and seeds, sourced directly from sustainable farms. Packed with nutrients, perfect for your healthy lifestyle.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-in-up delay-300">
+                        <button class="btn-primary px-8 py-4 rounded-full font-semibold flex items-center justify-center space-x-2">
+                            <span>Shop All Products</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </button>
+                        <button class="px-8 py-4 rounded-full font-semibold border-2 border-green-700 text-green-700 hover:bg-green-700 hover:text-white transition">
+                            Learn More
+                        </button>
+                    </div>
+
+                    <!-- Trust Indicators -->
+                    <div class="grid grid-cols-3 gap-6 animate-fade-in-up delay-400">
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div class="text-sm font-semibold text-gray-700">Certified Organic</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div class="text-sm font-semibold text-gray-700">Fresh Daily</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                            </div>
+                            <div class="text-sm font-semibold text-gray-700">Free Shipping</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Image - Product Display -->
+                <div class="relative animate-fade-in delay-300">
+                    <div class="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-amber-100 to-green-100 p-8">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <!-- Decorative nuts illustration -->
+                            <div class="relative w-full h-full flex items-center justify-center">
+                                <div class="absolute top-10 left-10 w-24 h-24 bg-amber-200 rounded-full opacity-50 animate-float"></div>
+                                <div class="absolute bottom-10 right-10 w-32 h-32 bg-green-200 rounded-full opacity-50 animate-float" style="animation-delay: 0.5s;"></div>
+                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    <svg class="w-64 h-64 text-green-700 opacity-20" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Product showcase circles -->
+                        <div class="relative z-10 flex items-center justify-center h-full">
+                            <div class="text-center bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-xl">
+                                <div class="text-6xl font-bold display-font text-green-800 mb-2">500+</div>
+                                <div class="text-gray-600 font-semibold">Premium Products</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-7xl mx-auto my-8"></div>
+
+    <!-- Category Filter -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold display-font text-gray-900 mb-2">Shop by Category</h2>
+                <p class="text-gray-600">Discover our carefully curated selection</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-3">
+                <button class="category-pill active px-6 py-2.5 rounded-full font-semibold text-sm">All Products</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm">Nuts</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm">Seeds</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm">Mix & Trail</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm">Dried Fruits</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm">Best Sellers</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="shop" class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl sm:text-5xl font-bold display-font text-gray-900 mb-4">Featured Products</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Handpicked selection of our premium nuts and seeds
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product Card 1 -->
+                <div class="product-card rounded-2xl overflow-hidden animate-fade-in-up delay-100">
+                    <div class="product-badge">BEST SELLER</div>
+                    <div class="product-image-placeholder aspect-square flex items-center justify-center p-6">
+                        <svg class="w-32 h-32 text-amber-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-green-700 font-semibold mb-2">Organic Almonds</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Premium California Almonds</h3>
+                        <p class="text-gray-600 text-sm mb-4">Raw, unsalted, and packed with nutrients</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span class="price-tag">$18.99</span>
+                                <span class="old-price ml-2">$24.99</span>
+                            </div>
+                            <div class="text-sm text-gray-500">500g</div>
+                        </div>
+                        <button class="btn-primary w-full py-3 rounded-full font-semibold text-sm">
+                            <span>Add to Cart</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="product-card rounded-2xl overflow-hidden animate-fade-in-up delay-200">
+                    <div class="product-badge bg-amber-500">NEW</div>
+                    <div class="product-image-placeholder aspect-square flex items-center justify-center p-6">
+                        <svg class="w-32 h-32 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-green-700 font-semibold mb-2">Organic Seeds</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Chia Seeds Super Pack</h3>
+                        <p class="text-gray-600 text-sm mb-4">Omega-3 rich superfood</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span class="price-tag">$14.99</span>
+                            </div>
+                            <div class="text-sm text-gray-500">400g</div>
+                        </div>
+                        <button class="btn-primary w-full py-3 rounded-full font-semibold text-sm">
+                            <span>Add to Cart</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="product-card rounded-2xl overflow-hidden animate-fade-in-up delay-300">
+                    <div class="product-image-placeholder aspect-square flex items-center justify-center p-6">
+                        <svg class="w-32 h-32 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-green-700 font-semibold mb-2">Premium Nuts</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Roasted Cashews</h3>
+                        <p class="text-gray-600 text-sm mb-4">Lightly salted perfection</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span class="price-tag">$22.99</span>
+                            </div>
+                            <div class="text-sm text-gray-500">600g</div>
+                        </div>
+                        <button class="btn-primary w-full py-3 rounded-full font-semibold text-sm">
+                            <span>Add to Cart</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="product-card rounded-2xl overflow-hidden animate-fade-in-up delay-400">
+                    <div class="product-badge bg-red-600">SALE</div>
+                    <div class="product-image-placeholder aspect-square flex items-center justify-center p-6">
+                        <svg class="w-32 h-32 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-green-700 font-semibold mb-2">Trail Mix</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Energy Boost Mix</h3>
+                        <p class="text-gray-600 text-sm mb-4">Perfect blend of nuts & dried fruits</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span class="price-tag">$16.99</span>
+                                <span class="old-price ml-2">$21.99</span>
+                            </div>
+                            <div class="text-sm text-gray-500">450g</div>
+                        </div>
+                        <button class="btn-primary w-full py-3 rounded-full font-semibold text-sm">
+                            <span>Add to Cart</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Card 5 -->
+                <div class="product-card rounded-2xl overflow-hidden animate-fade-in-up delay-500">
+                    <div class="product-image-placeholder aspect-square flex items-center justify-center p-6">
+                        <svg class="w-32 h-32 text-yellow-700" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-green-700 font-semibold mb-2">Premium Seeds</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Sunflower Seeds</h3>
+                        <p class="text-gray-600 text-sm mb-4">Roasted & lightly salted</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span class="price-tag">$12.99</span>
+                            </div>
+                            <div class="text-sm text-gray-500">350g</div>
+                        </div>
+                        <button class="btn-primary w-full py-3 rounded-full font-semibold text-sm">
+                            <span>Add to Cart</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Card 6 -->
+                <div class="product-card rounded-2xl overflow-hidden animate-fade-in-up delay-600">
+                    <div class="product-image-placeholder aspect-square flex items-center justify-center p-6">
+                        <svg class="w-32 h-32 text-red-700" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-green-700 font-semibold mb-2">Organic Nuts</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Raw Walnuts</h3>
+                        <p class="text-gray-600 text-sm mb-4">Heart-healthy omega-3</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span class="price-tag">$19.99</span>
+                            </div>
+                            <div class="text-sm text-gray-500">500g</div>
+                        </div>
+                        <button class="btn-primary w-full py-3 rounded-full font-semibold text-sm">
+                            <span>Add to Cart</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Card 7 -->
+                <div class="product-card rounded-2xl overflow-hidden animate-fade-in-up delay-100">
+                    <div class="product-image-placeholder aspect-square flex items-center justify-center p-6">
+                        <svg class="w-32 h-32 text-lime-700" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-green-700 font-semibold mb-2">Superfood Seeds</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Pumpkin Seeds</h3>
+                        <p class="text-gray-600 text-sm mb-4">High in zinc & magnesium</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span class="price-tag">$13.99</span>
+                            </div>
+                            <div class="text-sm text-gray-500">400g</div>
+                        </div>
+                        <button class="btn-primary w-full py-3 rounded-full font-semibold text-sm">
+                            <span>Add to Cart</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Card 8 -->
+                <div class="product-card rounded-2xl overflow-hidden animate-fade-in-up delay-200">
+                    <div class="product-badge bg-green-600">ORGANIC</div>
+                    <div class="product-image-placeholder aspect-square flex items-center justify-center p-6">
+                        <svg class="w-32 h-32 text-pink-700" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-green-700 font-semibold mb-2">Premium Mix</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Deluxe Nut Mix</h3>
+                        <p class="text-gray-600 text-sm mb-4">Almonds, cashews & pistachios</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <span class="price-tag">$24.99</span>
+                            </div>
+                            <div class="text-sm text-gray-500">600g</div>
+                        </div>
+                        <button class="btn-primary w-full py-3 rounded-full font-semibold text-sm">
+                            <span>Add to Cart</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <button class="px-10 py-4 rounded-full font-semibold border-2 border-green-700 text-green-700 hover:bg-green-700 hover:text-white transition">
+                    View All Products
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-7xl mx-auto my-16"></div>
+
+    <!-- Health Benefits Section -->
+    <section id="benefits" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 to-cream">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl sm:text-5xl font-bold display-font text-gray-900 mb-4">Why Nuts & Seeds?</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Packed with essential nutrients and incredible health benefits
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Benefit 1 -->
+                <div class="trust-badge">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Heart Healthy</h3>
+                    <p class="text-gray-600 text-sm">
+                        Rich in omega-3 and healthy fats that support cardiovascular health
+                    </p>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="trust-badge">
+                    <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Energy Boost</h3>
+                    <p class="text-gray-600 text-sm">
+                        Natural source of protein and fiber for sustained energy throughout the day
+                    </p>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="trust-badge">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Brain Power</h3>
+                    <p class="text-gray-600 text-sm">
+                        Packed with vitamins and minerals that support cognitive function
+                    </p>
+                </div>
+
+                <!-- Benefit 4 -->
+                <div class="trust-badge">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Weight Management</h3>
+                    <p class="text-gray-600 text-sm">
+                        High in protein and fiber to keep you feeling full and satisfied
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl sm:text-5xl font-bold display-font text-gray-900 mb-6">
+                        Why Choose
+                        <span class="text-green-700">NutriNest?</span>
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                        We're passionate about bringing you the finest quality nuts and seeds, sourced ethically and sustainably from trusted farms around the world.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-1">100% Organic Certified</h3>
+                                <p class="text-gray-600">All our products are certified organic and free from harmful chemicals and pesticides.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-1">Sustainably Sourced</h3>
+                                <p class="text-gray-600">We work directly with farmers who practice sustainable and ethical farming methods.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-1">Always Fresh</h3>
+                                <p class="text-gray-600">Small batch processing ensures maximum freshness and flavor in every package.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="aspect-square rounded-3xl bg-gradient-to-br from-green-200 via-amber-100 to-green-100 p-12 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="text-7xl font-bold display-font text-green-800 mb-4">5★</div>
+                            <div class="text-2xl font-semibold text-gray-700 mb-2">Rated Excellent</div>
+                            <div class="text-gray-600">Based on 2,500+ reviews</div>
+                            <div class="mt-8 flex justify-center space-x-2">
+                                <svg class="w-8 h-8 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                                <svg class="w-8 h-8 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                                <svg class="w-8 h-8 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                                <svg class="w-8 h-8 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                                <svg class="w-8 h-8 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter CTA Section -->
+    <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-700 to-green-800">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl sm:text-5xl font-bold display-font text-white mb-6 animate-fade-in-up">
+                Join Our Healthy Community
+            </h2>
+            <p class="text-xl text-green-100 mb-10 animate-fade-in-up delay-100">
+                Subscribe to get exclusive offers, recipes, and health tips delivered to your inbox
+            </p>
+            
+            <div class="max-w-md mx-auto mb-8 animate-fade-in-up delay-200">
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input 
+                        type="email" 
+                        placeholder="Enter your email" 
+                        class="flex-1 px-6 py-4 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    />
+                    <button class="btn-secondary px-8 py-4 rounded-full font-semibold whitespace-nowrap">
+                        Subscribe Now
+                    </button>
+                </div>
+            </div>
+
+            <p class="text-sm text-green-200 animate-fade-in-up delay-300">
+                🎁 Get 10% off your first order when you subscribe
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <svg class="w-8 h-8 text-amber-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                        </svg>
+                        <span class="text-2xl font-bold display-font">NutriNest</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 max-w-sm">
+                        Your trusted source for premium organic nuts and seeds. Nourishing lives, one handful at a time.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-700 transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-700 transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm1-18h-2v8h2V4zm0 10h-2v2h2v-2z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-700 transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Shop</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-amber-400 transition">All Products</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">Nuts</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">Seeds</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">Trail Mix</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">Best Sellers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-amber-400 transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">Our Story</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">Sustainability</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">Blog</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-amber-400 transition">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">Shipping Info</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">Returns</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">FAQ</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-gray-400 text-center md:text-left">
+                        &copy; 2024 NutriNest. All rights reserved. Made with 🌱 for a healthier world.
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='25' fill='%23fff'%3E%3Crect width='40' height='25' rx='3' fill='%23333'/%3E%3Ctext x='20' y='17' font-family='Arial' font-size='10' text-anchor='middle' fill='%23fff'%3EVISA%3C/text%3E%3C/svg%3E" alt="Visa" class="h-6">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='25' fill='%23fff'%3E%3Crect width='40' height='25' rx='3' fill='%23333'/%3E%3Ccircle cx='15' cy='12.5' r='6' fill='%23EB001B'/%3E%3Ccircle cx='25' cy='12.5' r='6' fill='%23F79E1B'/%3E%3C/svg%3E" alt="Mastercard" class="h-6">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='25' fill='%23fff'%3E%3Crect width='40' height='25' rx='3' fill='%23333'/%3E%3Ctext x='20' y='17' font-family='Arial' font-size='8' text-anchor='middle' fill='%23169BD7'%3EPayPal%3C/text%3E%3C/svg%3E" alt="PayPal" class="h-6">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenuBtn = document.getElementById('close-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Category filter functionality
+        const categoryPills = document.querySelectorAll('.category-pill');
+        categoryPills.forEach(pill => {
+            pill.addEventListener('click', function() {
+                categoryPills.forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe cards and products for scroll animations
+        document.querySelectorAll('.card, .product-card, .trust-badge').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Add to cart animation
+        document.querySelectorAll('.product-card button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Simple feedback animation
+                const originalText = this.querySelector('span').textContent;
+                this.querySelector('span').textContent = 'Added! ✓';
+                this.style.backgroundColor = 'var(--primary-light)';
+                
+                setTimeout(() => {
+                    this.querySelector('span').textContent = originalText;
+                    this.style.backgroundColor = '';
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>

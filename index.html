@@ -37,6 +37,8 @@
             --text-dark: #1F2937;
             --text-muted: #6B7280;
             --earth: #8B6F47;
+            --error: #DC2626;
+            --info: #2563EB;
         }
 
         * {
@@ -924,11 +926,11 @@
         }
         
         .toast.toast-error {
-            background: #DC2626;
+            background: var(--error);
         }
         
         .toast.toast-info {
-            background: #2563EB;
+            background: var(--info);
         }
         
         .toast.toast-out {
@@ -2033,6 +2035,9 @@
             link.addEventListener('click', closeMobileMenu);
         });
 
+        // Cache nav element for smooth scrolling
+        const navElement = document.querySelector('nav');
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -2042,7 +2047,7 @@
                 e.preventDefault();
                 const target = document.querySelector(href);
                 if (target) {
-                    const navHeight = document.querySelector('nav').offsetHeight;
+                    const navHeight = navElement.offsetHeight;
                     const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
                     
                     window.scrollTo({

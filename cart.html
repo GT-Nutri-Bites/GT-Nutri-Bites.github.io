@@ -29,6 +29,8 @@
             --text-dark: #1F2937;
             --text-muted: #6B7280;
             --earth: #8B6F47;
+            --error: #DC2626;
+            --info: #2563EB;
         }
 
         * {
@@ -661,7 +663,11 @@
         }
         
         .toast.toast-error {
-            background: #DC2626;
+            background: var(--error);
+        }
+        
+        .toast.toast-info {
+            background: var(--info);
         }
         
         .toast.toast-out {

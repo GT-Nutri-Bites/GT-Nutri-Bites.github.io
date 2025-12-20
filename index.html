@@ -45,11 +45,26 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             background: var(--cream);
             color: var(--text-dark);
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main, .main-content {
+            flex: 1 0 auto;
+        }
+
+        footer {
+            flex-shrink: 0;
         }
 
         .display-font {
@@ -1654,29 +1669,29 @@
                 <div>
                     <h4 class="font-bold text-lg mb-4">Shop</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-amber-400 transition">All Products</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">Nuts</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">Seeds</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">Trail Mix</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">Best Sellers</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">All Products</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Nuts</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Seeds</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Trail Mix</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Best Sellers</a></li>
                     </ul>
                 </div>
                 
                 <div>
                     <h4 class="font-bold text-lg mb-4">Company</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-amber-400 transition">About Us</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">Our Story</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">Sustainability</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">Blog</a></li>
-                        <li><a href="#" class="hover:text-amber-400 transition">Careers</a></li>
+                        <li><a href="#about" class="hover:text-amber-400 transition">About Us</a></li>
+                        <li><a href="#about" class="hover:text-amber-400 transition">Our Story</a></li>
+                        <li><a href="#about" class="hover:text-amber-400 transition">Sustainability</a></li>
+                        <li><a href="#benefits" class="hover:text-amber-400 transition">Blog</a></li>
+                        <li><a href="#contact" class="hover:text-amber-400 transition">Careers</a></li>
                     </ul>
                 </div>
                 
                 <div>
                     <h4 class="font-bold text-lg mb-4">Support</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-amber-400 transition">Contact Us</a></li>
+                        <li><a href="#contact" class="hover:text-amber-400 transition">Contact Us</a></li>
                         <li><a href="#" class="hover:text-amber-400 transition">Shipping Info</a></li>
                         <li><a href="#" class="hover:text-amber-400 transition">Returns</a></li>
                         <li><a href="#" class="hover:text-amber-400 transition">FAQ</a></li>

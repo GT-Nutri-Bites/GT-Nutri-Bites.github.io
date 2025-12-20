@@ -808,6 +808,14 @@
     </footer>
 
     <script>
+        // HTML escape helper function to prevent XSS
+        function escapeHtml(text) {
+            if (text == null) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
         // Cart Management System
         class CartManager {
             constructor() {
@@ -1137,11 +1145,11 @@
                 timestamp: new Date().toISOString()
             };
 
-            // Build order items HTML for email template
+            // Build order items HTML for email template (with HTML escaping)
             const orderItemsHtml = cartManager.cart.map(item => `
                 <tr style="border-bottom: 1px solid #E5E7EB;">
-                    <td style="text-align: left; padding: 12px; font-size: 14px; color: #1F2937;">${item.name}</td>
-                    <td style="text-align: center; padding: 12px; font-size: 14px; color: #6B7280;">${item.weight}</td>
+                    <td style="text-align: left; padding: 12px; font-size: 14px; color: #1F2937;">${escapeHtml(item.name)}</td>
+                    <td style="text-align: center; padding: 12px; font-size: 14px; color: #6B7280;">${escapeHtml(item.weight)}</td>
                     <td style="text-align: right; padding: 12px; font-size: 14px; color: #1F2937;">$${item.price.toFixed(2)}</td>
                     <td style="text-align: center; padding: 12px; font-size: 14px; color: #1F2937;">${item.quantity}</td>
                     <td style="text-align: right; padding: 12px; font-size: 14px; font-weight: 600; color: #2D5016;">$${(item.price * item.quantity).toFixed(2)}</td>
@@ -1176,15 +1184,63 @@
                 order_notes: formData.notes || ''
             };
 
+            // Generate order items for customer email (simplified format with HTML escaping)
+            const orderItemsCustomer = cartManager.cart.map(item => `
+                <tr style="border-bottom: 1px solid #e5e7eb;">
+                    <td style="padding: 12px; text-align: left;">
+                        <strong style="color: #1F2937;">${escapeHtml(item.name)}</strong><br>
+                        <span style="color: #6B7280; font-size: 12px;">${escapeHtml(item.category)} • ${escapeHtml(item.weight)}</span>
+                    </td>
+                    <td style="padding: 12px; text-align: center; color: #1F2937; font-weight: 600;">${item.quantity}</td>
+                    <td style="padding: 12px; text-align: right; color: #2D5016; font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</td>
+                </tr>
+            `).join('');
+
+            // Email template parameters for CUSTOMER
+            const customerEmailParams = {
+                order_number: orderNumber,
+                order_date: orderDate,
+                order_time: orderTime,
+                customer_name: `${formData.personal.firstName} ${formData.personal.lastName}`,
+                customer_first_name: formData.personal.firstName,
+                customer_email: formData.personal.email,
+                customer_phone: formData.personal.phone,
+                shipping_address: formData.shipping.address,
+                shipping_address2: formData.shipping.address2 || '',
+                shipping_city: formData.shipping.city,
+                shipping_state: formData.shipping.state,
+                shipping_zip: formData.shipping.zip,
+                order_items_customer: orderItemsCustomer,
+                subtotal: formData.totals.subtotal.toFixed(2),
+                shipping_cost: formData.totals.shipping === 0 ? 'FREE' : formData.totals.shipping.toFixed(2),
+                tax: formData.totals.tax.toFixed(2),
+                total: formData.totals.total.toFixed(2),
+                if_shipping_address2: formData.shipping.address2
+            };
+
             try {
-                // Send email via EmailJS
-                const response = await emailjs.send(
+                // Send admin notification email
+                const adminResponse = await emailjs.send(
                     'service_e14q4pw',
                     'template_a1t1vju',
                     templateParams
                 );
 
-                console.log('Email sent successfully:', response);
+                console.log('Admin email sent successfully:', adminResponse);
+
+                // Send customer confirmation email
+                try {
+                    const customerResponse = await emailjs.send(
+                        'service_e14q4pw',
+                        'template_v2md02b',
+                        customerEmailParams
+                    );
+                    console.log('Customer email sent successfully:', customerResponse);
+                } catch (customerEmailError) {
+                    // Log error but don't fail the order - admin email was sent
+                    console.error('Customer email failed, but order was placed:', customerEmailError);
+                    alert('Order placed successfully! Note: There was an issue sending your confirmation email. Our team will contact you shortly.');
+                }
 
                 // Update order number display
                 document.getElementById('order-number').textContent = orderNumber;

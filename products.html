@@ -710,6 +710,121 @@
                     fiber: '2.5g'
                 },
                 icon: 'pink'
+            },
+            {
+                id: 9,
+                name: 'Premium Pistachios',
+                category: 'Gourmet Nuts',
+                type: 'nuts',
+                price: 21.99,
+                oldPrice: null,
+                weight: '450g',
+                badge: null,
+                badgeColor: null,
+                description: 'Roasted & lightly salted green gems',
+                fullDescription: 'Our Premium Pistachios are carefully selected from the finest orchards. These vibrant green nuts are roasted to perfection and lightly salted to enhance their natural flavor. Rich in antioxidants, healthy fats, and protein, pistachios are the perfect guilt-free snack that supports eye health and weight management.',
+                benefits: ['Rich in antioxidants', 'Supports eye health', 'High in protein and fiber', 'May aid in weight management'],
+                nutrition: {
+                    calories: '159 per 28g serving',
+                    protein: '6g',
+                    fat: '13g',
+                    carbs: '8g',
+                    fiber: '3g'
+                },
+                emoji: '🥜',
+                useEmoji: true
+            },
+            {
+                id: 10,
+                name: 'Organic Hazelnuts',
+                category: 'Premium Nuts',
+                type: 'nuts',
+                price: 20.99,
+                oldPrice: null,
+                weight: '500g',
+                badge: null,
+                badgeColor: null,
+                description: 'Rich, buttery & heart-healthy',
+                fullDescription: 'Our Organic Hazelnuts (also known as filberts) offer a rich, buttery flavor and satisfying crunch. Sourced from certified organic orchards, these hazelnuts are packed with vitamin E, healthy fats, and antioxidants. Perfect for snacking, baking, or making homemade hazelnut spread.',
+                benefits: ['Extremely high in Vitamin E', 'Rich in antioxidants', 'Supports heart health', 'Good source of folate'],
+                nutrition: {
+                    calories: '178 per 28g serving',
+                    protein: '4.2g',
+                    fat: '17g',
+                    carbs: '5g',
+                    fiber: '2.7g'
+                },
+                emoji: '🌰',
+                useEmoji: true
+            },
+            {
+                id: 11,
+                name: 'Macadamia Nuts',
+                category: 'Luxury Nuts',
+                type: 'nuts',
+                price: 26.99,
+                oldPrice: 32.99,
+                weight: '400g',
+                badge: 'PREMIUM',
+                badgeColor: 'bg-purple-600',
+                description: 'Buttery smooth & luxurious',
+                fullDescription: 'Experience luxury with our premium Macadamia Nuts. Known for their rich, buttery texture and delicate flavor, these nuts are the crown jewel of the nut world. Sourced from sustainable farms, macadamias are packed with monounsaturated fats, thiamin, and manganese. A true indulgence that\'s good for your heart.',
+                benefits: ['Highest in monounsaturated fats', 'Supports heart health', 'Rich in thiamin', 'Contains manganese'],
+                nutrition: {
+                    calories: '204 per 28g serving',
+                    protein: '2.2g',
+                    fat: '21g',
+                    carbs: '4g',
+                    fiber: '2.4g'
+                },
+                emoji: '🥜',
+                useEmoji: true
+            },
+            {
+                id: 12,
+                name: 'Roasted Peanuts',
+                category: 'Classic Nuts',
+                type: 'nuts',
+                price: 11.99,
+                oldPrice: null,
+                weight: '600g',
+                badge: 'VALUE PACK',
+                badgeColor: 'bg-blue-600',
+                description: 'Classic favorite, protein-packed',
+                fullDescription: 'Our Roasted Peanuts are a timeless classic! Dry roasted to perfection and lightly salted, these protein-rich legumes (yes, technically not a nut!) are perfect for snacking, baking, or making homemade peanut butter. Packed with protein, healthy fats, and essential nutrients, they\'re both delicious and nutritious.',
+                benefits: ['High in protein', 'Rich in healthy fats', 'Good source of biotin', 'Contains resveratrol'],
+                nutrition: {
+                    calories: '161 per 28g serving',
+                    protein: '7.3g',
+                    fat: '14g',
+                    carbs: '5g',
+                    fiber: '2.4g'
+                },
+                emoji: '🥜',
+                useEmoji: true
+            },
+            {
+                id: 13,
+                name: 'Organic Flax Seeds',
+                category: 'Superfood Seeds',
+                type: 'seeds',
+                price: 13.49,
+                oldPrice: null,
+                weight: '450g',
+                badge: 'NEW',
+                badgeColor: 'bg-amber-500',
+                description: 'Omega-3 powerhouse for wellness',
+                fullDescription: 'Our Organic Flax Seeds are a nutritional powerhouse, offering one of the richest plant-based sources of omega-3 fatty acids. These tiny seeds are packed with lignans, fiber, and essential nutrients. Perfect for adding to smoothies, oatmeal, or baked goods. For best absorption, grind before consuming.',
+                benefits: ['Richest plant source of Omega-3', 'High in dietary fiber', 'Contains lignans', 'Supports digestive health'],
+                nutrition: {
+                    calories: '150 per 28g serving',
+                    protein: '5.1g',
+                    fat: '12g',
+                    carbs: '8g',
+                    fiber: '7.6g'
+                },
+                emoji: '🌾',
+                useEmoji: true
             }
         ];
 
@@ -739,9 +854,12 @@
                         </svg>
                     </button>
                     <div class="product-image-placeholder aspect-square flex items-center justify-center p-6 bg-gradient-to-br from-gray-100 to-gray-200">
-                        <svg class="w-32 h-32 ${iconColors[product.icon]}" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                        </svg>
+                        ${product.useEmoji ? 
+                            `<div class="text-8xl">${product.emoji}</div>` :
+                            `<svg class="w-32 h-32 ${iconColors[product.icon] || 'text-gray-600'}" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                            </svg>`
+                        }
                     </div>
                     <div class="p-6">
                         <div class="text-sm text-green-700 font-semibold mb-2">${product.category}</div>
@@ -780,9 +898,12 @@
                 <div class="grid md:grid-cols-2 gap-8">
                     <div>
                         <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center mb-4">
-                            <svg class="w-48 h-48 ${iconColors[product.icon]}" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                            </svg>
+                            ${product.useEmoji ? 
+                                `<div class="text-9xl">${product.emoji}</div>` :
+                                `<svg class="w-48 h-48 ${iconColors[product.icon] || 'text-gray-600'}" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                </svg>`
+                            }
                         </div>
                         ${product.badge ? `<span class="inline-block px-4 py-2 ${product.badgeColor} text-white rounded-full text-sm font-semibold">${product.badge}</span>` : ''}
                     </div>

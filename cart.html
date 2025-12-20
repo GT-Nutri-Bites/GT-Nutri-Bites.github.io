@@ -300,11 +300,16 @@
 
         /* Print Styles - Optimized for A4 paper */
         @media print {
-            /* Reset everything */
+            /* Set page size and margins first */
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+            
+            /* Ensure colors print correctly */
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
-                color-adjust: exact !important;
             }
             
             /* Hide everything except print area */
@@ -485,12 +490,6 @@
             .bill-header,
             #print-area .grid {
                 page-break-inside: avoid !important;
-            }
-            
-            /* Set page margins */
-            @page {
-                size: A4;
-                margin: 10mm;
             }
         }
 

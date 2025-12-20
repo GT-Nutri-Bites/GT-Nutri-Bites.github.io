@@ -290,6 +290,25 @@
             transform: translateX(0);
         }
 
+        /* Mobile menu backdrop */
+        .mobile-menu-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .mobile-menu-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
         /* Product detail modal */
         .modal {
             position: fixed;
@@ -513,8 +532,11 @@
             </div>
         </div>
 
+        <!-- Mobile Menu Backdrop -->
+        <div id="mobile-menu-backdrop" class="mobile-menu-backdrop"></div>
+        
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-white shadow-2xl md:hidden z-50 p-6">
+        <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-white shadow-2xl md:hidden z-[9999] p-6">
             <button id="close-menu" class="absolute top-6 right-6 text-gray-700">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -1201,21 +1223,30 @@
         // Mobile menu
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
         const closeMenuBtn = document.getElementById('close-menu');
 
-        mobileMenuBtn.addEventListener('click', () => {
+        function openMobileMenu() {
             mobileMenu.classList.add('active');
-        });
+            mobileMenuBackdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
 
-        closeMenuBtn.addEventListener('click', () => {
+        function closeMobileMenu() {
             mobileMenu.classList.remove('active');
-        });
+            mobileMenuBackdrop.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        closeMenuBtn.addEventListener('click', closeMobileMenu);
+
+        // Close mobile menu when clicking on backdrop
+        mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
 
         // Close mobile menu when clicking on a link
         document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-            });
+            link.addEventListener('click', closeMobileMenu);
         });
 
         // Modal controls

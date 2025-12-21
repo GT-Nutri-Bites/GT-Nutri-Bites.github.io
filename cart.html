@@ -1831,6 +1831,7 @@ async function sendOrderEmail(formData, orderNumber) {
         // Silent fail - proceed to bill without showing error
         // The order is still saved locally and the customer can see their bill
         // Function continues to show confirmation modal with bill
+        // Developers/admins can monitor email failures via browser console logs
         return false;
     }
 }

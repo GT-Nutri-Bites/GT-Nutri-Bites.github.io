@@ -1,4 +1,5 @@
 {
+  "weightOptions": ["100g", "250g", "500g", "750g", "1kg"],
   "products": [
     {
       "id": 1,
@@ -8,6 +9,13 @@
       "price": 6267,
       "oldPrice": 8247,
       "weight": "500g",
+      "weightVariants": {
+        "100g": { "price": 1320, "oldPrice": 1738 },
+        "250g": { "price": 3190, "oldPrice": 4202 },
+        "500g": { "price": 6267, "oldPrice": 8247 },
+        "750g": { "price": 9240, "oldPrice": 12166 },
+        "1kg": { "price": 12100, "oldPrice": 15928 }
+      },
       "badge": "BEST SELLER",
       "badgeColor": "bg-green-700",
       "description": "Raw, unsalted, and packed with nutrients",
@@ -31,6 +39,13 @@
       "price": 4947,
       "oldPrice": null,
       "weight": "400g",
+      "weightVariants": {
+        "100g": { "price": 1320, "oldPrice": null },
+        "250g": { "price": 3135, "oldPrice": null },
+        "500g": { "price": 6160, "oldPrice": null },
+        "750g": { "price": 9075, "oldPrice": null },
+        "1kg": { "price": 11880, "oldPrice": null }
+      },
       "badge": "NEW",
       "badgeColor": "bg-amber-500",
       "description": "Omega-3 rich superfood",
@@ -54,6 +69,13 @@
       "price": 7587,
       "oldPrice": null,
       "weight": "600g",
+      "weightVariants": {
+        "100g": { "price": 1408, "oldPrice": null },
+        "250g": { "price": 3410, "oldPrice": null },
+        "500g": { "price": 6710, "oldPrice": null },
+        "750g": { "price": 9900, "oldPrice": null },
+        "1kg": { "price": 12980, "oldPrice": null }
+      },
       "badge": null,
       "badgeColor": null,
       "description": "Lightly salted perfection",
@@ -77,6 +99,13 @@
       "price": 5607,
       "oldPrice": 7257,
       "weight": "450g",
+      "weightVariants": {
+        "100g": { "price": 1320, "oldPrice": 1705 },
+        "250g": { "price": 3190, "oldPrice": 4125 },
+        "500g": { "price": 6270, "oldPrice": 8085 },
+        "750g": { "price": 9240, "oldPrice": 11935 },
+        "1kg": { "price": 12100, "oldPrice": 15620 }
+      },
       "badge": "SALE",
       "badgeColor": "bg-red-600",
       "description": "Perfect blend of nuts & dried fruits",
@@ -100,6 +129,13 @@
       "price": 4287,
       "oldPrice": null,
       "weight": "350g",
+      "weightVariants": {
+        "100g": { "price": 1254, "oldPrice": null },
+        "250g": { "price": 3025, "oldPrice": null },
+        "500g": { "price": 5940, "oldPrice": null },
+        "750g": { "price": 8745, "oldPrice": null },
+        "1kg": { "price": 11440, "oldPrice": null }
+      },
       "badge": null,
       "badgeColor": null,
       "description": "Roasted & lightly salted",
@@ -123,6 +159,13 @@
       "price": 6597,
       "oldPrice": null,
       "weight": "500g",
+      "weightVariants": {
+        "100g": { "price": 1386, "oldPrice": null },
+        "250g": { "price": 3355, "oldPrice": null },
+        "500g": { "price": 6597, "oldPrice": null },
+        "750g": { "price": 9735, "oldPrice": null },
+        "1kg": { "price": 12760, "oldPrice": null }
+      },
       "badge": null,
       "badgeColor": null,
       "description": "Heart-healthy omega-3",
@@ -146,6 +189,13 @@
       "price": 4617,
       "oldPrice": null,
       "weight": "400g",
+      "weightVariants": {
+        "100g": { "price": 1232, "oldPrice": null },
+        "250g": { "price": 2970, "oldPrice": null },
+        "500g": { "price": 5830, "oldPrice": null },
+        "750g": { "price": 8580, "oldPrice": null },
+        "1kg": { "price": 11220, "oldPrice": null }
+      },
       "badge": null,
       "badgeColor": null,
       "description": "High in zinc & magnesium",
@@ -169,6 +219,13 @@
       "price": 8247,
       "oldPrice": null,
       "weight": "600g",
+      "weightVariants": {
+        "100g": { "price": 1452, "oldPrice": null },
+        "250g": { "price": 3520, "oldPrice": null },
+        "500g": { "price": 6930, "oldPrice": null },
+        "750g": { "price": 10230, "oldPrice": null },
+        "1kg": { "price": 13420, "oldPrice": null }
+      },
       "badge": "ORGANIC",
       "badgeColor": "bg-green-600",
       "description": "Almonds, cashews & pistachios",
@@ -192,6 +249,13 @@
       "price": 7257,
       "oldPrice": null,
       "weight": "450g",
+      "weightVariants": {
+        "100g": { "price": 1694, "oldPrice": null },
+        "250g": { "price": 4103, "oldPrice": null },
+        "500g": { "price": 8074, "oldPrice": null },
+        "750g": { "price": 11913, "oldPrice": null },
+        "1kg": { "price": 15620, "oldPrice": null }
+      },
       "badge": null,
       "badgeColor": null,
       "description": "Roasted & lightly salted green gems",
@@ -215,6 +279,13 @@
       "price": 6927,
       "oldPrice": null,
       "weight": "500g",
+      "weightVariants": {
+        "100g": { "price": 1452, "oldPrice": null },
+        "250g": { "price": 3520, "oldPrice": null },
+        "500g": { "price": 6927, "oldPrice": null },
+        "750g": { "price": 10230, "oldPrice": null },
+        "1kg": { "price": 13420, "oldPrice": null }
+      },
       "badge": null,
       "badgeColor": null,
       "description": "Rich, buttery & heart-healthy",
@@ -238,6 +309,13 @@
       "price": 8907,
       "oldPrice": 10887,
       "weight": "400g",
+      "weightVariants": {
+        "100g": { "price": 2310, "oldPrice": 2827 },
+        "250g": { "price": 5610, "oldPrice": 6864 },
+        "500g": { "price": 11055, "oldPrice": 13530 },
+        "750g": { "price": 16335, "oldPrice": 19998 },
+        "1kg": { "price": 21450, "oldPrice": 26268 }
+      },
       "badge": "PREMIUM",
       "badgeColor": "bg-purple-600",
       "description": "Buttery smooth & luxurious",
@@ -261,6 +339,13 @@
       "price": 3957,
       "oldPrice": null,
       "weight": "600g",
+      "weightVariants": {
+        "100g": { "price": 726, "oldPrice": null },
+        "250g": { "price": 1760, "oldPrice": null },
+        "500g": { "price": 3465, "oldPrice": null },
+        "750g": { "price": 5115, "oldPrice": null },
+        "1kg": { "price": 6710, "oldPrice": null }
+      },
       "badge": "VALUE PACK",
       "badgeColor": "bg-blue-600",
       "description": "Classic favorite, protein-packed",
@@ -284,6 +369,13 @@
       "price": 4452,
       "oldPrice": null,
       "weight": "450g",
+      "weightVariants": {
+        "100g": { "price": 1056, "oldPrice": null },
+        "250g": { "price": 2530, "oldPrice": null },
+        "500g": { "price": 4950, "oldPrice": null },
+        "750g": { "price": 7260, "oldPrice": null },
+        "1kg": { "price": 9460, "oldPrice": null }
+      },
       "badge": "NEW",
       "badgeColor": "bg-amber-500",
       "description": "Omega-3 powerhouse for wellness",

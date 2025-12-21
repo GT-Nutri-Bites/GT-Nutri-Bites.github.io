@@ -350,7 +350,6 @@
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
-                color-adjust: exact !important;
             }
             
             /* Reset body for print */
@@ -590,14 +589,8 @@
                 break-inside: avoid !important;
             }
             
-            /* Allow page breaks before totals if needed */
-            #print-area .border-t-2 {
-                page-break-before: auto !important;
-                break-before: auto !important;
-            }
-            
-            /* Ensure proper spacing between pages */
-            * {
+            /* Ensure proper spacing between pages for text elements */
+            p, div, li, td, th {
                 orphans: 3;
                 widows: 3;
             }

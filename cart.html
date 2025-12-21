@@ -361,14 +361,12 @@
             
             /* Hide everything except print area */
             body * {
-                visibility: hidden !important;
                 display: none !important;
             }
             
             /* Show only the print area and its contents */
             #print-area,
             #print-area * {
-                visibility: visible !important;
                 display: block !important;
             }
             
@@ -422,7 +420,7 @@
                 visibility: hidden !important;
             }
             
-            /* Hide the modal wrapper but show print area */
+            /* Reset modal wrapper for print to remove background and positioning */
             #confirmation-modal {
                 position: static !important;
                 background: white !important;

@@ -1010,7 +1010,7 @@
                     <div>
                         <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center overflow-hidden mb-4">
                             ${product.image ? 
-                                `<img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">` :
+                                `<img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" loading="lazy">` :
                                 product.useEmoji ? 
                                     `<div class="text-9xl">${product.emoji}</div>` :
                                     `<svg class="w-48 h-48 ${iconColors[product.icon] || 'text-gray-600'}" fill="currentColor" viewBox="0 0 24 24">

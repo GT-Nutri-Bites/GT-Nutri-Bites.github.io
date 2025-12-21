@@ -1121,12 +1121,23 @@
                     </a>
                 </div>
 
-                <!-- Mobile menu button -->
-                <button id="mobile-menu-btn" class="md:hidden text-gray-700 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
+                <!-- Mobile cart & menu buttons -->
+                <div class="flex items-center space-x-3 md:hidden">
+                    <!-- Mobile Cart Icon -->
+                    <a href="cart.html" class="relative p-2 hover:bg-gray-100 rounded-full transition" aria-label="Shopping cart">
+                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="cart-badge" id="mobile-nav-cart-count">0</span>
+                    </a>
+                    
+                    <!-- Mobile menu button -->
+                    <button id="mobile-menu-btn" class="text-gray-700 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -2095,6 +2106,7 @@
         function updateCartCount() {
             const cartCount = document.getElementById('cart-count');
             const mobileCartCount = document.getElementById('mobile-cart-count');
+            const mobileNavCartCount = document.getElementById('mobile-nav-cart-count');
             let cart = [];
             try {
                 cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -2104,6 +2116,7 @@
             const count = cart.reduce((total, item) => total + item.quantity, 0);
             if (cartCount) cartCount.textContent = count;
             if (mobileCartCount) mobileCartCount.textContent = count;
+            if (mobileNavCartCount) mobileNavCartCount.textContent = count;
             
             // Update cart link aria-label
             const cartLinks = document.querySelectorAll('a[href="cart.html"]');

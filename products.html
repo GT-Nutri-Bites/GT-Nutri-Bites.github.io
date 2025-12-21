@@ -777,8 +777,8 @@
                         <p class="text-gray-600 text-sm mb-4">${product.description}</p>
                         <div class="flex items-center justify-between mb-4">
                             <div>
-                                <span class="price-tag">$${product.price.toFixed(2)}</span>
-                                ${product.oldPrice ? `<span class="old-price ml-2">$${product.oldPrice.toFixed(2)}</span>` : ''}
+                                <span class="price-tag">Rs. ${product.price.toLocaleString('en-LK')}</span>
+                                ${product.oldPrice ? `<span class="old-price ml-2">Rs. ${product.oldPrice.toLocaleString('en-LK')}</span>` : ''}
                             </div>
                             <div class="text-sm text-gray-500">${product.weight}</div>
                         </div>
@@ -821,8 +821,8 @@
                         <div class="text-sm text-green-700 font-semibold mb-2">${product.category}</div>
                         <h2 class="text-3xl font-bold display-font text-gray-900 mb-4">${product.name}</h2>
                         <div class="flex items-center gap-4 mb-6">
-                            <span class="price-tag">$${product.price.toFixed(2)}</span>
-                            ${product.oldPrice ? `<span class="old-price">$${product.oldPrice.toFixed(2)}</span>` : ''}
+                            <span class="price-tag">Rs. ${product.price.toLocaleString('en-LK')}</span>
+                            ${product.oldPrice ? `<span class="old-price">Rs. ${product.oldPrice.toLocaleString('en-LK')}</span>` : ''}
                             <span class="text-gray-500">${product.weight}</span>
                         </div>
                         
@@ -854,7 +854,7 @@
                         </div>
                         
                         <button class="btn-primary w-full py-4 rounded-full font-semibold add-to-cart-btn" data-product="${product.id}">
-                            <span>Add to Cart - $${product.price.toFixed(2)}</span>
+                            <span>Add to Cart - Rs. ${product.price.toLocaleString('en-LK')}</span>
                         </button>
                     </div>
                 </div>

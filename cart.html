@@ -29,6 +29,8 @@
             --text-dark: #1F2937;
             --text-muted: #6B7280;
             --earth: #8B6F47;
+            --error: #DC2626;
+            --info: #2563EB;
         }
 
         * {
@@ -604,13 +606,132 @@
             outline: 3px solid var(--accent);
             outline-offset: 2px;
         }
+        
+        /* Skip to main content link - accessibility */
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0 0 0.5rem 0.5rem;
+            z-index: 10002;
+            font-weight: 600;
+            transition: top 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+        
+        /* Toast notification styles */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10003;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            pointer-events: none;
+        }
+        
+        .toast {
+            background: var(--text-dark);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 280px;
+            max-width: 400px;
+            pointer-events: auto;
+            animation: toastIn 0.4s ease-out forwards;
+            font-size: 0.95rem;
+        }
+        
+        .toast.toast-success {
+            background: var(--primary);
+        }
+        
+        .toast.toast-error {
+            background: var(--error);
+        }
+        
+        .toast.toast-info {
+            background: var(--info);
+        }
+        
+        .toast.toast-out {
+            animation: toastOut 0.3s ease-in forwards;
+        }
+        
+        .toast-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .toast-message {
+            flex: 1;
+        }
+        
+        .toast-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0.25rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        .toast-close:hover {
+            opacity: 1;
+        }
+        
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes toastOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Scroll progress bar -->
-    <div class="scroll-progress" id="scroll-progress"></div>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link" aria-label="Skip to main content">Skip to main content</a>
 
-    <div class="organic-bg"></div>
+    <!-- Toast notification container -->
+    <div id="toast-container" class="toast-container" role="alert" aria-live="polite"></div>
+
+    <!-- Scroll progress bar -->
+    <div class="scroll-progress" id="scroll-progress" role="progressbar" aria-label="Page scroll progress"></div>
+
+    <div class="organic-bg" aria-hidden="true"></div>
 
     <!-- Navigation -->
     <nav class="relative z-[1000] bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0">
@@ -711,7 +832,7 @@
     </div>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="mb-8">
             <h1 class="text-3xl sm:text-4xl font-bold display-font text-gray-900 mb-2">Shopping Cart</h1>
             <p class="text-gray-600">Review your items and complete your order</p>
@@ -1096,6 +1217,69 @@
 
     <script>
         // ==========================================
+// TOAST NOTIFICATION SYSTEM
+// ==========================================
+const ToastManager = {
+    container: null,
+    init() {
+        this.container = document.getElementById('toast-container');
+    },
+    show(message, type = 'success', duration = 3000) {
+        if (!this.container) this.init();
+        
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        
+        const iconSvg = this.getIcon(type);
+        
+        toast.innerHTML = `
+            <span class="toast-icon">${iconSvg}</span>
+            <span class="toast-message">${message}</span>
+            <button class="toast-close" aria-label="Close notification">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        `;
+        
+        this.container.appendChild(toast);
+        
+        toast.querySelector('.toast-close').addEventListener('click', () => {
+            this.dismiss(toast);
+        });
+        
+        if (duration > 0) {
+            setTimeout(() => this.dismiss(toast), duration);
+        }
+        
+        return toast;
+    },
+    dismiss(toast) {
+        toast.classList.add('toast-out');
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }, 300);
+    },
+    getIcon(type) {
+        switch(type) {
+            case 'success':
+                return '<svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>';
+            case 'error':
+                return '<svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>';
+            case 'info':
+                return '<svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>';
+            default:
+                return '';
+        }
+    }
+};
+
+// Initialize toast manager
+ToastManager.init();
+
+        // ==========================================
 // EMAILJS CONFIGURATION
 // ==========================================
 // Initialize EmailJS with your Public Key
@@ -1300,8 +1484,11 @@ function attachCartEventListeners() {
     document.querySelectorAll('.remove-item').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const productId = parseInt(btn.dataset.productId);
+            const item = cartManager.cart.find(i => i.id === productId);
+            const itemName = item ? item.name : 'Item';
             if (confirm('Remove this item from your cart?')) {
                 cartManager.removeItem(productId);
+                ToastManager.show(`${itemName} removed from cart`, 'info');
                 renderCart();
             }
         });

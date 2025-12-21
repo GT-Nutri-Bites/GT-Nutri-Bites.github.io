@@ -36,6 +36,8 @@
             --text-dark: #1F2937;
             --text-muted: #6B7280;
             --earth: #8B6F47;
+            --error: #DC2626;
+            --info: #2563EB;
         }
 
         * {
@@ -502,12 +504,144 @@
                 transition-duration: 0.01ms !important;
             }
         }
+        
+        /* Skip to main content link - accessibility */
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0 0 0.5rem 0.5rem;
+            z-index: 10002;
+            font-weight: 600;
+            transition: top 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+        
+        /* Toast notification styles */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10003;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            pointer-events: none;
+        }
+        
+        .toast {
+            background: var(--text-dark);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 280px;
+            max-width: 400px;
+            pointer-events: auto;
+            animation: toastIn 0.4s ease-out forwards;
+            font-size: 0.95rem;
+        }
+        
+        .toast.toast-success {
+            background: var(--primary);
+        }
+        
+        .toast.toast-error {
+            background: var(--error);
+        }
+        
+        .toast.toast-info {
+            background: var(--info);
+        }
+        
+        .toast.toast-out {
+            animation: toastOut 0.3s ease-in forwards;
+        }
+        
+        .toast-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .toast-message {
+            flex: 1;
+        }
+        
+        .toast-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0.25rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        .toast-close:hover {
+            opacity: 1;
+        }
+        
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes toastOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .toast-container {
+                left: 1rem;
+                right: 1rem;
+                transform: none;
+            }
+            
+            .toast {
+                min-width: auto;
+                max-width: none;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link" aria-label="Skip to main content">Skip to main content</a>
+
+    <!-- Toast notification container -->
+    <div id="toast-container" class="toast-container" role="alert" aria-live="polite"></div>
+
     <!-- Background effects -->
-    <div class="organic-bg"></div>
-    <div class="texture"></div>
+    <div class="organic-bg" aria-hidden="true"></div>
+    <div class="texture" aria-hidden="true"></div>
 
     <!-- Navigation -->
     <nav class="relative z-[1000] bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0">
@@ -588,6 +722,7 @@
     </div>
 
     <!-- Page Header -->
+    <main id="main-content">
     <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-amber-50 to-cream">
         <div class="max-w-7xl mx-auto text-center">
             <h1 class="text-4xl sm:text-5xl font-bold display-font text-gray-900 mb-4 animate-fade-in-up">
@@ -600,21 +735,21 @@
     </section>
 
     <!-- Category Filter -->
-    <section class="py-8 px-4 sm:px-6 lg:px-8">
+    <section class="py-8 px-4 sm:px-6 lg:px-8" role="region" aria-label="Product filters">
         <div class="max-w-7xl mx-auto">
-            <div class="flex flex-wrap justify-center gap-3">
-                <button class="category-pill active px-6 py-2.5 rounded-full font-semibold text-sm" data-category="all">All Products</button>
-                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" data-category="nuts">Nuts</button>
-                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" data-category="seeds">Seeds</button>
-                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" data-category="mix">Mix & Trail</button>
+            <div class="flex flex-wrap justify-center gap-3" role="group" aria-label="Filter by category">
+                <button class="category-pill active px-6 py-2.5 rounded-full font-semibold text-sm" data-category="all" role="button" aria-pressed="true">All Products</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" data-category="nuts" role="button" aria-pressed="false">Nuts</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" data-category="seeds" role="button" aria-pressed="false">Seeds</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" data-category="mix" role="button" aria-pressed="false">Mix & Trail</button>
             </div>
         </div>
     </section>
 
     <!-- Products Grid -->
-    <section class="py-12 px-4 sm:px-6 lg:px-8">
+    <section class="py-12 px-4 sm:px-6 lg:px-8" role="region" aria-label="Products list">
         <div class="max-w-7xl mx-auto">
-            <div id="products-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div id="products-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" role="list" aria-live="polite">
                 <!-- Products will be dynamically inserted here -->
             </div>
         </div>
@@ -642,6 +777,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
         </svg>
     </button>
+    </main>
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8 mt-20">
@@ -724,6 +860,69 @@
     </footer>
 
     <script>
+        // ==========================================
+        // TOAST NOTIFICATION SYSTEM
+        // ==========================================
+        const ToastManager = {
+            container: null,
+            init() {
+                this.container = document.getElementById('toast-container');
+            },
+            show(message, type = 'success', duration = 3000) {
+                if (!this.container) this.init();
+                
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                
+                const iconSvg = this.getIcon(type);
+                
+                toast.innerHTML = `
+                    <span class="toast-icon">${iconSvg}</span>
+                    <span class="toast-message">${message}</span>
+                    <button class="toast-close" aria-label="Close notification">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                `;
+                
+                this.container.appendChild(toast);
+                
+                toast.querySelector('.toast-close').addEventListener('click', () => {
+                    this.dismiss(toast);
+                });
+                
+                if (duration > 0) {
+                    setTimeout(() => this.dismiss(toast), duration);
+                }
+                
+                return toast;
+            },
+            dismiss(toast) {
+                toast.classList.add('toast-out');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            },
+            getIcon(type) {
+                switch(type) {
+                    case 'success':
+                        return '<svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>';
+                    case 'error':
+                        return '<svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>';
+                    case 'info':
+                        return '<svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>';
+                    default:
+                        return '';
+                }
+            }
+        };
+        
+        // Initialize toast manager
+        ToastManager.init();
+
         // Product data loaded from JSON file for easy management
         let products = [];
         let iconColors = {};
@@ -902,8 +1101,11 @@
             
             try {
                 localStorage.setItem('cart', JSON.stringify(cart));
+                // Show success toast
+                ToastManager.show(`${product.name} added to cart!`, 'success');
             } catch (e) {
                 console.error('Error saving cart:', e);
+                ToastManager.show('Failed to add item to cart', 'error');
             }
             
             // Update UI
@@ -913,6 +1115,15 @@
             
             // Update cart count
             updateCartCount();
+            
+            // Animate cart badge
+            const cartBadge = document.getElementById('cart-count');
+            if (cartBadge) {
+                cartBadge.style.transform = 'scale(1.3)';
+                setTimeout(() => {
+                    cartBadge.style.transform = 'scale(1)';
+                }, 200);
+            }
             
             setTimeout(() => {
                 btn.querySelector('span').textContent = originalText;
@@ -1001,8 +1212,12 @@
         // Category filter
         document.querySelectorAll('.category-pill').forEach(pill => {
             pill.addEventListener('click', function() {
-                document.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
+                document.querySelectorAll('.category-pill').forEach(p => {
+                    p.classList.remove('active');
+                    p.setAttribute('aria-pressed', 'false');
+                });
                 this.classList.add('active');
+                this.setAttribute('aria-pressed', 'true');
                 renderProducts(this.dataset.category);
             });
         });

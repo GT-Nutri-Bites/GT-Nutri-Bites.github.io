@@ -338,12 +338,12 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Print Styles - Optimized for A4 paper with multi-page support */
+        /* Print Styles - Optimized for A4 paper to fit on single page */
         @media print {
             /* Set page size and margins for A4 */
             @page {
                 size: A4 portrait;
-                margin: 15mm 20mm;
+                margin: 10mm 15mm;
             }
             
             /* Ensure colors print correctly across all browsers */
@@ -359,46 +359,57 @@
                 background: white !important;
             }
             
-            /* Hide everything except print area */
-            body * {
-                visibility: hidden;
+            /* Hide everything except print area and its modal container */
+            body > *:not(main) {
+                display: none !important;
             }
             
-            #print-area, #print-area * {
-                visibility: visible;
+            main > *:not(#confirmation-modal) {
+                display: none !important;
             }
             
-            /* Position print area - REMOVE fixed positioning for multi-page support */
-            #print-area {
-                position: absolute !important;
-                left: 0 !important;
-                top: 0 !important;
-                width: 100% !important;
+            /* Hide modal decorations but keep structure */
+            #confirmation-modal {
+                position: static !important;
+                background: transparent !important;
+                inset: auto !important;
+            }
+            
+            #confirmation-modal > * {
+                max-width: 100% !important;
                 margin: 0 !important;
                 padding: 0 !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+            }
+            
+            /* Hide modal elements except print area */
+            #confirmation-modal > div > *:not(#print-area) {
+                display: none !important;
+            }
+            
+            /* Ensure print area is visible */
+            #print-area {
+                display: block !important;
+            }
+            
+            /* Position print area for proper printing */
+            #print-area {
+                position: static !important;
+                left: auto !important;
+                top: auto !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 10mm 0 !important;
                 background: white !important;
                 box-shadow: none !important;
                 border-radius: 0 !important;
-                font-size: 10pt !important;
-                line-height: 1.4 !important;
+                font-size: 8pt !important;
+                line-height: 1.3 !important;
             }
             
-            /* Hide non-printable elements */
-            .no-print,
-            .organic-bg,
-            nav,
-            footer,
-            .mobile-menu,
-            .mobile-menu-backdrop {
-                display: none !important;
-            }
-            
-            /* Hide modal action buttons */
-            #confirmation-modal > div > div:last-child {
-                display: none !important;
-            }
-            
-            /* Bill container styling for proper flow */
+            /* Bill container styling for compact print */
             .bill-container {
                 max-width: 100% !important;
                 width: 100% !important;
@@ -409,43 +420,51 @@
                 border-radius: 0 !important;
             }
             
-            /* Bill header - prevent page break after */
+            /* Bill header - compact styling */
             .bill-header {
                 text-align: center !important;
                 border-bottom: 2px solid #2D5016 !important;
-                padding-bottom: 8mm !important;
-                margin-bottom: 6mm !important;
+                padding-bottom: 5mm !important;
+                margin-bottom: 4mm !important;
                 page-break-after: avoid !important;
                 break-after: avoid !important;
             }
             
             .bill-header img {
-                height: 15mm !important;
+                height: 12mm !important;
                 width: auto !important;
-                max-width: 40mm !important;
+                max-width: 35mm !important;
+                display: inline-block !important;
             }
             
             .bill-header h1 {
-                font-size: 16pt !important;
+                font-size: 14pt !important;
                 font-weight: bold !important;
-                margin: 2mm 0 !important;
+                margin: 1mm 0 !important;
                 color: #000 !important;
             }
             
             .bill-header p {
-                font-size: 9pt !important;
+                font-size: 8pt !important;
                 color: #555 !important;
-                margin: 1mm 0 !important;
-                line-height: 1.3 !important;
+                margin: 0.5mm 0 !important;
+                line-height: 1.2 !important;
             }
             
-            /* Customer and shipping info grid - avoid page breaks */
+            .bill-header .flex {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 3mm !important;
+            }
+            
+            /* Customer and shipping info grid - compact */
             #print-area .grid {
                 display: flex !important;
                 flex-direction: row !important;
                 justify-content: space-between !important;
-                gap: 8mm !important;
-                margin-bottom: 6mm !important;
+                gap: 5mm !important;
+                margin-bottom: 4mm !important;
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
             }
@@ -455,31 +474,36 @@
             }
             
             #print-area h4 {
-                font-size: 10pt !important;
+                font-size: 9pt !important;
                 font-weight: bold !important;
-                margin-bottom: 2mm !important;
+                margin-bottom: 1.5mm !important;
                 color: #000 !important;
             }
             
-            #print-area p.text-sm {
-                font-size: 9pt !important;
-                line-height: 1.4 !important;
-                margin: 1mm 0 !important;
+            #print-area p.text-sm,
+            #print-area .text-sm {
+                font-size: 8pt !important;
+                line-height: 1.3 !important;
+                margin: 0.5mm 0 !important;
                 color: #333 !important;
             }
             
             /* Order details heading */
+            #print-area .mb-6 {
+                margin-bottom: 3mm !important;
+            }
+            
             #print-area .mb-6 > h4 {
                 page-break-after: avoid !important;
                 break-after: avoid !important;
             }
             
-            /* Table styling for print with proper page breaks */
+            /* Table styling for print - compact */
             .bill-table {
                 width: 100% !important;
                 border-collapse: collapse !important;
-                margin: 4mm 0 !important;
-                font-size: 9pt !important;
+                margin: 2mm 0 !important;
+                font-size: 8pt !important;
             }
             
             .bill-table thead {
@@ -497,32 +521,18 @@
             .bill-table th {
                 background-color: #f0f0f0 !important;
                 border: 1px solid #ccc !important;
-                padding: 2mm 2.5mm !important;
+                padding: 1.5mm 2mm !important;
                 text-align: left !important;
                 font-weight: 600 !important;
-                font-size: 9pt !important;
+                font-size: 8pt !important;
                 page-break-after: avoid !important;
                 break-after: avoid !important;
             }
             
             .bill-table td {
                 border: 1px solid #ddd !important;
-                padding: 2mm 2.5mm !important;
-                font-size: 9pt !important;
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
-            }
-            
-            /* Prevent orphaned rows */
-            .bill-table tr {
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
-            }
-            
-            /* Ensure table header repeats on each page */
-            .bill-table thead tr {
-                page-break-after: avoid !important;
-                break-after: avoid !important;
+                padding: 1.5mm 2mm !important;
+                font-size: 8pt !important;
             }
             
             .bill-table th:nth-child(3),
@@ -537,28 +547,39 @@
                 text-align: center !important;
             }
             
-            /* Totals section - keep together */
+            /* Totals section - compact and keep together */
             #print-area .border-t-2 {
                 border-top: 2px solid #2D5016 !important;
-                padding-top: 4mm !important;
-                margin-top: 4mm !important;
+                padding-top: 3mm !important;
+                margin-top: 3mm !important;
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
             }
             
             #print-area .w-64 {
-                width: 60mm !important;
+                width: 55mm !important;
+            }
+            
+            #print-area .flex {
+                display: flex !important;
+            }
+            
+            #print-area .justify-between {
+                justify-content: space-between !important;
+            }
+            
+            #print-area .justify-end {
+                justify-content: flex-end !important;
             }
             
             #print-area .flex.justify-between {
-                display: flex !important;
-                justify-content: space-between !important;
-                margin-bottom: 2mm !important;
-                font-size: 9pt !important;
+                margin-bottom: 1.5mm !important;
+                font-size: 8pt !important;
             }
             
-            #print-area .text-lg.font-bold {
-                font-size: 11pt !important;
+            #print-area .text-lg.font-bold,
+            #print-area .text-lg {
+                font-size: 10pt !important;
                 font-weight: bold !important;
             }
             
@@ -566,39 +587,61 @@
                 color: #2D5016 !important;
             }
             
-            /* Footer section - keep at bottom but allow page break before if needed */
-            #print-area .mt-6.pt-6.border-t {
+            /* Footer section - compact */
+            #print-area .mt-6.pt-6.border-t,
+            #print-area .border-t {
                 border-top: 1px solid #ccc !important;
-                padding-top: 4mm !important;
-                margin-top: 6mm !important;
+                padding-top: 3mm !important;
+                margin-top: 4mm !important;
                 text-align: center !important;
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
             }
             
-            #print-area .mt-6.pt-6.border-t p {
-                font-size: 8pt !important;
+            #print-area .mt-6 {
+                margin-top: 3mm !important;
+            }
+            
+            #print-area .pt-6 {
+                padding-top: 3mm !important;
+            }
+            
+            #print-area .mt-6.pt-6.border-t p,
+            #print-area .text-center p {
+                font-size: 7pt !important;
                 color: #666 !important;
-                margin: 1mm 0 !important;
-                line-height: 1.3 !important;
+                margin: 0.5mm 0 !important;
+                line-height: 1.2 !important;
             }
             
-            /* Prevent page breaks in critical sections */
-            .bill-header,
-            #print-area .grid {
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
+            #print-area .mt-2 {
+                margin-top: 1mm !important;
             }
             
-            /* Prevent orphaned lines at bottom/top of pages (minimum 3 lines) */
-            p, h1, h2, h3, h4, h5, h6, li {
-                orphans: 3;
-                widows: 3;
+            #print-area .mt-1 {
+                margin-top: 0.5mm !important;
             }
             
-            h1, h2, h3, h4, h5, h6 {
-                page-break-after: avoid !important;
-                break-after: avoid !important;
+            /* Additional spacing controls */
+            #print-area .mb-2 {
+                margin-bottom: 1mm !important;
+            }
+            
+            #print-area .mb-4 {
+                margin-bottom: 2mm !important;
+            }
+            
+            #print-area .space-x-2 > * + * {
+                margin-left: 2mm !important;
+            }
+            
+            /* Font weight utilities */
+            #print-area .font-semibold {
+                font-weight: 600 !important;
+            }
+            
+            #print-area .font-bold {
+                font-weight: bold !important;
             }
         }
 
@@ -1785,9 +1828,10 @@ async function sendOrderEmail(formData, orderNumber) {
         console.error('❌ Email sending failed:', error);
         console.error('Error details:', error.text || error.message);
         
-        // Show user-friendly error message
-        alert('Order placed successfully! However, there was an issue sending confirmation emails. Our team has received your order and will contact you shortly at ' + formData.personal.email);
-        
+        // Silent fail - proceed to bill without showing error
+        // The order is still saved locally and the customer can see their bill
+        // Function continues to show confirmation modal with bill
+        // Developers/admins can monitor email failures via browser console logs
         return false;
     }
 }

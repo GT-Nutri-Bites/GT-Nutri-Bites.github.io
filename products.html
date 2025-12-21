@@ -952,10 +952,14 @@
         }
 
         // Get default weight for product (use 500g as default, or first available)
+        // Get default weight for product (prefer 500g, or first available)
         function getDefaultWeight(product) {
             if (product.weightVariants) {
+                // Prefer 500g if available, otherwise use first available weight
                 if (product.weightVariants["500g"]) return "500g";
-                return weightOptions.find(w => product.weightVariants[w]) || "500g";
+                // Find first available weight from weightOptions
+                const firstAvailable = weightOptions.find(w => product.weightVariants[w]);
+                return firstAvailable || product.weight;
             }
             return product.weight;
         }
@@ -1017,7 +1021,7 @@
                         <div class="flex items-center justify-between mb-3">
                             <div class="price-display">
                                 <span class="price-tag" data-product="${product.id}">Rs. ${displayPrice.toLocaleString('en-LK')}</span>
-                                ${displayOldPrice ? `<span class="old-price ml-2" data-product="${product.id}">Rs. ${displayOldPrice.toLocaleString('en-LK')}</span>` : ''}
+                                <span class="old-price ml-2${displayOldPrice ? '' : ' hidden'}" data-product="${product.id}">${displayOldPrice ? `Rs. ${displayOldPrice.toLocaleString('en-LK')}` : ''}</span>
                             </div>
                             ${generateWeightSelector(product, defaultWeight)}
                         </div>
@@ -1194,6 +1198,7 @@
             }
             
             // Check for existing item with same product ID AND weight
+            // This allows the same product with different weights to be treated as separate cart items
             const existingItem = cart.find(item => item.id === productId && item.weight === weight);
             if (existingItem) {
                 existingItem.quantity += 1;
@@ -1326,24 +1331,13 @@
                             priceTag.textContent = `Rs. ${variant.price.toLocaleString('en-LK')}`;
                         }
                         
-                        // Update old price display
+                        // Update old price display (element always exists, toggle visibility)
                         const oldPriceTag = card.querySelector('.old-price');
-                        if (variant.oldPrice) {
-                            if (oldPriceTag) {
+                        if (oldPriceTag) {
+                            if (variant.oldPrice) {
                                 oldPriceTag.textContent = `Rs. ${variant.oldPrice.toLocaleString('en-LK')}`;
                                 oldPriceTag.classList.remove('hidden');
                             } else {
-                                // Create old price element if it doesn't exist
-                                const priceDisplay = card.querySelector('.price-display');
-                                if (priceDisplay) {
-                                    const newOldPrice = document.createElement('span');
-                                    newOldPrice.className = 'old-price ml-2';
-                                    newOldPrice.textContent = `Rs. ${variant.oldPrice.toLocaleString('en-LK')}`;
-                                    priceDisplay.appendChild(newOldPrice);
-                                }
-                            }
-                        } else {
-                            if (oldPriceTag) {
                                 oldPriceTag.classList.add('hidden');
                             }
                         }

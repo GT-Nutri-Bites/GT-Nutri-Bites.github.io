@@ -740,20 +740,20 @@
                         <div class="space-y-3 mb-4 pb-4 border-b border-gray-200">
                             <div class="flex justify-between text-sm">
                                 <span class="text-gray-600">Subtotal</span>
-                                <span class="font-semibold" id="subtotal">$0.00</span>
+                                <span class="font-semibold" id="subtotal">Rs. 0</span>
                             </div>
                             <div class="flex justify-between text-sm">
                                 <span class="text-gray-600">Shipping</span>
-                                <span class="font-semibold" id="shipping">$5.99</span>
+                                <span class="font-semibold" id="shipping">Rs. 1,977</span>
                             </div>
                             <div class="flex justify-between text-sm">
                                 <span class="text-gray-600">Tax (8%)</span>
-                                <span class="font-semibold" id="tax">$0.00</span>
+                                <span class="font-semibold" id="tax">Rs. 0</span>
                             </div>
                         </div>
                         <div class="flex justify-between text-lg font-bold mb-4">
                             <span>Total</span>
-                            <span id="total" class="text-green-700">$0.00</span>
+                            <span id="total" class="text-green-700">Rs. 0</span>
                         </div>
                         <button id="show-checkout-form" class="btn-primary w-full py-3 rounded-full font-semibold">
                             Proceed to Checkout
@@ -977,19 +977,19 @@
                             <div class="w-64">
                                 <div class="flex justify-between mb-2">
                                     <span class="font-semibold">Subtotal:</span>
-                                    <span id="bill-subtotal">$0.00</span>
+                                    <span id="bill-subtotal">Rs. 0</span>
                                 </div>
                                 <div class="flex justify-between mb-2">
                                     <span class="font-semibold">Shipping:</span>
-                                    <span id="bill-shipping">$0.00</span>
+                                    <span id="bill-shipping">Rs. 0</span>
                                 </div>
                                 <div class="flex justify-between mb-2">
                                     <span class="font-semibold">Tax (8%):</span>
-                                    <span id="bill-tax">$0.00</span>
+                                    <span id="bill-tax">Rs. 0</span>
                                 </div>
                                 <div class="flex justify-between text-lg font-bold border-t pt-2">
                                     <span>Total:</span>
-                                    <span id="bill-total" class="text-green-700">$0.00</span>
+                                    <span id="bill-total" class="text-green-700">Rs. 0</span>
                                 </div>
                             </div>
                         </div>
@@ -1121,7 +1121,7 @@ class CartManager {
     constructor() {
         this.cart = this.loadCart();
         this.TAX_RATE = 0.08;
-        this.SHIPPING_COST = 5.99;
+        this.SHIPPING_COST = 1977;
         this.FREE_SHIPPING_THRESHOLD = 50;
     }
 
@@ -1265,8 +1265,8 @@ function renderCart() {
                             <button class="quantity-btn increase-qty" data-product-id="${item.id}">+</button>
                         </div>
                         <div class="text-right">
-                            <p class="text-lg font-bold text-green-700">$${(item.price * item.quantity).toFixed(2)}</p>
-                            <p class="text-xs text-gray-500">$${item.price.toFixed(2)} each</p>
+                            <p class="text-lg font-bold text-green-700">Rs. ${(item.price * item.quantity).toLocaleString('en-LK')}</p>
+                            <p class="text-xs text-gray-500">Rs. ${item.price.toLocaleString('en-LK')} each</p>
                         </div>
                     </div>
                 </div>
@@ -1287,10 +1287,10 @@ function updateOrderSummary() {
     const tax = cartManager.getTax();
     const total = cartManager.getTotal();
 
-    document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
-    document.getElementById('shipping').textContent = shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`;
-    document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
-    document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+    document.getElementById('subtotal').textContent = `Rs. ${subtotal.toLocaleString('en-LK')}`;
+    document.getElementById('shipping').textContent = shipping === 0 ? 'FREE' : `Rs. ${shipping.toLocaleString('en-LK')}`;
+    document.getElementById('tax').textContent = `Rs. ${tax.toLocaleString('en-LK')}`;
+    document.getElementById('total').textContent = `Rs. ${total.toLocaleString('en-LK')}`;
 }
 
 // ==========================================
@@ -1347,9 +1347,9 @@ function generateOrderItemsHTML() {
         <tr style="border-bottom: 1px solid #e5e7eb;">
             <td style="padding: 12px; text-align: left;">${item.name}</td>
             <td style="padding: 12px; text-align: center;">${item.weight}</td>
-            <td style="padding: 12px; text-align: right;">$${item.price.toFixed(2)}</td>
+            <td style="padding: 12px; text-align: right;">Rs. ${item.price.toLocaleString('en-LK')}</td>
             <td style="padding: 12px; text-align: center;">${item.quantity}</td>
-            <td style="padding: 12px; text-align: right; font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</td>
+            <td style="padding: 12px; text-align: right; font-weight: 600;">Rs. ${(item.price * item.quantity).toLocaleString('en-LK')}</td>
         </tr>
     `).join('');
 }
@@ -1365,7 +1365,7 @@ function generateCustomerOrderItemsHTML() {
                 <span style="color: #6B7280; font-size: 12px;">${item.category} • ${item.weight}</span>
             </td>
             <td style="padding: 12px; text-align: center; color: #1F2937; font-weight: 600;">${item.quantity}</td>
-            <td style="padding: 12px; text-align: right; color: #2D5016; font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</td>
+            <td style="padding: 12px; text-align: right; color: #2D5016; font-weight: 600;">Rs. ${(item.price * item.quantity).toLocaleString('en-LK')}</td>
         </tr>
     `).join('');
 }
@@ -1391,18 +1391,18 @@ function populateBill(formData, orderNumber) {
         <tr>
             <td>${item.name}</td>
             <td>${item.weight}</td>
-            <td>$${item.price.toFixed(2)}</td>
+            <td>Rs. ${item.price.toLocaleString('en-LK')}</td>
             <td>${item.quantity}</td>
-            <td>$${(item.price * item.quantity).toFixed(2)}</td>
+            <td>Rs. ${(item.price * item.quantity).toLocaleString('en-LK')}</td>
         </tr>
     `).join('');
     document.getElementById('bill-items').innerHTML = billItemsHTML;
 
     // Totals
-    document.getElementById('bill-subtotal').textContent = `$${formData.totals.subtotal.toFixed(2)}`;
-    document.getElementById('bill-shipping').textContent = formData.totals.shipping === 0 ? 'FREE' : `$${formData.totals.shipping.toFixed(2)}`;
-    document.getElementById('bill-tax').textContent = `$${formData.totals.tax.toFixed(2)}`;
-    document.getElementById('bill-total').textContent = `$${formData.totals.total.toFixed(2)}`;
+    document.getElementById('bill-subtotal').textContent = `Rs. ${formData.totals.subtotal.toLocaleString('en-LK')}`;
+    document.getElementById('bill-shipping').textContent = formData.totals.shipping === 0 ? 'FREE' : `Rs. ${formData.totals.shipping.toLocaleString('en-LK')}`;
+    document.getElementById('bill-tax').textContent = `Rs. ${formData.totals.tax.toLocaleString('en-LK')}`;
+    document.getElementById('bill-total').textContent = `Rs. ${formData.totals.total.toLocaleString('en-LK')}`;
 
     // Date
     const orderDate = new Date().toLocaleDateString('en-US', { 
@@ -1460,10 +1460,10 @@ async function sendOrderEmail(formData, orderNumber) {
         billing_state: formData.billing.state || formData.shipping.state,
         billing_zip: formData.billing.zip || formData.shipping.zip,
         order_items: orderItemsHTML,
-        subtotal: formData.totals.subtotal.toFixed(2),
-        shipping_cost: formData.totals.shipping === 0 ? 'FREE' : formData.totals.shipping.toFixed(2),
-        tax: formData.totals.tax.toFixed(2),
-        total: formData.totals.total.toFixed(2),
+        subtotal: formData.totals.subtotal.toLocaleString('en-LK'),
+        shipping_cost: formData.totals.shipping === 0 ? 'FREE' : formData.totals.shipping.toLocaleString('en-LK'),
+        tax: formData.totals.tax.toLocaleString('en-LK'),
+        total: formData.totals.total.toLocaleString('en-LK'),
         delivery_instructions: formData.delivery.instructions || 'None',
         delivery_date: formData.delivery.preferredDate || 'Not specified',
         order_notes: formData.notes || 'None',
@@ -1493,10 +1493,10 @@ async function sendOrderEmail(formData, orderNumber) {
         shipping_state: formData.shipping.state,
         shipping_zip: formData.shipping.zip,
         order_items_customer: orderItemsCustomer,
-        subtotal: formData.totals.subtotal.toFixed(2),
-        shipping_cost: formData.totals.shipping === 0 ? 'FREE' : formData.totals.shipping.toFixed(2),
-        tax: formData.totals.tax.toFixed(2),
-        total: formData.totals.total.toFixed(2),
+        subtotal: formData.totals.subtotal.toLocaleString('en-LK'),
+        shipping_cost: formData.totals.shipping === 0 ? 'FREE' : formData.totals.shipping.toLocaleString('en-LK'),
+        tax: formData.totals.tax.toLocaleString('en-LK'),
+        total: formData.totals.total.toLocaleString('en-LK'),
         if_shipping_address2: formData.shipping.address2 ? true : false
     };
 
@@ -1716,7 +1716,7 @@ async function loadSearchProducts() {
         searchProducts = data.products.map(p => ({
             name: p.name,
             category: p.category,
-            price: `$${p.price.toFixed(2)}`
+            price: `Rs. ${p.price.toLocaleString('en-LK')}`
         }));
     } catch (error) {
         console.error('Error loading products for search:', error);

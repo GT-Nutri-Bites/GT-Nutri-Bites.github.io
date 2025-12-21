@@ -1119,8 +1119,8 @@
                         <p class="text-gray-600 text-sm mb-4">Raw, unsalted, and packed with nutrients</p>
                         <div class="flex items-center justify-between mb-4">
                             <div>
-                                <span class="price-tag">$18.99</span>
-                                <span class="old-price ml-2">$24.99</span>
+                                <span class="price-tag">Rs. 6,267</span>
+                                <span class="old-price ml-2">Rs. 8,247</span>
                             </div>
                             <div class="text-sm text-gray-500">500g</div>
                         </div>
@@ -1149,7 +1149,7 @@
                         <p class="text-gray-600 text-sm mb-4">Omega-3 rich superfood</p>
                         <div class="flex items-center justify-between mb-4">
                             <div>
-                                <span class="price-tag">$14.99</span>
+                                <span class="price-tag">Rs. 4,947</span>
                             </div>
                             <div class="text-sm text-gray-500">400g</div>
                         </div>
@@ -1177,7 +1177,7 @@
                         <p class="text-gray-600 text-sm mb-4">Lightly salted perfection</p>
                         <div class="flex items-center justify-between mb-4">
                             <div>
-                                <span class="price-tag">$22.99</span>
+                                <span class="price-tag">Rs. 7,587</span>
                             </div>
                             <div class="text-sm text-gray-500">600g</div>
                         </div>
@@ -1206,8 +1206,8 @@
                         <p class="text-gray-600 text-sm mb-4">Perfect blend of nuts & dried fruits</p>
                         <div class="flex items-center justify-between mb-4">
                             <div>
-                                <span class="price-tag">$16.99</span>
-                                <span class="old-price ml-2">$21.99</span>
+                                <span class="price-tag">Rs. 5,607</span>
+                                <span class="old-price ml-2">Rs. 7,257</span>
                             </div>
                             <div class="text-sm text-gray-500">450g</div>
                         </div>
@@ -1235,7 +1235,7 @@
                         <p class="text-gray-600 text-sm mb-4">Roasted & lightly salted</p>
                         <div class="flex items-center justify-between mb-4">
                             <div>
-                                <span class="price-tag">$12.99</span>
+                                <span class="price-tag">Rs. 4,287</span>
                             </div>
                             <div class="text-sm text-gray-500">350g</div>
                         </div>
@@ -1263,7 +1263,7 @@
                         <p class="text-gray-600 text-sm mb-4">Heart-healthy omega-3</p>
                         <div class="flex items-center justify-between mb-4">
                             <div>
-                                <span class="price-tag">$19.99</span>
+                                <span class="price-tag">Rs. 6,597</span>
                             </div>
                             <div class="text-sm text-gray-500">500g</div>
                         </div>
@@ -1291,7 +1291,7 @@
                         <p class="text-gray-600 text-sm mb-4">High in zinc & magnesium</p>
                         <div class="flex items-center justify-between mb-4">
                             <div>
-                                <span class="price-tag">$13.99</span>
+                                <span class="price-tag">Rs. 4,617</span>
                             </div>
                             <div class="text-sm text-gray-500">400g</div>
                         </div>
@@ -1320,7 +1320,7 @@
                         <p class="text-gray-600 text-sm mb-4">Almonds, cashews & pistachios</p>
                         <div class="flex items-center justify-between mb-4">
                             <div>
-                                <span class="price-tag">$24.99</span>
+                                <span class="price-tag">Rs. 8,247</span>
                             </div>
                             <div class="text-sm text-gray-500">600g</div>
                         </div>
@@ -1998,7 +1998,7 @@
                 searchProducts = data.products.map(p => ({
                     name: p.name,
                     category: p.category,
-                    price: `$${p.price.toFixed(2)}`
+                    price: `Rs. ${p.price.toLocaleString('en-LK')}`
                 }));
             } catch (error) {
                 console.error('Error loading products for search:', error);

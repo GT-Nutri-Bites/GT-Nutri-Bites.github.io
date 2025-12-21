@@ -389,12 +389,14 @@
             nav,
             footer,
             .mobile-menu,
-            .mobile-menu-backdrop,
-            #confirmation-modal > div > div:last-child,
-            button[onclick*="print"],
-            a[href*="products.html"] {
+            .mobile-menu-backdrop {
                 display: none !important;
                 visibility: hidden !important;
+            }
+            
+            /* Hide modal action buttons */
+            #confirmation-modal > div > div:last-child {
+                display: none !important;
             }
             
             /* Bill container styling for proper flow */
@@ -590,7 +592,7 @@
             }
             
             /* Ensure proper spacing between pages for text elements */
-            p, div, li, td, th {
+            p, h1, h2, h3, h4, h5, h6, li, td, th {
                 orphans: 3;
                 widows: 3;
             }

@@ -20,8 +20,8 @@
         "carbs": "6g",
         "fiber": "3.5g"
       },
-      "icon": "amber",
-      "image": "https://images.unsplash.com/photo-1508191773226-c9bb6a5bcd3c?w=800&h=800&fit=crop"
+      "emoji": "🥜",
+      "useEmoji": true
     },
     {
       "id": 2,
@@ -43,8 +43,8 @@
         "carbs": "12g",
         "fiber": "9.8g"
       },
-      "icon": "green",
-      "image": "https://images.unsplash.com/photo-1607672632458-9eb56696346b?w=800&h=800&fit=crop"
+      "emoji": "🫘",
+      "useEmoji": true
     },
     {
       "id": 3,
@@ -66,8 +66,8 @@
         "carbs": "9g",
         "fiber": "1g"
       },
-      "icon": "orange",
-      "image": "https://images.unsplash.com/photo-1578240819199-58eeb1de77cd?w=800&h=800&fit=crop"
+      "emoji": "🥜",
+      "useEmoji": true
     },
     {
       "id": 4,
@@ -89,8 +89,8 @@
         "carbs": "16g",
         "fiber": "2g"
       },
-      "icon": "purple",
-      "image": "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&h=800&fit=crop"
+      "emoji": "🍇",
+      "useEmoji": true
     },
     {
       "id": 5,
@@ -112,8 +112,8 @@
         "carbs": "7g",
         "fiber": "3g"
       },
-      "icon": "yellow",
-      "image": "https://images.unsplash.com/photo-1619566636363-b8a1c4f187a7?w=800&h=800&fit=crop"
+      "emoji": "🌻",
+      "useEmoji": true
     },
     {
       "id": 6,
@@ -135,8 +135,8 @@
         "carbs": "4g",
         "fiber": "1.9g"
       },
-      "icon": "red",
-      "image": "https://images.unsplash.com/photo-1622920624126-1f7a6b0d5a5f?w=800&h=800&fit=crop"
+      "emoji": "🧠",
+      "useEmoji": true
     },
     {
       "id": 7,
@@ -158,8 +158,8 @@
         "carbs": "5g",
         "fiber": "1.7g"
       },
-      "icon": "lime",
-      "image": "https://images.unsplash.com/photo-1605032900269-4e6e8b2e3b5e?w=800&h=800&fit=crop"
+      "emoji": "🎃",
+      "useEmoji": true
     },
     {
       "id": 8,
@@ -181,8 +181,8 @@
         "carbs": "7g",
         "fiber": "2.5g"
       },
-      "icon": "pink",
-      "image": "https://images.unsplash.com/photo-1520026392627-916e80a9f4f4?w=800&h=800&fit=crop"
+      "emoji": "🥗",
+      "useEmoji": true
     },
     {
       "id": 9,
@@ -204,9 +204,8 @@
         "carbs": "8g",
         "fiber": "3g"
       },
-      "emoji": "🥜",
-      "useEmoji": true,
-      "image": "https://images.unsplash.com/photo-1618164436241-4473940d1f5c?w=800&h=800&fit=crop"
+      "emoji": "💚",
+      "useEmoji": true
     },
     {
       "id": 10,
@@ -229,8 +228,7 @@
         "fiber": "2.7g"
       },
       "emoji": "🌰",
-      "useEmoji": true,
-      "image": "https://images.unsplash.com/photo-1613317736056-97c7bad3e51a?w=800&h=800&fit=crop"
+      "useEmoji": true
     },
     {
       "id": 11,
@@ -252,9 +250,8 @@
         "carbs": "4g",
         "fiber": "2.4g"
       },
-      "emoji": "🥜",
-      "useEmoji": true,
-      "image": "https://images.unsplash.com/photo-1620677209517-5b0c3c556f37?w=800&h=800&fit=crop"
+      "emoji": "🤍",
+      "useEmoji": true
     },
     {
       "id": 12,
@@ -277,8 +274,7 @@
         "fiber": "2.4g"
       },
       "emoji": "🥜",
-      "useEmoji": true,
-      "image": "https://images.unsplash.com/photo-1560180440-683cf31d278f?w=800&h=800&fit=crop"
+      "useEmoji": true
     },
     {
       "id": 13,
@@ -301,8 +297,7 @@
         "fiber": "7.6g"
       },
       "emoji": "🌾",
-      "useEmoji": true,
-      "image": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800&h=800&fit=crop"
+      "useEmoji": true
     }
   ],
   "iconColors": {

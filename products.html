@@ -926,6 +926,7 @@
         // Product data loaded from JSON file for easy management
         let products = [];
         let iconColors = {};
+        let weightOptions = [];
 
         // Load products from JSON file
         async function loadProducts() {
@@ -937,6 +938,7 @@
                 const data = await response.json();
                 products = data.products;
                 iconColors = data.iconColors;
+                weightOptions = data.weightOptions || ["100g", "250g", "500g", "750g", "1kg"];
                 return true;
             } catch (error) {
                 console.error('Error loading products:', error);
@@ -949,13 +951,49 @@
             }
         }
 
+        // Get default weight for product (use 500g as default, or first available)
+        function getDefaultWeight(product) {
+            if (product.weightVariants) {
+                if (product.weightVariants["500g"]) return "500g";
+                return weightOptions.find(w => product.weightVariants[w]) || "500g";
+            }
+            return product.weight;
+        }
+
+        // Generate weight selector HTML
+        function generateWeightSelector(product, selectedWeight) {
+            if (!product.weightVariants) {
+                return `<div class="text-sm text-gray-500">${product.weight}</div>`;
+            }
+            
+            return `
+                <select class="weight-selector text-sm border-2 border-green-700 rounded-lg px-2 py-1 bg-white text-green-700 font-semibold cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500" data-product="${product.id}" aria-label="Select weight">
+                    ${weightOptions.map(weight => {
+                        const variant = product.weightVariants[weight];
+                        if (variant) {
+                            return `<option value="${weight}" ${weight === selectedWeight ? 'selected' : ''}>
+                                ${weight}
+                            </option>`;
+                        }
+                        return '';
+                    }).join('')}
+                </select>
+            `;
+        }
+
         // Render products
         function renderProducts(filter = 'all') {
             const grid = document.getElementById('products-grid');
             const filteredProducts = filter === 'all' ? products : products.filter(p => p.type === filter);
             
-            grid.innerHTML = filteredProducts.map(product => `
-                <div class="product-card rounded-2xl overflow-hidden animate-fade-in-up">
+            grid.innerHTML = filteredProducts.map(product => {
+                const defaultWeight = getDefaultWeight(product);
+                const variant = product.weightVariants ? product.weightVariants[defaultWeight] : null;
+                const displayPrice = variant ? variant.price : product.price;
+                const displayOldPrice = variant ? variant.oldPrice : product.oldPrice;
+                
+                return `
+                <div class="product-card rounded-2xl overflow-hidden animate-fade-in-up" data-product-id="${product.id}">
                     ${product.badge ? `<div class="product-badge ${product.badgeColor}">${product.badge}</div>` : ''}
                     <button class="wishlist-btn" aria-label="Add to wishlist" data-product="${product.id}">
                         <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -976,15 +1014,15 @@
                         <div class="text-sm text-green-700 font-semibold mb-2">${product.category}</div>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">${product.name}</h3>
                         <p class="text-gray-600 text-sm mb-4">${product.description}</p>
-                        <div class="flex items-center justify-between mb-4">
-                            <div>
-                                <span class="price-tag">Rs. ${product.price.toLocaleString('en-LK')}</span>
-                                ${product.oldPrice ? `<span class="old-price ml-2">Rs. ${product.oldPrice.toLocaleString('en-LK')}</span>` : ''}
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="price-display">
+                                <span class="price-tag" data-product="${product.id}">Rs. ${displayPrice.toLocaleString('en-LK')}</span>
+                                ${displayOldPrice ? `<span class="old-price ml-2" data-product="${product.id}">Rs. ${displayOldPrice.toLocaleString('en-LK')}</span>` : ''}
                             </div>
-                            <div class="text-sm text-gray-500">${product.weight}</div>
+                            ${generateWeightSelector(product, defaultWeight)}
                         </div>
                         <div class="flex gap-2">
-                            <button class="btn-primary flex-1 py-3 rounded-full font-semibold text-sm add-to-cart-btn" data-product="${product.id}">
+                            <button class="btn-primary flex-1 py-3 rounded-full font-semibold text-sm add-to-cart-btn" data-product="${product.id}" data-weight="${defaultWeight}">
                                 <span>Add to Cart</span>
                             </button>
                             <button class="px-4 py-3 rounded-full font-semibold text-sm border-2 border-green-700 text-green-700 hover:bg-green-700 hover:text-white transition view-details-btn" data-product="${product.id}">
@@ -993,7 +1031,8 @@
                         </div>
                     </div>
                 </div>
-            `).join('');
+            `;
+            }).join('');
 
             // Reattach event listeners
             attachProductEventListeners();
@@ -1003,6 +1042,11 @@
         function showProductDetails(productId) {
             const product = products.find(p => p.id === parseInt(productId));
             if (!product) return;
+            
+            const defaultWeight = getDefaultWeight(product);
+            const variant = product.weightVariants ? product.weightVariants[defaultWeight] : null;
+            const displayPrice = variant ? variant.price : product.price;
+            const displayOldPrice = variant ? variant.oldPrice : product.oldPrice;
 
             const modalContent = document.getElementById('modal-content');
             modalContent.innerHTML = `
@@ -1023,10 +1067,27 @@
                     <div>
                         <div class="text-sm text-green-700 font-semibold mb-2">${product.category}</div>
                         <h2 class="text-3xl font-bold display-font text-gray-900 mb-4">${product.name}</h2>
+                        
+                        ${product.weightVariants ? `
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Select Package Size:</label>
+                            <div class="flex flex-wrap gap-2" id="modal-weight-buttons">
+                                ${weightOptions.map(weight => {
+                                    const v = product.weightVariants[weight];
+                                    if (v) {
+                                        return `<button class="weight-option-btn px-4 py-2 rounded-full border-2 font-semibold text-sm transition ${weight === defaultWeight ? 'border-green-700 bg-green-700 text-white' : 'border-gray-300 text-gray-700 hover:border-green-700'}" data-weight="${weight}" data-price="${v.price}" data-old-price="${v.oldPrice || ''}">
+                                            ${weight}
+                                        </button>`;
+                                    }
+                                    return '';
+                                }).join('')}
+                            </div>
+                        </div>
+                        ` : ''}
+                        
                         <div class="flex items-center gap-4 mb-6">
-                            <span class="price-tag">Rs. ${product.price.toLocaleString('en-LK')}</span>
-                            ${product.oldPrice ? `<span class="old-price">Rs. ${product.oldPrice.toLocaleString('en-LK')}</span>` : ''}
-                            <span class="text-gray-500">${product.weight}</span>
+                            <span class="price-tag modal-price">Rs. ${displayPrice.toLocaleString('en-LK')}</span>
+                            ${displayOldPrice ? `<span class="old-price modal-old-price">Rs. ${displayOldPrice.toLocaleString('en-LK')}</span>` : '<span class="old-price modal-old-price hidden"></span>'}
                         </div>
                         
                         <p class="text-gray-600 leading-relaxed mb-6">${product.fullDescription}</p>
@@ -1056,8 +1117,8 @@
                             </div>
                         </div>
                         
-                        <button class="btn-primary w-full py-4 rounded-full font-semibold add-to-cart-btn" data-product="${product.id}">
-                            <span>Add to Cart - Rs. ${product.price.toLocaleString('en-LK')}</span>
+                        <button class="btn-primary w-full py-4 rounded-full font-semibold add-to-cart-btn modal-add-to-cart" data-product="${product.id}" data-weight="${defaultWeight}">
+                            <span>Add to Cart - Rs. <span class="modal-btn-price">${displayPrice.toLocaleString('en-LK')}</span></span>
                         </button>
                     </div>
                 </div>
@@ -1065,6 +1126,39 @@
 
             document.getElementById('product-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
+
+            // Attach weight button listeners in modal
+            const weightButtons = document.querySelectorAll('#modal-weight-buttons .weight-option-btn');
+            weightButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const weight = this.dataset.weight;
+                    const price = parseInt(this.dataset.price);
+                    const oldPrice = this.dataset.oldPrice ? parseInt(this.dataset.oldPrice) : null;
+                    
+                    // Update button states
+                    weightButtons.forEach(b => {
+                        b.classList.remove('border-green-700', 'bg-green-700', 'text-white');
+                        b.classList.add('border-gray-300', 'text-gray-700');
+                    });
+                    this.classList.remove('border-gray-300', 'text-gray-700');
+                    this.classList.add('border-green-700', 'bg-green-700', 'text-white');
+                    
+                    // Update price display
+                    document.querySelector('.modal-price').textContent = `Rs. ${price.toLocaleString('en-LK')}`;
+                    document.querySelector('.modal-btn-price').textContent = price.toLocaleString('en-LK');
+                    
+                    const oldPriceEl = document.querySelector('.modal-old-price');
+                    if (oldPrice) {
+                        oldPriceEl.textContent = `Rs. ${oldPrice.toLocaleString('en-LK')}`;
+                        oldPriceEl.classList.remove('hidden');
+                    } else {
+                        oldPriceEl.classList.add('hidden');
+                    }
+                    
+                    // Update add to cart button weight data
+                    document.querySelector('.modal-add-to-cart').dataset.weight = weight;
+                });
+            });
 
             // Attach add to cart listener in modal
             document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
@@ -1076,9 +1170,19 @@
         function handleAddToCart(e) {
             const btn = e.currentTarget;
             const productId = parseInt(btn.dataset.product);
+            const selectedWeight = btn.dataset.weight;
             const product = products.find(p => p.id === productId);
             
             if (!product) return;
+            
+            // Determine price based on selected weight
+            let price = product.price;
+            let weight = product.weight;
+            
+            if (product.weightVariants && selectedWeight && product.weightVariants[selectedWeight]) {
+                price = product.weightVariants[selectedWeight].price;
+                weight = selectedWeight;
+            }
             
             // Add to cart in localStorage
             let cart = [];
@@ -1089,15 +1193,16 @@
                 cart = [];
             }
             
-            const existingItem = cart.find(item => item.id === productId);
+            // Check for existing item with same product ID AND weight
+            const existingItem = cart.find(item => item.id === productId && item.weight === weight);
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
                 cart.push({
                     id: product.id,
                     name: product.name,
-                    price: product.price,
-                    weight: product.weight,
+                    price: price,
+                    weight: weight,
                     category: product.category,
                     quantity: 1
                 });
@@ -1202,6 +1307,54 @@
             // Add to cart buttons
             document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
                 btn.addEventListener('click', handleAddToCart);
+            });
+
+            // Weight selector change handlers
+            document.querySelectorAll('.weight-selector').forEach(select => {
+                select.addEventListener('change', function() {
+                    const productId = parseInt(this.dataset.product);
+                    const selectedWeight = this.value;
+                    const product = products.find(p => p.id === productId);
+                    
+                    if (product && product.weightVariants && product.weightVariants[selectedWeight]) {
+                        const variant = product.weightVariants[selectedWeight];
+                        const card = this.closest('.product-card');
+                        
+                        // Update price display in the card
+                        const priceTag = card.querySelector('.price-tag');
+                        if (priceTag) {
+                            priceTag.textContent = `Rs. ${variant.price.toLocaleString('en-LK')}`;
+                        }
+                        
+                        // Update old price display
+                        const oldPriceTag = card.querySelector('.old-price');
+                        if (variant.oldPrice) {
+                            if (oldPriceTag) {
+                                oldPriceTag.textContent = `Rs. ${variant.oldPrice.toLocaleString('en-LK')}`;
+                                oldPriceTag.classList.remove('hidden');
+                            } else {
+                                // Create old price element if it doesn't exist
+                                const priceDisplay = card.querySelector('.price-display');
+                                if (priceDisplay) {
+                                    const newOldPrice = document.createElement('span');
+                                    newOldPrice.className = 'old-price ml-2';
+                                    newOldPrice.textContent = `Rs. ${variant.oldPrice.toLocaleString('en-LK')}`;
+                                    priceDisplay.appendChild(newOldPrice);
+                                }
+                            }
+                        } else {
+                            if (oldPriceTag) {
+                                oldPriceTag.classList.add('hidden');
+                            }
+                        }
+                        
+                        // Update add to cart button's weight data
+                        const addToCartBtn = card.querySelector('.add-to-cart-btn');
+                        if (addToCartBtn) {
+                            addToCartBtn.dataset.weight = selectedWeight;
+                        }
+                    }
+                });
             });
 
             // View details buttons

@@ -2174,6 +2174,8 @@ async function sendOrderEmail(formData, orderNumber) {
         delivery_date: formData.delivery.preferredDate || 'Not specified',
         order_notes: formData.notes || 'None',
         if_billing_different: !formData.billing.sameAsShipping,
+        if_shipping_address2: formData.shipping.address2 ? true : false,  // ← NEW LINE ADDED
+        if_billing_address2: formData.billing.address2 ? true : false,    // ← NEW LINE ADDED
         if_delivery_notes: formData.delivery.instructions || formData.delivery.preferredDate,
         if_order_notes: formData.notes,
         if_delivery_instructions: formData.delivery.instructions,

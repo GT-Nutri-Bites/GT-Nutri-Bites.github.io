@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GT Nutri Bites Returns & Refunds Policy - Learn about our hassle-free return policy and how to request a refund for organic nuts and seeds.">
+    <meta name="keywords" content="GT Nutri Bites returns, refund policy, product exchange, customer satisfaction">
+    <meta name="author" content="GT Nutri Bites">
+    
+    <title>Returns & Refunds - GT Nutri Bites</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2D5016;
+            --primary-light: #4A7C24;
+            --accent: #E8B44C;
+            --cream: #FFF8F0;
+            --text-dark: #1F2937;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main { flex: 1 0 auto; }
+        footer { flex-shrink: 0; }
+
+        .display-font { font-family: 'Libre Baskerville', serif; }
+
+        .organic-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(74, 124, 36, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(232, 180, 76, 0.08) 0%, transparent 50%);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after { width: 100%; }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .cart-badge {
+            background: var(--accent);
+            color: var(--text-dark);
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -6px; right: -6px;
+        }
+
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 9999;
+        }
+
+        .mobile-menu.active { transform: translateX(0); }
+
+        .mobile-menu-backdrop {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .mobile-menu-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .policy-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0 0 0.5rem 0.5rem;
+            z-index: 10002;
+            font-weight: 600;
+            transition: top 0.3s ease;
+            text-decoration: none;
+        }
+
+        .skip-link:focus { top: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem !important; }
+            h2 { font-size: 1.5rem !important; }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="organic-bg" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <nav class="relative z-[1000] bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <img src="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg" alt="GT Nutri Bites Logo" class="h-12 w-auto object-contain">
+                        <span class="text-2xl font-bold display-font text-green-800">GT Nutri Bites</span>
+                    </a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="products.html" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Shop</a>
+                    <a href="about.html" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">About</a>
+                    <a href="index.html#benefits" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Health Benefits</a>
+                    <a href="index.html#testimonials" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Reviews</a>
+                    <a href="contact.html" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Contact</a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="cart.html" class="relative p-2 hover:bg-gray-100 rounded-full transition" aria-label="Shopping cart">
+                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="cart-badge" id="cart-count">0</span>
+                    </a>
+                    <a href="products.html" class="btn-primary px-6 py-2.5 rounded-full font-medium text-sm">Shop Now</a>
+                </div>
+
+                <div class="flex items-center space-x-3 md:hidden">
+                    <a href="cart.html" class="relative p-2" aria-label="Shopping cart">
+                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="cart-badge" id="mobile-cart-count">0</span>
+                    </a>
+                    <button id="mobile-menu-btn" class="text-gray-700" aria-label="Open menu">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu-backdrop" class="mobile-menu-backdrop"></div>
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-white shadow-2xl md:hidden p-6">
+        <button id="close-menu" class="absolute top-6 right-6 text-gray-700" aria-label="Close menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <div class="mt-16 space-y-6">
+            <a href="products.html" class="block text-lg font-medium text-gray-700 hover:text-green-700">Shop</a>
+            <a href="about.html" class="block text-lg font-medium text-gray-700 hover:text-green-700">About</a>
+            <a href="index.html#benefits" class="block text-lg font-medium text-gray-700 hover:text-green-700">Health Benefits</a>
+            <a href="index.html#testimonials" class="block text-lg font-medium text-gray-700 hover:text-green-700">Reviews</a>
+            <a href="contact.html" class="block text-lg font-medium text-gray-700 hover:text-green-700">Contact</a>
+            <a href="products.html" class="btn-primary w-full px-6 py-3 rounded-full font-medium text-sm mt-4 block text-center">Shop Now</a>
+        </div>
+    </div>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 to-cream">
+            <div class="max-w-7xl mx-auto text-center">
+                <h1 class="text-4xl sm:text-5xl font-bold display-font text-gray-900 mb-6">
+                    Returns & <span class="text-green-700">Refunds</span>
+                </h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Your satisfaction is our priority. We offer a hassle-free return policy to ensure you're completely happy with your purchase.
+                </p>
+            </div>
+        </section>
+
+        <!-- Return Policy Highlights -->
+        <section class="py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-6 mb-12">
+                    <div class="text-center p-6 bg-white rounded-xl shadow-md">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl">📅</span>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">7-Day Returns</h3>
+                        <p class="text-gray-600 text-sm">Return unopened items within 7 days of delivery</p>
+                    </div>
+
+                    <div class="text-center p-6 bg-white rounded-xl shadow-md">
+                        <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl">💯</span>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Quality Guarantee</h3>
+                        <p class="text-gray-600 text-sm">Full refund if product doesn't meet quality standards</p>
+                    </div>
+
+                    <div class="text-center p-6 bg-white rounded-xl shadow-md">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl">🔄</span>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Easy Exchange</h3>
+                        <p class="text-gray-600 text-sm">Exchange for a different product at no extra cost</p>
+                    </div>
+                </div>
+
+                <!-- Return Policy Details -->
+                <div class="policy-card mb-8">
+                    <h2 class="text-2xl font-bold display-font text-gray-900 mb-6">Return Policy</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-2">Eligible Returns</h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-green-700 mr-2">✓</span>
+                                    Unopened products in original packaging within 7 days of delivery
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-700 mr-2">✓</span>
+                                    Products that are damaged during shipping
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-700 mr-2">✓</span>
+                                    Products that don't match your order (wrong item, quantity, etc.)
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-700 mr-2">✓</span>
+                                    Products with quality issues (stale, rancid, contaminated)
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-2">Non-Eligible Returns</h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-red-500 mr-2">✗</span>
+                                    Opened or partially consumed products (unless quality issue)
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-500 mr-2">✗</span>
+                                    Returns requested after 7 days of delivery
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-500 mr-2">✗</span>
+                                    Products damaged due to improper storage by customer
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-500 mr-2">✗</span>
+                                    Sale or clearance items (unless defective)
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Return Process Steps -->
+                <div class="policy-card mb-8">
+                    <h2 class="text-2xl font-bold display-font text-gray-900 mb-6">How to Return</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="step-card">
+                            <div class="flex items-center mb-2">
+                                <span class="w-8 h-8 bg-green-700 text-white rounded-full flex items-center justify-center font-bold mr-3">1</span>
+                                <h3 class="font-bold text-gray-900">Contact Us</h3>
+                            </div>
+                            <p class="text-gray-600 ml-11">Email us at <a href="mailto:returns@gtnutribites.com" class="text-green-700 hover:underline">returns@gtnutribites.com</a> or call us within 7 days of receiving your order. Include your order number and reason for return.</p>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="flex items-center mb-2">
+                                <span class="w-8 h-8 bg-green-700 text-white rounded-full flex items-center justify-center font-bold mr-3">2</span>
+                                <h3 class="font-bold text-gray-900">Receive Approval</h3>
+                            </div>
+                            <p class="text-gray-600 ml-11">Our team will review your request within 24-48 hours and send you return instructions along with a prepaid return label (for eligible returns).</p>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="flex items-center mb-2">
+                                <span class="w-8 h-8 bg-green-700 text-white rounded-full flex items-center justify-center font-bold mr-3">3</span>
+                                <h3 class="font-bold text-gray-900">Ship the Product</h3>
+                            </div>
+                            <p class="text-gray-600 ml-11">Pack the product securely in its original packaging and ship it using the provided return label. Keep your tracking number for reference.</p>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="flex items-center mb-2">
+                                <span class="w-8 h-8 bg-green-700 text-white rounded-full flex items-center justify-center font-bold mr-3">4</span>
+                                <h3 class="font-bold text-gray-900">Receive Refund</h3>
+                            </div>
+                            <p class="text-gray-600 ml-11">Once we receive and inspect the returned item, we'll process your refund within 5-7 business days. Refunds are issued to the original payment method.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Refund Information -->
+                <div class="policy-card mb-8">
+                    <h2 class="text-2xl font-bold display-font text-gray-900 mb-6">Refund Information</h2>
+                    
+                    <div class="space-y-4 text-gray-600">
+                        <p>
+                            <strong>Processing Time:</strong> Refunds are processed within 5-7 business days after we receive the returned item.
+                        </p>
+                        <p>
+                            <strong>Refund Method:</strong> Refunds are issued to the original payment method. Bank transfers may take an additional 3-5 business days to appear in your account.
+                        </p>
+                        <p>
+                            <strong>Partial Refunds:</strong> In some cases (items not in original condition, returned after 7 days with approval), a partial refund may be issued.
+                        </p>
+                        <p>
+                            <strong>Shipping Costs:</strong> Original shipping costs are non-refundable unless the return is due to our error or a defective product.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Damaged or Wrong Items -->
+                <div class="policy-card bg-green-50 border border-green-200">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">📦 Damaged or Wrong Items?</h2>
+                    <p class="text-gray-600 mb-4">
+                        If you received a damaged or incorrect item, please contact us immediately within 48 hours of delivery with:
+                    </p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-start">
+                            <span class="text-green-700 mr-2">•</span>
+                            Photos of the damaged/wrong item
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-700 mr-2">•</span>
+                            Your order number
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-700 mr-2">•</span>
+                            Brief description of the issue
+                        </li>
+                    </ul>
+                    <p class="text-gray-600 mt-4">
+                        We'll arrange a replacement or full refund at no additional cost to you.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-700 to-green-800">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-2xl sm:text-3xl font-bold display-font text-white mb-4">Need Help with a Return?</h2>
+                <p class="text-green-100 mb-6">Our customer support team is here to assist you.</p>
+                <a href="contact.html" class="inline-block bg-amber-400 text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-amber-300 transition">Contact Support</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <img src="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg" alt="GT Nutri Bites Logo" class="h-10 w-auto object-contain">
+                        <span class="text-2xl font-bold display-font">GT Nutri Bites</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 max-w-sm">Your trusted source for premium organic nuts and seeds.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Shop</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="products.html" class="hover:text-amber-400 transition">All Products</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Nuts</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Seeds</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="about.html" class="hover:text-amber-400 transition">About Us</a></li>
+                        <li><a href="contact.html" class="hover:text-amber-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="shipping.html" class="hover:text-amber-400 transition">Shipping Info</a></li>
+                        <li><a href="returns.html" class="hover:text-amber-400 transition">Returns</a></li>
+                        <li><a href="faq.html" class="hover:text-amber-400 transition">FAQ</a></li>
+                        <li><a href="privacy.html" class="hover:text-amber-400 transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-center">
+                <p class="text-sm text-gray-400">&copy; 2024 GT Nutri Bites. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+        const closeMenuBtn = document.getElementById('close-menu');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileMenuBackdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileMenuBackdrop.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        closeMenuBtn.addEventListener('click', closeMobileMenu);
+        mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            const mobileCartCount = document.getElementById('mobile-cart-count');
+            let cart = [];
+            try {
+                cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            } catch (e) {}
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            if (cartCount) cartCount.textContent = count;
+            if (mobileCartCount) mobileCartCount.textContent = count;
+        }
+
+        updateCartCount();
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMobileMenu();
+        });
+    </script>
+</body>
+</html>

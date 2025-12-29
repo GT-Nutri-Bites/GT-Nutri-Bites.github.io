@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GT Nutri Bites FAQ - Find answers to frequently asked questions about our organic nuts, seeds, ordering, shipping, and more.">
+    <meta name="keywords" content="GT Nutri Bites FAQ, frequently asked questions, organic nuts help, customer questions">
+    <meta name="author" content="GT Nutri Bites">
+    
+    <title>FAQ - GT Nutri Bites</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2D5016;
+            --primary-light: #4A7C24;
+            --accent: #E8B44C;
+            --cream: #FFF8F0;
+            --text-dark: #1F2937;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main { flex: 1 0 auto; }
+        footer { flex-shrink: 0; }
+
+        .display-font { font-family: 'Libre Baskerville', serif; }
+
+        .organic-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(74, 124, 36, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(232, 180, 76, 0.08) 0%, transparent 50%);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after { width: 100%; }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .cart-badge {
+            background: var(--accent);
+            color: var(--text-dark);
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -6px; right: -6px;
+        }
+
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 9999;
+        }
+
+        .mobile-menu.active { transform: translateX(0); }
+
+        .mobile-menu-backdrop {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .mobile-menu-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-dark);
+            background: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #f9fafb;
+        }
+
+        .faq-question.active {
+            background: #f0fdf4;
+        }
+
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 1rem;
+        }
+
+        .faq-question.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .faq-answer p {
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        .category-tab {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .category-tab:hover {
+            background: #f0fdf4;
+        }
+
+        .category-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0 0 0.5rem 0.5rem;
+            z-index: 10002;
+            font-weight: 600;
+            transition: top 0.3s ease;
+            text-decoration: none;
+        }
+
+        .skip-link:focus { top: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem !important; }
+            h2 { font-size: 1.5rem !important; }
+            .category-tab { 
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="organic-bg" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <nav class="relative z-[1000] bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <img src="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg" alt="GT Nutri Bites Logo" class="h-12 w-auto object-contain">
+                        <span class="text-2xl font-bold display-font text-green-800">GT Nutri Bites</span>
+                    </a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="products.html" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Shop</a>
+                    <a href="about.html" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">About</a>
+                    <a href="index.html#benefits" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Health Benefits</a>
+                    <a href="index.html#testimonials" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Reviews</a>
+                    <a href="contact.html" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Contact</a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="cart.html" class="relative p-2 hover:bg-gray-100 rounded-full transition" aria-label="Shopping cart">
+                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="cart-badge" id="cart-count">0</span>
+                    </a>
+                    <a href="products.html" class="btn-primary px-6 py-2.5 rounded-full font-medium text-sm">Shop Now</a>
+                </div>
+
+                <div class="flex items-center space-x-3 md:hidden">
+                    <a href="cart.html" class="relative p-2" aria-label="Shopping cart">
+                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="cart-badge" id="mobile-cart-count">0</span>
+                    </a>
+                    <button id="mobile-menu-btn" class="text-gray-700" aria-label="Open menu">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu-backdrop" class="mobile-menu-backdrop"></div>
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-white shadow-2xl md:hidden p-6">
+        <button id="close-menu" class="absolute top-6 right-6 text-gray-700" aria-label="Close menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <div class="mt-16 space-y-6">
+            <a href="products.html" class="block text-lg font-medium text-gray-700 hover:text-green-700">Shop</a>
+            <a href="about.html" class="block text-lg font-medium text-gray-700 hover:text-green-700">About</a>
+            <a href="index.html#benefits" class="block text-lg font-medium text-gray-700 hover:text-green-700">Health Benefits</a>
+            <a href="index.html#testimonials" class="block text-lg font-medium text-gray-700 hover:text-green-700">Reviews</a>
+            <a href="contact.html" class="block text-lg font-medium text-gray-700 hover:text-green-700">Contact</a>
+            <a href="products.html" class="btn-primary w-full px-6 py-3 rounded-full font-medium text-sm mt-4 block text-center">Shop Now</a>
+        </div>
+    </div>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 to-cream">
+            <div class="max-w-7xl mx-auto text-center">
+                <h1 class="text-4xl sm:text-5xl font-bold display-font text-gray-900 mb-6">
+                    Frequently Asked <span class="text-green-700">Questions</span>
+                </h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Find quick answers to common questions about our products, ordering, shipping, and more.
+                </p>
+            </div>
+        </section>
+
+        <!-- Category Tabs -->
+        <section class="py-8 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-wrap justify-center gap-3 mb-8">
+                    <button class="category-tab active" data-category="all">All Questions</button>
+                    <button class="category-tab" data-category="products">Products</button>
+                    <button class="category-tab" data-category="orders">Orders</button>
+                    <button class="category-tab" data-category="shipping">Shipping</button>
+                    <button class="category-tab" data-category="returns">Returns</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-8 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto" id="faq-container">
+                
+                <!-- Products FAQs -->
+                <div class="faq-item" data-category="products">
+                    <button class="faq-question">
+                        <span>Are your products organic?</span>
+                        <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! All our products are certified organic and sourced from sustainable farms. We prioritize quality and environmental responsibility in everything we do. Look for the organic certification badge on our product pages.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="products">
+                    <button class="faq-question">
+                        <span>How should I store nuts and seeds?</span>
+                        <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>For best freshness, store your nuts and seeds in an airtight container in a cool, dry place away from direct sunlight. For longer storage (3+ months), you can refrigerate or freeze them. Refrigerated nuts can last up to 6 months, while frozen nuts can last up to a year.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="products">
+                    <button class="faq-question">
+                        <span>What is the shelf life of your products?</span>
+                        <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>When stored properly, most of our nuts and seeds have a shelf life of 3-6 months at room temperature. Each package includes a best-by date for your reference. For maximum freshness, we recommend consuming within 2-3 months of purchase.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="products">
+                    <button class="faq-question">
+                        <span>Do your products contain allergens?</span>
+                        <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Our products contain tree nuts (almonds, cashews, walnuts, etc.) and seeds. They are processed in a facility that handles various nut types, so cross-contamination is possible. Please check each product's allergen information if you have specific allergies.</p>
+                    </div>
+                </div>
+
+                <!-- Orders FAQs -->
+                <div class="faq-item" data-category="orders">
+                    <button class="faq-question">
+                        <span>How do I place an order?</span>
+                        <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Ordering is easy! Simply browse our products, select the items and quantities you want, add them to your cart, and proceed to checkout. You'll need to provide your shipping information and payment details to complete your order.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="orders">
+                    <button class="faq-question">
+                        <span>Can I modify or cancel my order?</span>
+                        <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>You can modify or cancel your order within 2 hours of placing it by contacting our customer support. Once an order has been processed and shipped, it cannot be cancelled, but you can initiate a return after receiving it.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="orders">
+                    <button class="faq-question">
+                        <span>What payment methods do you accept?</span>
+                        <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We accept all major credit and debit cards (Visa, Mastercard), PayPal, and bank transfers. Cash on delivery is also available for selected areas within Sri Lanka.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="orders">
+                    <button class="faq-question">
+                        <span>Will I receive an order confirmation?</span>
+                        <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! You'll receive an email confirmation immediately after placing your order with your order number and details. You'll also receive a shipping confirmation with tracking information once your order ships.</p>
+                    </div>
+                </div>
+
+                <!-- Shipping FAQs -->
+                <div class="faq-item" data-category="shipping">
+                    <button class="faq-question">
+                        <span>How long does shipping take?</span>
+                        <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Standard shipping typically takes 3-5 business days within Sri Lanka. Express shipping (1-2 business days) is available for major cities. Same-day delivery is available in Colombo for orders placed before 12 PM.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="shipping">
+                    <button class="faq-question">
+                        <span>Do you offer free shipping?</span>
+                        <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! We offer free standard shipping on all orders over Rs. 16,500. Orders under this amount have a flat shipping rate starting from Rs. 990 depending on your location.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="shipping">
+                    <button class="faq-question">
+                        <span>How can I track my order?</span>
+                        <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Once your order ships, you'll receive an email with a tracking number and link. You can use this to track your package's progress. You can also contact our support team with your order number for updates.</p>
+                    </div>
+                </div>
+
+                <!-- Returns FAQs -->
+                <div class="faq-item" data-category="returns">
+                    <button class="faq-question">
+                        <span>What is your return policy?</span>
+                        <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We offer a 7-day return policy for unopened products in original packaging. If your product is damaged, defective, or not what you ordered, we'll gladly provide a full refund or replacement. Visit our <a href="returns.html" class="text-green-700 underline">Returns page</a> for complete details.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="returns">
+                    <button class="faq-question">
+                        <span>How do I initiate a return?</span>
+                        <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>To initiate a return, email us at returns@gtnutribites.com with your order number and reason for return. Our team will review your request and provide return instructions within 24-48 hours.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="returns">
+                    <button class="faq-question">
+                        <span>How long does it take to receive a refund?</span>
+                        <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Once we receive and inspect your returned item, refunds are processed within 5-7 business days. The refund will be credited to your original payment method. Bank transfers may take an additional 3-5 business days to appear in your account.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-700 to-green-800">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-2xl sm:text-3xl font-bold display-font text-white mb-4">Still Have Questions?</h2>
+                <p class="text-green-100 mb-6">Our support team is here to help with any questions you may have.</p>
+                <a href="contact.html" class="inline-block bg-amber-400 text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-amber-300 transition">Contact Us</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <img src="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg" alt="GT Nutri Bites Logo" class="h-10 w-auto object-contain">
+                        <span class="text-2xl font-bold display-font">GT Nutri Bites</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 max-w-sm">Your trusted source for premium organic nuts and seeds.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Shop</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="products.html" class="hover:text-amber-400 transition">All Products</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Nuts</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Seeds</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="about.html" class="hover:text-amber-400 transition">About Us</a></li>
+                        <li><a href="contact.html" class="hover:text-amber-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="shipping.html" class="hover:text-amber-400 transition">Shipping Info</a></li>
+                        <li><a href="returns.html" class="hover:text-amber-400 transition">Returns</a></li>
+                        <li><a href="faq.html" class="hover:text-amber-400 transition">FAQ</a></li>
+                        <li><a href="privacy.html" class="hover:text-amber-400 transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-center">
+                <p class="text-sm text-gray-400">&copy; 2024 GT Nutri Bites. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+        const closeMenuBtn = document.getElementById('close-menu');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileMenuBackdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileMenuBackdrop.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        closeMenuBtn.addEventListener('click', closeMobileMenu);
+        mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Cart count
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            const mobileCartCount = document.getElementById('mobile-cart-count');
+            let cart = [];
+            try {
+                cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            } catch (e) {}
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            if (cartCount) cartCount.textContent = count;
+            if (mobileCartCount) mobileCartCount.textContent = count;
+        }
+
+        updateCartCount();
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isActive = question.classList.contains('active');
+                
+                // Close all other FAQs
+                document.querySelectorAll('.faq-question').forEach(q => {
+                    q.classList.remove('active');
+                    q.nextElementSibling.classList.remove('active');
+                });
+                
+                // Toggle current FAQ
+                if (!isActive) {
+                    question.classList.add('active');
+                    answer.classList.add('active');
+                }
+            });
+        });
+
+        // Category filtering
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                const category = tab.dataset.category;
+                
+                // Filter FAQs
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Keyboard accessibility
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMobileMenu();
+        });
+    </script>
+</body>
+</html>

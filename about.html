@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about GT Nutri Bites - Your trusted source for premium organic nuts and seeds. Discover our story, mission, and commitment to quality and sustainability.">
+    <meta name="keywords" content="about GT Nutri Bites, organic nuts company, sustainable farming, premium seeds, company story">
+    <meta name="author" content="GT Nutri Bites">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="About Us - GT Nutri Bites">
+    <meta property="og:description" content="Learn about GT Nutri Bites - Your trusted source for premium organic nuts and seeds.">
+    
+    <title>About Us - GT Nutri Bites</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2D5016;
+            --primary-light: #4A7C24;
+            --accent: #E8B44C;
+            --accent-dark: #D9A03D;
+            --cream: #FFF8F0;
+            --text-dark: #1F2937;
+            --text-muted: #6B7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+
+        footer {
+            flex-shrink: 0;
+        }
+
+        .display-font {
+            font-family: 'Libre Baskerville', serif;
+        }
+
+        .organic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(74, 124, 36, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(232, 180, 76, 0.08) 0%, transparent 50%);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .delay-100 { animation-delay: 0.1s; opacity: 0; }
+        .delay-200 { animation-delay: 0.2s; opacity: 0; }
+        .delay-300 { animation-delay: 0.3s; opacity: 0; }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(45, 80, 22, 0.2);
+        }
+
+        .cart-badge {
+            background: var(--accent);
+            color: var(--text-dark);
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -6px;
+            right: -6px;
+        }
+
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .mobile-menu-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu {
+            z-index: 9999;
+        }
+
+        .value-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(45, 80, 22, 0.1);
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(45, 80, 22, 0.12);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 3px solid var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0 0 0.5rem 0.5rem;
+            z-index: 10002;
+            font-weight: 600;
+            transition: top 0.3s ease;
+            text-decoration: none;
+        }
+
+        .skip-link:focus {
+            top: 0;
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        button:focus,
+        a:focus,
+        input:focus {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.25rem !important;
+            }
+            h2 {
+                font-size: 1.875rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <div class="organic-bg" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <nav class="relative z-[1000] bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <img src="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg" alt="GT Nutri Bites Logo" class="h-12 w-auto object-contain">
+                        <span class="text-2xl font-bold display-font text-green-800">GT Nutri Bites</span>
+                    </a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="products.html" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Shop</a>
+                    <a href="about.html" class="nav-link text-sm font-medium text-green-700">About</a>
+                    <a href="index.html#benefits" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Health Benefits</a>
+                    <a href="index.html#testimonials" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Reviews</a>
+                    <a href="contact.html" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Contact</a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="cart.html" class="relative p-2 hover:bg-gray-100 rounded-full transition" aria-label="Shopping cart">
+                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="cart-badge" id="cart-count">0</span>
+                    </a>
+                    <a href="products.html" class="btn-primary px-6 py-2.5 rounded-full font-medium text-sm">
+                        Shop Now
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-3 md:hidden">
+                    <a href="cart.html" class="relative p-2 hover:bg-gray-100 rounded-full transition" aria-label="Shopping cart">
+                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="cart-badge" id="mobile-cart-count">0</span>
+                    </a>
+                    <button id="mobile-menu-btn" class="text-gray-700 focus:outline-none" aria-label="Open menu">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu-backdrop" class="mobile-menu-backdrop"></div>
+    
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-white shadow-2xl md:hidden p-6">
+        <button id="close-menu" class="absolute top-6 right-6 text-gray-700" aria-label="Close menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <div class="mt-16 space-y-6">
+            <a href="products.html" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Shop</a>
+            <a href="about.html" class="block text-lg font-medium text-green-700">About</a>
+            <a href="index.html#benefits" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Health Benefits</a>
+            <a href="index.html#testimonials" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Reviews</a>
+            <a href="contact.html" class="block text-lg font-medium text-gray-700 hover:text-green-700 transition">Contact</a>
+            <a href="products.html" class="btn-primary w-full px-6 py-3 rounded-full font-medium text-sm mt-4 block text-center">
+                Shop Now
+            </a>
+        </div>
+    </div>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 to-cream">
+            <div class="max-w-7xl mx-auto text-center">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold display-font text-gray-900 mb-6 animate-fade-in-up">
+                    About <span class="text-green-700">GT Nutri Bites</span>
+                </h1>
+                <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in-up delay-100">
+                    Nourishing lives, one handful at a time. We're passionate about bringing you the finest quality organic nuts and seeds from sustainable farms around the world.
+                </p>
+            </div>
+        </section>
+
+        <!-- Our Story -->
+        <section class="py-16 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="animate-fade-in-up">
+                        <h2 class="text-3xl sm:text-4xl font-bold display-font text-gray-900 mb-6">Our Story</h2>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            GT Nutri Bites was founded with a simple mission: to make premium, organic nuts and seeds accessible to everyone. What started as a small family operation has grown into a trusted brand serving health-conscious customers worldwide.
+                        </p>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            Our journey began when we realized that finding truly high-quality nuts and seeds was harder than it should be. We set out to change that by building direct relationships with sustainable farmers who share our commitment to quality and environmental responsibility.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed">
+                            Today, we're proud to offer a curated selection of the world's finest nuts and seeds, each one carefully sourced and quality-tested to ensure you get nothing but the best.
+                        </p>
+                    </div>
+                    <div class="animate-fade-in-up delay-200">
+                        <div class="aspect-square rounded-3xl bg-gradient-to-br from-green-200 via-amber-100 to-green-100 p-8 flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="text-8xl mb-4">🌱</div>
+                                <p class="text-xl font-semibold text-gray-700">Growing Together Since 2020</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Values -->
+        <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-amber-50 to-cream">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold display-font text-gray-900 mb-4">Our Core Values</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">
+                        These principles guide everything we do, from sourcing to delivery.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="value-card">
+                        <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                            <svg class="w-7 h-7 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Quality First</h3>
+                        <p class="text-gray-600 text-sm">
+                            We never compromise on quality. Every product undergoes rigorous testing to ensure it meets our high standards.
+                        </p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mb-4">
+                            <svg class="w-7 h-7 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Sustainability</h3>
+                        <p class="text-gray-600 text-sm">
+                            We partner with farmers who practice sustainable agriculture and use eco-friendly packaging materials.
+                        </p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                            <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Community</h3>
+                        <p class="text-gray-600 text-sm">
+                            We support the farming communities we work with through fair trade practices and community initiatives.
+                        </p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-4">
+                            <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Health & Wellness</h3>
+                        <p class="text-gray-600 text-sm">
+                            We're dedicated to promoting healthy lifestyles through nutritious, natural food choices.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Journey Timeline -->
+        <section class="py-16 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold display-font text-gray-900 mb-4">Our Journey</h2>
+                    <p class="text-gray-600">
+                        From humble beginnings to where we are today.
+                    </p>
+                </div>
+
+                <div class="space-y-2">
+                    <div class="timeline-item">
+                        <span class="text-sm text-green-700 font-semibold">2020</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">The Beginning</h3>
+                        <p class="text-gray-600">GT Nutri Bites was founded with a vision to provide premium organic nuts and seeds to health-conscious consumers.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="text-sm text-green-700 font-semibold">2021</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Growing Our Network</h3>
+                        <p class="text-gray-600">Established partnerships with sustainable farms across multiple continents, expanding our product range.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="text-sm text-green-700 font-semibold">2022</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Online Launch</h3>
+                        <p class="text-gray-600">Launched our e-commerce platform, making our products accessible to customers nationwide.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="text-sm text-green-700 font-semibold">2023</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Organic Certification</h3>
+                        <p class="text-gray-600">Achieved organic certification for all our products, solidifying our commitment to quality and sustainability.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="text-sm text-green-700 font-semibold">2024</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Reaching New Heights</h3>
+                        <p class="text-gray-600">Expanded our product line and reached over 10,000 happy customers. The journey continues!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 to-cream">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold display-font text-gray-900 mb-4">Why Choose GT Nutri Bites?</h2>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-4xl">✓</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">100% Organic</h3>
+                        <p class="text-gray-600">All our products are certified organic, free from pesticides and harmful chemicals.</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-4xl">🚚</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Fast Delivery</h3>
+                        <p class="text-gray-600">Quick and reliable shipping to ensure your nuts and seeds arrive fresh.</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-4xl">💯</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Satisfaction Guaranteed</h3>
+                        <p class="text-gray-600">Not happy with your purchase? We offer hassle-free returns and refunds.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-700 to-green-800">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold display-font text-white mb-4">
+                    Ready to Start Your Healthy Journey?
+                </h2>
+                <p class="text-lg text-green-100 mb-8">
+                    Browse our premium collection of organic nuts and seeds today.
+                </p>
+                <a href="products.html" class="inline-block bg-amber-400 text-gray-900 px-8 py-4 rounded-full font-semibold hover:bg-amber-300 transition transform hover:-translate-y-1">
+                    Shop Now
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <img src="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg" alt="GT Nutri Bites Logo" class="h-10 w-auto object-contain">
+                        <span class="text-2xl font-bold display-font">GT Nutri Bites</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 max-w-sm">
+                        Your trusted source for premium organic nuts and seeds. Nourishing lives, one handful at a time.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-700 transition" aria-label="Twitter">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-700 transition" aria-label="Facebook">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-700 transition" aria-label="Instagram">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Shop</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="products.html" class="hover:text-amber-400 transition">All Products</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Nuts</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Seeds</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Trail Mix</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Best Sellers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="about.html" class="hover:text-amber-400 transition">About Us</a></li>
+                        <li><a href="about.html" class="hover:text-amber-400 transition">Our Story</a></li>
+                        <li><a href="about.html" class="hover:text-amber-400 transition">Sustainability</a></li>
+                        <li><a href="contact.html" class="hover:text-amber-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="contact.html" class="hover:text-amber-400 transition">Contact Us</a></li>
+                        <li><a href="shipping.html" class="hover:text-amber-400 transition">Shipping Info</a></li>
+                        <li><a href="returns.html" class="hover:text-amber-400 transition">Returns</a></li>
+                        <li><a href="faq.html" class="hover:text-amber-400 transition">FAQ</a></li>
+                        <li><a href="privacy.html" class="hover:text-amber-400 transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-gray-400 text-center md:text-left">
+                        &copy; 2024 GT Nutri Bites. All rights reserved. Made with 🌱 for a healthier world.
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='25' fill='%23fff'%3E%3Crect width='40' height='25' rx='3' fill='%23333'/%3E%3Ctext x='20' y='17' font-family='Arial' font-size='10' text-anchor='middle' fill='%23fff'%3EVISA%3C/text%3E%3C/svg%3E" alt="Visa" class="h-6">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='25' fill='%23fff'%3E%3Crect width='40' height='25' rx='3' fill='%23333'/%3E%3Ccircle cx='15' cy='12.5' r='6' fill='%23EB001B'/%3E%3Ccircle cx='25' cy='12.5' r='6' fill='%23F79E1B'/%3E%3C/svg%3E" alt="Mastercard" class="h-6">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='25' fill='%23fff'%3E%3Crect width='40' height='25' rx='3' fill='%23333'/%3E%3Ctext x='20' y='17' font-family='Arial' font-size='8' text-anchor='middle' fill='%23169BD7'%3EPayPal%3C/text%3E%3C/svg%3E" alt="PayPal" class="h-6">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+        const closeMenuBtn = document.getElementById('close-menu');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileMenuBackdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileMenuBackdrop.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        closeMenuBtn.addEventListener('click', closeMobileMenu);
+        mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Update cart count
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            const mobileCartCount = document.getElementById('mobile-cart-count');
+            let cart = [];
+            try {
+                cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            } catch (e) {
+                console.error('Error loading cart:', e);
+            }
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            if (cartCount) cartCount.textContent = count;
+            if (mobileCartCount) mobileCartCount.textContent = count;
+        }
+
+        updateCartCount();
+
+        // Keyboard accessibility
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeMobileMenu();
+            }
+        });
+    </script>
+</body>
+</html>

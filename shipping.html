@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GT Nutri Bites Shipping Information - Learn about our shipping policies, delivery times, and shipping costs for premium organic nuts and seeds.">
+    <meta name="keywords" content="GT Nutri Bites shipping, delivery, shipping rates, order tracking">
+    <meta name="author" content="GT Nutri Bites">
+    
+    <title>Shipping Information - GT Nutri Bites</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2D5016;
+            --primary-light: #4A7C24;
+            --accent: #E8B44C;
+            --cream: #FFF8F0;
+            --text-dark: #1F2937;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main { flex: 1 0 auto; }
+        footer { flex-shrink: 0; }
+
+        .display-font { font-family: 'Libre Baskerville', serif; }
+
+        .organic-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(74, 124, 36, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(232, 180, 76, 0.08) 0%, transparent 50%);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after { width: 100%; }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .cart-badge {
+            background: var(--accent);
+            color: var(--text-dark);
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -6px; right: -6px;
+        }
+
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 9999;
+        }
+
+        .mobile-menu.active { transform: translateX(0); }
+
+        .mobile-menu-backdrop {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .mobile-menu-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .shipping-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .shipping-table th,
+        .shipping-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .shipping-table th {
+            background: #f9fafb;
+            font-weight: 600;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0 0 0.5rem 0.5rem;
+            z-index: 10002;
+            font-weight: 600;
+            transition: top 0.3s ease;
+            text-decoration: none;
+        }
+
+        .skip-link:focus { top: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem !important; }
+            h2 { font-size: 1.5rem !important; }
+            .shipping-table { font-size: 0.875rem; }
+            .shipping-table th, .shipping-table td { padding: 0.75rem 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="organic-bg" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <nav class="relative z-[1000] bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <img src="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg" alt="GT Nutri Bites Logo" class="h-12 w-auto object-contain">
+                        <span class="text-2xl font-bold display-font text-green-800">GT Nutri Bites</span>
+                    </a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="products.html" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Shop</a>
+                    <a href="about.html" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">About</a>
+                    <a href="index.html#benefits" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Health Benefits</a>
+                    <a href="index.html#testimonials" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Reviews</a>
+                    <a href="contact.html" class="nav-link text-sm font-medium text-gray-700 hover:text-green-700">Contact</a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="cart.html" class="relative p-2 hover:bg-gray-100 rounded-full transition" aria-label="Shopping cart">
+                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="cart-badge" id="cart-count">0</span>
+                    </a>
+                    <a href="products.html" class="btn-primary px-6 py-2.5 rounded-full font-medium text-sm">Shop Now</a>
+                </div>
+
+                <div class="flex items-center space-x-3 md:hidden">
+                    <a href="cart.html" class="relative p-2" aria-label="Shopping cart">
+                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="cart-badge" id="mobile-cart-count">0</span>
+                    </a>
+                    <button id="mobile-menu-btn" class="text-gray-700" aria-label="Open menu">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu-backdrop" class="mobile-menu-backdrop"></div>
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-white shadow-2xl md:hidden p-6">
+        <button id="close-menu" class="absolute top-6 right-6 text-gray-700" aria-label="Close menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <div class="mt-16 space-y-6">
+            <a href="products.html" class="block text-lg font-medium text-gray-700 hover:text-green-700">Shop</a>
+            <a href="about.html" class="block text-lg font-medium text-gray-700 hover:text-green-700">About</a>
+            <a href="index.html#benefits" class="block text-lg font-medium text-gray-700 hover:text-green-700">Health Benefits</a>
+            <a href="index.html#testimonials" class="block text-lg font-medium text-gray-700 hover:text-green-700">Reviews</a>
+            <a href="contact.html" class="block text-lg font-medium text-gray-700 hover:text-green-700">Contact</a>
+            <a href="products.html" class="btn-primary w-full px-6 py-3 rounded-full font-medium text-sm mt-4 block text-center">Shop Now</a>
+        </div>
+    </div>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 to-cream">
+            <div class="max-w-7xl mx-auto text-center">
+                <h1 class="text-4xl sm:text-5xl font-bold display-font text-gray-900 mb-6">
+                    Shipping <span class="text-green-700">Information</span>
+                </h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    We ship fresh, premium nuts and seeds right to your doorstep. Learn about our delivery options, rates, and policies.
+                </p>
+            </div>
+        </section>
+
+        <!-- Shipping Options -->
+        <section class="py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-2xl sm:text-3xl font-bold display-font text-gray-900 mb-8 text-center">Delivery Options</h2>
+                
+                <div class="grid md:grid-cols-3 gap-6 mb-12">
+                    <div class="info-card text-center">
+                        <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">🚚</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Standard Delivery</h3>
+                        <p class="text-gray-600 text-sm mb-2">3-5 Business Days</p>
+                        <p class="text-green-700 font-bold">Rs. 1,977</p>
+                        <p class="text-xs text-gray-500 mt-2">Free on orders over Rs. 16,500</p>
+                    </div>
+
+                    <div class="info-card text-center border-green-500">
+                        <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">⚡</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Express Delivery</h3>
+                        <p class="text-gray-600 text-sm mb-2">1-2 Business Days</p>
+                        <p class="text-green-700 font-bold">Rs. 3,297</p>
+                        <p class="text-xs text-gray-500 mt-2">Available in major cities</p>
+                    </div>
+
+                    <div class="info-card text-center">
+                        <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">📦</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Same Day Delivery</h3>
+                        <p class="text-gray-600 text-sm mb-2">Order by 12 PM</p>
+                        <p class="text-green-700 font-bold">Rs. 4,947</p>
+                        <p class="text-xs text-gray-500 mt-2">Colombo area only</p>
+                    </div>
+                </div>
+
+                <!-- Shipping Rates Table -->
+                <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-lg mb-12">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Shipping Rates by Region</h3>
+                    <div class="overflow-x-auto">
+                        <table class="shipping-table">
+                            <thead>
+                                <tr>
+                                    <th>Region</th>
+                                    <th>Standard</th>
+                                    <th>Express</th>
+                                    <th>Delivery Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Colombo District</td>
+                                    <td>Rs. 990</td>
+                                    <td>Rs. 1,980</td>
+                                    <td>1-2 days</td>
+                                </tr>
+                                <tr>
+                                    <td>Western Province</td>
+                                    <td>Rs. 1,320</td>
+                                    <td>Rs. 2,640</td>
+                                    <td>2-3 days</td>
+                                </tr>
+                                <tr>
+                                    <td>Central & Southern</td>
+                                    <td>Rs. 1,650</td>
+                                    <td>Rs. 3,300</td>
+                                    <td>3-4 days</td>
+                                </tr>
+                                <tr>
+                                    <td>Northern & Eastern</td>
+                                    <td>Rs. 1,977</td>
+                                    <td>Rs. 3,954</td>
+                                    <td>4-5 days</td>
+                                </tr>
+                                <tr>
+                                    <td>Remote Areas</td>
+                                    <td>Rs. 2,475</td>
+                                    <td>N/A</td>
+                                    <td>5-7 days</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Shipping Info -->
+                <div class="space-y-8">
+                    <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-lg">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">📦 Order Processing</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <span class="text-green-700 mr-2">✓</span>
+                                Orders are processed within 24 hours on business days
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-700 mr-2">✓</span>
+                                Orders placed after 2 PM will be processed the next business day
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-700 mr-2">✓</span>
+                                You'll receive an email with tracking information once shipped
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-700 mr-2">✓</span>
+                                Weekends and public holidays may add 1-2 days to delivery
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-lg">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🥜 Freshness Guarantee</h3>
+                        <p class="text-gray-600 mb-4">
+                            All our products are packed fresh in airtight, food-grade packaging to maintain quality during transit. Our nuts and seeds are:
+                        </p>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-start">
+                                <span class="text-green-700 mr-2">✓</span>
+                                Vacuum-sealed for freshness
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-700 mr-2">✓</span>
+                                Protected with temperature-controlled packaging in summer
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-700 mr-2">✓</span>
+                                Shipped in eco-friendly, recyclable materials
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-lg">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">🔍 Track Your Order</h3>
+                        <p class="text-gray-600 mb-4">
+                            Once your order ships, you'll receive a tracking number via email. You can track your package by:
+                        </p>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-start">
+                                <span class="text-green-700 mr-2">1.</span>
+                                Clicking the tracking link in your shipping confirmation email
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-700 mr-2">2.</span>
+                                Contacting our support team with your order number
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-700 to-green-800">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-2xl sm:text-3xl font-bold display-font text-white mb-4">Have More Questions?</h2>
+                <p class="text-green-100 mb-6">Our support team is happy to help with any shipping inquiries.</p>
+                <a href="contact.html" class="inline-block bg-amber-400 text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-amber-300 transition">Contact Us</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <img src="https://res.cloudinary.com/dkj22lm1g/image/upload/v1766234881/Companya_Logo_-_Final_erhyg7.jpg" alt="GT Nutri Bites Logo" class="h-10 w-auto object-contain">
+                        <span class="text-2xl font-bold display-font">GT Nutri Bites</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 max-w-sm">Your trusted source for premium organic nuts and seeds.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Shop</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="products.html" class="hover:text-amber-400 transition">All Products</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Nuts</a></li>
+                        <li><a href="products.html" class="hover:text-amber-400 transition">Seeds</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="about.html" class="hover:text-amber-400 transition">About Us</a></li>
+                        <li><a href="contact.html" class="hover:text-amber-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="shipping.html" class="hover:text-amber-400 transition">Shipping Info</a></li>
+                        <li><a href="returns.html" class="hover:text-amber-400 transition">Returns</a></li>
+                        <li><a href="faq.html" class="hover:text-amber-400 transition">FAQ</a></li>
+                        <li><a href="privacy.html" class="hover:text-amber-400 transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-center">
+                <p class="text-sm text-gray-400">&copy; 2024 GT Nutri Bites. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+        const closeMenuBtn = document.getElementById('close-menu');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileMenuBackdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileMenuBackdrop.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        closeMenuBtn.addEventListener('click', closeMobileMenu);
+        mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            const mobileCartCount = document.getElementById('mobile-cart-count');
+            let cart = [];
+            try {
+                cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            } catch (e) {}
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            if (cartCount) cartCount.textContent = count;
+            if (mobileCartCount) mobileCartCount.textContent = count;
+        }
+
+        updateCartCount();
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMobileMenu();
+        });
+    </script>
+</body>
+</html>

@@ -1,58 +1,105 @@
 {
-  "weightOptions": ["100g", "250g", "500g", "750g", "1kg"],
+  "weightOptions": [
+    "100g",
+    "250g",
+    "500g",
+    "750g",
+    "1kg"
+  ],
   "products": [
     {
       "id": 1,
       "name": "Premium California Almonds",
       "category": "Organic Almonds",
       "type": "nuts",
-      "price": 6267,
-      "oldPrice": 8247,
-      "weight": "500g",
+      "price": 5500,
+      "oldPrice": 7500,
+      "weight": "1kg",
       "weightVariants": {
-        "100g": { "price": 1320, "oldPrice": 1738 },
-        "250g": { "price": 3190, "oldPrice": 4202 },
-        "500g": { "price": 6267, "oldPrice": 8247 },
-        "750g": { "price": 9240, "oldPrice": 12166 },
-        "1kg": { "price": 12100, "oldPrice": 15928 }
+        "100g": {
+          "price": 1015,
+          "oldPrice": 1235
+        },
+        "250g": {
+          "price": 1795,
+          "oldPrice": 2323
+        },
+        "500g": {
+          "price": 3075,
+          "oldPrice": 4111
+        },
+        "750g": {
+          "price": 3820,
+          "oldPrice": 5348
+        },
+        "1kg": {
+          "price": 5500,
+          "oldPrice": 7500
+        }
       },
       "badge": "BEST SELLER",
       "badgeColor": "bg-green-700",
       "description": "Raw, unsalted, and packed with nutrients",
-      "fullDescription": "Our Premium California Almonds are sourced directly from sustainable farms in California. These raw, unsalted almonds are carefully selected for their superior quality and freshness. Rich in vitamin E, magnesium, and healthy fats, they make the perfect nutritious snack or ingredient for your favorite recipes.",
-      "benefits": ["High in Vitamin E", "Rich in healthy fats", "Good source of protein", "Contains magnesium and fiber"],
+      "fullDescription": "Our Premium California Almonds are sourced directly from sustainable farms in California. These raw, unsalted almonds are carefully selected for their superior quality and freshness.",
+      "benefits": [
+        "High in Vitamin E",
+        "Rich in healthy fats",
+        "Good source of protein",
+        "Contains magnesium and fiber"
+      ],
       "nutrition": {
-        "calories": "170 per 28g serving",
+        "calories": "170 per 28g",
         "protein": "6g",
         "fat": "15g",
         "carbs": "6g",
         "fiber": "3.5g"
       },
       "emoji": "🥜",
-      "useEmoji": true
+      "useEmoji": true,
+      "packagingType": "zipLockBag"
     },
     {
       "id": 2,
       "name": "Chia Seeds Super Pack",
       "category": "Organic Seeds",
       "type": "seeds",
-      "price": 4947,
-      "oldPrice": null,
-      "weight": "400g",
+      "price": 4500,
+      "oldPrice": 5500,
+      "weight": "1kg",
       "weightVariants": {
-        "100g": { "price": 1320, "oldPrice": null },
-        "250g": { "price": 3135, "oldPrice": null },
-        "500g": { "price": 6160, "oldPrice": null },
-        "750g": { "price": 9075, "oldPrice": null },
-        "1kg": { "price": 11880, "oldPrice": null }
+        "100g": {
+          "price": 905,
+          "oldPrice": 1015
+        },
+        "250g": {
+          "price": 1531,
+          "oldPrice": 1795
+        },
+        "500g": {
+          "price": 2557,
+          "oldPrice": 3075
+        },
+        "750g": {
+          "price": 3056,
+          "oldPrice": 3820
+        },
+        "1kg": {
+          "price": 4500,
+          "oldPrice": 5500
+        }
       },
       "badge": "NEW",
       "badgeColor": "bg-amber-500",
       "description": "Omega-3 rich superfood",
-      "fullDescription": "Experience the power of ancient nutrition with our Chia Seeds Super Pack. These tiny seeds are loaded with omega-3 fatty acids, fiber, and antioxidants. Perfect for adding to smoothies, yogurt, or making delicious chia pudding. Our chia seeds are certified organic and sourced from trusted farmers.",
-      "benefits": ["Extremely high in Omega-3", "Loaded with antioxidants", "High in quality protein", "May reduce heart disease risk"],
+      "fullDescription": "Experience the power of ancient nutrition with our Chia Seeds Super Pack.",
+      "benefits": [
+        "Extremely high in Omega-3",
+        "Loaded with antioxidants",
+        "High in quality protein",
+        "May reduce heart disease risk"
+      ],
       "nutrition": {
-        "calories": "138 per 28g serving",
+        "calories": "138 per 28g",
         "protein": "4.7g",
         "fat": "8.7g",
         "carbs": "12g",
@@ -66,23 +113,43 @@
       "name": "Roasted Cashews",
       "category": "Premium Nuts",
       "type": "nuts",
-      "price": 7587,
+      "price": 7500,
       "oldPrice": null,
-      "weight": "600g",
+      "weight": "1kg",
       "weightVariants": {
-        "100g": { "price": 1408, "oldPrice": null },
-        "250g": { "price": 3410, "oldPrice": null },
-        "500g": { "price": 6710, "oldPrice": null },
-        "750g": { "price": 9900, "oldPrice": null },
-        "1kg": { "price": 12980, "oldPrice": null }
+        "100g": {
+          "price": 1235,
+          "oldPrice": null
+        },
+        "250g": {
+          "price": 2323,
+          "oldPrice": null
+        },
+        "500g": {
+          "price": 4111,
+          "oldPrice": null
+        },
+        "750g": {
+          "price": 5348,
+          "oldPrice": null
+        },
+        "1kg": {
+          "price": 7500,
+          "oldPrice": null
+        }
       },
       "badge": null,
       "badgeColor": null,
       "description": "Lightly salted perfection",
-      "fullDescription": "Indulge in our perfectly roasted cashews, lightly salted to enhance their natural buttery flavor. These premium cashews are roasted in small batches to ensure perfect texture and taste. Rich in copper, magnesium, and heart-healthy monounsaturated fats, they're both delicious and nutritious.",
-      "benefits": ["Heart-healthy fats", "Rich in copper and magnesium", "Supports bone health", "May help with weight management"],
+      "fullDescription": "Indulge in our perfectly roasted cashews, lightly salted to enhance their natural buttery flavor.",
+      "benefits": [
+        "Heart-healthy fats",
+        "Rich in copper and magnesium",
+        "Supports bone health",
+        "May help with weight management"
+      ],
       "nutrition": {
-        "calories": "157 per 28g serving",
+        "calories": "157 per 28g",
         "protein": "5g",
         "fat": "12g",
         "carbs": "9g",
@@ -92,57 +159,47 @@
       "useEmoji": true
     },
     {
-      "id": 4,
-      "name": "Energy Boost Mix",
-      "category": "Trail Mix",
-      "type": "mix",
-      "price": 5607,
-      "oldPrice": 7257,
-      "weight": "450g",
-      "weightVariants": {
-        "100g": { "price": 1320, "oldPrice": 1705 },
-        "250g": { "price": 3190, "oldPrice": 4125 },
-        "500g": { "price": 6270, "oldPrice": 8085 },
-        "750g": { "price": 9240, "oldPrice": 11935 },
-        "1kg": { "price": 12100, "oldPrice": 15620 }
-      },
-      "badge": "SALE",
-      "badgeColor": "bg-red-600",
-      "description": "Perfect blend of nuts & dried fruits",
-      "fullDescription": "Our signature Energy Boost Mix combines premium almonds, cashews, dried cranberries, and raisins for the ultimate nutritious snack. Perfect for hiking, post-workout recovery, or anytime you need a quick energy boost. Each ingredient is carefully selected for quality and freshness.",
-      "benefits": ["Quick energy source", "Balanced nutrients", "Great for active lifestyles", "Natural ingredients only"],
-      "nutrition": {
-        "calories": "150 per 30g serving",
-        "protein": "4g",
-        "fat": "8g",
-        "carbs": "16g",
-        "fiber": "2g"
-      },
-      "emoji": "🍇",
-      "useEmoji": true
-    },
-    {
       "id": 5,
       "name": "Sunflower Seeds",
       "category": "Premium Seeds",
       "type": "seeds",
-      "price": 4287,
-      "oldPrice": null,
-      "weight": "350g",
+      "price": 4500,
+      "oldPrice": 5500,
+      "weight": "1kg",
       "weightVariants": {
-        "100g": { "price": 1254, "oldPrice": null },
-        "250g": { "price": 3025, "oldPrice": null },
-        "500g": { "price": 5940, "oldPrice": null },
-        "750g": { "price": 8745, "oldPrice": null },
-        "1kg": { "price": 11440, "oldPrice": null }
+        "100g": {
+          "price": 905,
+          "oldPrice": 1015
+        },
+        "250g": {
+          "price": 1531,
+          "oldPrice": 1795
+        },
+        "500g": {
+          "price": 2557,
+          "oldPrice": 3075
+        },
+        "750g": {
+          "price": 3056,
+          "oldPrice": 3820
+        },
+        "1kg": {
+          "price": 4500,
+          "oldPrice": 5500
+        }
       },
       "badge": null,
       "badgeColor": null,
-      "description": "Roasted & lightly salted",
-      "fullDescription": "Our premium sunflower seeds are lightly roasted and salted to perfection. These nutrient-dense seeds are an excellent source of vitamin E, selenium, and healthy fats. Perfect for snacking, adding to salads, or baking.",
-      "benefits": ["High in Vitamin E", "Rich in selenium", "Anti-inflammatory properties", "Supports immune health"],
+      "description": "Roasted &amp; lightly salted",
+      "fullDescription": "Our premium sunflower seeds are lightly roasted and salted to perfection.",
+      "benefits": [
+        "High in Vitamin E",
+        "Rich in selenium",
+        "Anti-inflammatory properties",
+        "Supports immune health"
+      ],
       "nutrition": {
-        "calories": "165 per 28g serving",
+        "calories": "165 per 28g",
         "protein": "5.5g",
         "fat": "14g",
         "carbs": "7g",
@@ -156,23 +213,43 @@
       "name": "Raw Walnuts",
       "category": "Organic Nuts",
       "type": "nuts",
-      "price": 6597,
-      "oldPrice": null,
-      "weight": "500g",
+      "price": 5500,
+      "oldPrice": 7500,
+      "weight": "1kg",
       "weightVariants": {
-        "100g": { "price": 1386, "oldPrice": null },
-        "250g": { "price": 3355, "oldPrice": null },
-        "500g": { "price": 6597, "oldPrice": null },
-        "750g": { "price": 9735, "oldPrice": null },
-        "1kg": { "price": 12760, "oldPrice": null }
+        "100g": {
+          "price": 1015,
+          "oldPrice": 1235
+        },
+        "250g": {
+          "price": 1795,
+          "oldPrice": 2323
+        },
+        "500g": {
+          "price": 3075,
+          "oldPrice": 4111
+        },
+        "750g": {
+          "price": 3820,
+          "oldPrice": 5348
+        },
+        "1kg": {
+          "price": 5500,
+          "oldPrice": 7500
+        }
       },
       "badge": null,
       "badgeColor": null,
       "description": "Heart-healthy omega-3",
-      "fullDescription": "Our raw organic walnuts are nature's brain food. Packed with omega-3 fatty acids, antioxidants, and minerals, these premium walnuts support heart and brain health. Use them in baking, salads, or enjoy them as a nutritious snack.",
-      "benefits": ["Rich in Omega-3 ALA", "Supports brain health", "Anti-inflammatory", "Good for heart health"],
+      "fullDescription": "Our raw organic walnuts are nature's brain food.",
+      "benefits": [
+        "Rich in Omega-3 ALA",
+        "Supports brain health",
+        "Anti-inflammatory",
+        "Good for heart health"
+      ],
       "nutrition": {
-        "calories": "185 per 28g serving",
+        "calories": "185 per 28g",
         "protein": "4.3g",
         "fat": "18.5g",
         "carbs": "4g",
@@ -186,23 +263,43 @@
       "name": "Pumpkin Seeds",
       "category": "Superfood Seeds",
       "type": "seeds",
-      "price": 4617,
-      "oldPrice": null,
-      "weight": "400g",
+      "price": 4500,
+      "oldPrice": 5500,
+      "weight": "1kg",
       "weightVariants": {
-        "100g": { "price": 1232, "oldPrice": null },
-        "250g": { "price": 2970, "oldPrice": null },
-        "500g": { "price": 5830, "oldPrice": null },
-        "750g": { "price": 8580, "oldPrice": null },
-        "1kg": { "price": 11220, "oldPrice": null }
+        "100g": {
+          "price": 905,
+          "oldPrice": 1015
+        },
+        "250g": {
+          "price": 1531,
+          "oldPrice": 1795
+        },
+        "500g": {
+          "price": 2557,
+          "oldPrice": 3075
+        },
+        "750g": {
+          "price": 3056,
+          "oldPrice": 3820
+        },
+        "1kg": {
+          "price": 4500,
+          "oldPrice": 5500
+        }
       },
       "badge": null,
       "badgeColor": null,
-      "description": "High in zinc & magnesium",
-      "fullDescription": "Our premium pumpkin seeds are a nutritional powerhouse, rich in zinc, magnesium, and antioxidants. These lightly roasted seeds support immune function, prostate health, and sleep quality. Perfect for snacking or adding to your favorite dishes.",
-      "benefits": ["High in zinc and magnesium", "Supports prostate health", "Rich in antioxidants", "May improve sleep quality"],
+      "description": "High in zinc &amp; magnesium",
+      "fullDescription": "Our premium pumpkin seeds are a nutritional powerhouse.",
+      "benefits": [
+        "High in zinc and magnesium",
+        "Supports prostate health",
+        "Rich in antioxidants",
+        "May improve sleep quality"
+      ],
       "nutrition": {
-        "calories": "151 per 28g serving",
+        "calories": "151 per 28g",
         "protein": "7g",
         "fat": "13g",
         "carbs": "5g",
@@ -213,56 +310,101 @@
     },
     {
       "id": 8,
-      "name": "Deluxe Nut Mix",
+      "name": "Mix Nuts, Seeds &amp; Dried Fruits",
       "category": "Premium Mix",
       "type": "mix",
-      "price": 8247,
-      "oldPrice": null,
-      "weight": "600g",
+      "price": 5500,
+      "oldPrice": 6500,
+      "weight": "1kg",
       "weightVariants": {
-        "100g": { "price": 1452, "oldPrice": null },
-        "250g": { "price": 3520, "oldPrice": null },
-        "500g": { "price": 6930, "oldPrice": null },
-        "750g": { "price": 10230, "oldPrice": null },
-        "1kg": { "price": 13420, "oldPrice": null }
+        "100g": {
+          "price": 1425,
+          "oldPrice": 1125
+        },
+        "250g": {
+          "price": 2138,
+          "oldPrice": 2059
+        },
+        "500g": {
+          "price": 3301,
+          "oldPrice": 3593
+        },
+        "750g": {
+          "price": 3438,
+          "oldPrice": 4584
+        },
+        "1kg": {
+          "price": 5500,
+          "oldPrice": 6500
+        },
+        "2kg": {
+          "price": 10000,
+          "oldPrice": null
+        }
       },
       "badge": "ORGANIC",
       "badgeColor": "bg-green-600",
-      "description": "Almonds, cashews & pistachios",
-      "fullDescription": "Our Deluxe Nut Mix features a premium blend of organic almonds, cashews, and pistachios. Each nut is carefully selected for quality and freshness. This luxurious mix provides a perfect balance of flavors and textures while delivering comprehensive nutrition.",
-      "benefits": ["Variety of nutrients", "Premium organic quality", "Heart-healthy fats", "Perfect for entertaining"],
+      "description": "Almonds, cashews &amp; pistachios",
+      "fullDescription": "Our Deluxe Nut Mix features a premium blend of organic almonds, cashews, and pistachios.",
+      "benefits": [
+        "Variety of nutrients",
+        "Premium organic quality",
+        "Heart-healthy fats",
+        "Perfect for entertaining"
+      ],
       "nutrition": {
-        "calories": "170 per 28g serving",
+        "calories": "170 per 28g",
         "protein": "5.5g",
         "fat": "15g",
         "carbs": "7g",
         "fiber": "2.5g"
       },
       "emoji": "🥗",
-      "useEmoji": true
+      "useEmoji": true,
+      "packagingType": "zipLockBag"
     },
     {
       "id": 9,
       "name": "Premium Pistachios",
       "category": "Gourmet Nuts",
       "type": "nuts",
-      "price": 7257,
-      "oldPrice": null,
-      "weight": "450g",
+      "price": 7500,
+      "oldPrice": 8500,
+      "weight": "1kg",
       "weightVariants": {
-        "100g": { "price": 1694, "oldPrice": null },
-        "250g": { "price": 4103, "oldPrice": null },
-        "500g": { "price": 8074, "oldPrice": null },
-        "750g": { "price": 11913, "oldPrice": null },
-        "1kg": { "price": 15620, "oldPrice": null }
+        "100g": {
+          "price": 1235,
+          "oldPrice": 1345
+        },
+        "250g": {
+          "price": 2323,
+          "oldPrice": 2587
+        },
+        "500g": {
+          "price": 4111,
+          "oldPrice": 4629
+        },
+        "750g": {
+          "price": 5348,
+          "oldPrice": 6112
+        },
+        "1kg": {
+          "price": 7500,
+          "oldPrice": 8500
+        }
       },
       "badge": null,
       "badgeColor": null,
-      "description": "Roasted & lightly salted green gems",
-      "fullDescription": "Our Premium Pistachios are carefully selected from the finest orchards. These vibrant green nuts are roasted to perfection and lightly salted to enhance their natural flavor. Rich in antioxidants, healthy fats, and protein, pistachios are the perfect guilt-free snack that supports eye health and weight management.",
-      "benefits": ["Rich in antioxidants", "Supports eye health", "High in protein and fiber", "May aid in weight management"],
+      "description": "Roasted &amp; lightly salted green gems",
+      "fullDescription": "Our Premium Pistachios are carefully selected from the finest orchards.",
+      "benefits": [
+        "Rich in antioxidants",
+        "Supports eye health",
+        "High in protein and fiber",
+        "May aid in weight management"
+      ],
       "nutrition": {
-        "calories": "159 per 28g serving",
+        "calories": "159 per 28g",
         "protein": "6g",
         "fat": "13g",
         "carbs": "8g",
@@ -272,117 +414,47 @@
       "useEmoji": true
     },
     {
-      "id": 10,
-      "name": "Organic Hazelnuts",
-      "category": "Premium Nuts",
-      "type": "nuts",
-      "price": 6927,
-      "oldPrice": null,
-      "weight": "500g",
-      "weightVariants": {
-        "100g": { "price": 1452, "oldPrice": null },
-        "250g": { "price": 3520, "oldPrice": null },
-        "500g": { "price": 6927, "oldPrice": null },
-        "750g": { "price": 10230, "oldPrice": null },
-        "1kg": { "price": 13420, "oldPrice": null }
-      },
-      "badge": null,
-      "badgeColor": null,
-      "description": "Rich, buttery & heart-healthy",
-      "fullDescription": "Our Organic Hazelnuts (also known as filberts) offer a rich, buttery flavor and satisfying crunch. Sourced from certified organic orchards, these hazelnuts are packed with vitamin E, healthy fats, and antioxidants. Perfect for snacking, baking, or making homemade hazelnut spread.",
-      "benefits": ["Extremely high in Vitamin E", "Rich in antioxidants", "Supports heart health", "Good source of folate"],
-      "nutrition": {
-        "calories": "178 per 28g serving",
-        "protein": "4.2g",
-        "fat": "17g",
-        "carbs": "5g",
-        "fiber": "2.7g"
-      },
-      "emoji": "🌰",
-      "useEmoji": true
-    },
-    {
-      "id": 11,
-      "name": "Macadamia Nuts",
-      "category": "Luxury Nuts",
-      "type": "nuts",
-      "price": 8907,
-      "oldPrice": 10887,
-      "weight": "400g",
-      "weightVariants": {
-        "100g": { "price": 2310, "oldPrice": 2827 },
-        "250g": { "price": 5610, "oldPrice": 6864 },
-        "500g": { "price": 11055, "oldPrice": 13530 },
-        "750g": { "price": 16335, "oldPrice": 19998 },
-        "1kg": { "price": 21450, "oldPrice": 26268 }
-      },
-      "badge": "PREMIUM",
-      "badgeColor": "bg-purple-600",
-      "description": "Buttery smooth & luxurious",
-      "fullDescription": "Experience luxury with our premium Macadamia Nuts. Known for their rich, buttery texture and delicate flavor, these nuts are the crown jewel of the nut world. Sourced from sustainable farms, macadamias are packed with monounsaturated fats, thiamin, and manganese. A true indulgence that's good for your heart.",
-      "benefits": ["Highest in monounsaturated fats", "Supports heart health", "Rich in thiamin", "Contains manganese"],
-      "nutrition": {
-        "calories": "204 per 28g serving",
-        "protein": "2.2g",
-        "fat": "21g",
-        "carbs": "4g",
-        "fiber": "2.4g"
-      },
-      "emoji": "🤍",
-      "useEmoji": true
-    },
-    {
-      "id": 12,
-      "name": "Roasted Peanuts",
-      "category": "Classic Nuts",
-      "type": "nuts",
-      "price": 3957,
-      "oldPrice": null,
-      "weight": "600g",
-      "weightVariants": {
-        "100g": { "price": 726, "oldPrice": null },
-        "250g": { "price": 1760, "oldPrice": null },
-        "500g": { "price": 3465, "oldPrice": null },
-        "750g": { "price": 5115, "oldPrice": null },
-        "1kg": { "price": 6710, "oldPrice": null }
-      },
-      "badge": "VALUE PACK",
-      "badgeColor": "bg-blue-600",
-      "description": "Classic favorite, protein-packed",
-      "fullDescription": "Our Roasted Peanuts are a timeless classic! Dry roasted to perfection and lightly salted, these protein-rich legumes (yes, technically not a nut!) are perfect for snacking, baking, or making homemade peanut butter. Packed with protein, healthy fats, and essential nutrients, they're both delicious and nutritious.",
-      "benefits": ["High in protein", "Rich in healthy fats", "Good source of biotin", "Contains resveratrol"],
-      "nutrition": {
-        "calories": "161 per 28g serving",
-        "protein": "7.3g",
-        "fat": "14g",
-        "carbs": "5g",
-        "fiber": "2.4g"
-      },
-      "emoji": "🥜",
-      "useEmoji": true
-    },
-    {
       "id": 13,
       "name": "Organic Flax Seeds",
       "category": "Superfood Seeds",
       "type": "seeds",
-      "price": 4452,
-      "oldPrice": null,
-      "weight": "450g",
+      "price": 4500,
+      "oldPrice": 5500,
+      "weight": "1kg",
       "weightVariants": {
-        "100g": { "price": 1056, "oldPrice": null },
-        "250g": { "price": 2530, "oldPrice": null },
-        "500g": { "price": 4950, "oldPrice": null },
-        "750g": { "price": 7260, "oldPrice": null },
-        "1kg": { "price": 9460, "oldPrice": null }
+        "100g": {
+          "price": 905,
+          "oldPrice": 1015
+        },
+        "250g": {
+          "price": 1531,
+          "oldPrice": 1795
+        },
+        "500g": {
+          "price": 2557,
+          "oldPrice": 3075
+        },
+        "750g": {
+          "price": 3056,
+          "oldPrice": 3820
+        },
+        "1kg": {
+          "price": 4500,
+          "oldPrice": 5500
+        }
       },
       "badge": "NEW",
       "badgeColor": "bg-amber-500",
       "description": "Omega-3 powerhouse for wellness",
-      "fullDescription": "Our Organic Flax Seeds are a nutritional powerhouse, offering one of the richest plant-based sources of omega-3 fatty acids. These tiny seeds are packed with lignans, fiber, and essential nutrients. Perfect for adding to smoothies, oatmeal, or baked goods. For best absorption, grind before consuming.",
-      "benefits": ["Richest plant source of Omega-3", "High in dietary fiber", "Contains lignans", "Supports digestive health"],
+      "fullDescription": "Our Organic Flax Seeds are a nutritional powerhouse.",
+      "benefits": [
+        "Richest plant source of Omega-3",
+        "High in dietary fiber",
+        "Contains lignans",
+        "Supports digestive health"
+      ],
       "nutrition": {
-        "calories": "150 per 28g serving",
+        "calories": "150 per 28g",
         "protein": "5.1g",
         "fat": "12g",
         "carbs": "8g",
@@ -401,5 +473,30 @@
     "red": "text-red-700",
     "lime": "text-lime-700",
     "pink": "text-pink-700"
+  },
+  "packagingCosts": {
+    "glassBottle": {
+      "100g": 120,
+      "250g": 180,
+      "500g": 250,
+      "1kg": 350
+    },
+    "plasticBottle": {
+      "100g": 60,
+      "250g": 90,
+      "500g": 130,
+      "1kg": 180
+    },
+    "zipLockBag": {
+      "100g": 15,
+      "250g": 25,
+      "500g": 35,
+      "1kg": 50
+    }
+  },
+  "deliveryCharges": {
+    "colombo": 350,
+    "suburban": 400,
+    "other": 450
   }
 }

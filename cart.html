@@ -986,9 +986,16 @@
                                 <span class="text-gray-600">Subtotal</span>
                                 <span class="font-semibold" id="subtotal">Rs. 0</span>
                             </div>
-                            <div class="flex justify-between text-sm">
-                                <span class="text-gray-600">Shipping</span>
-                                <span class="font-semibold" id="shipping">Rs. 1,977</span>
+                            <div class="flex justify-between items-center text-sm">
+                                <div>
+                                    <span class="text-gray-600">Delivery Region</span>
+                                    <select id="delivery-region" class="ml-2 text-xs border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:ring-1 focus:ring-green-500">
+                                        <option value="colombo">Colombo</option>
+                                        <option value="suburban">Suburban</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <span class="font-semibold" id="shipping">Rs. 350</span>
                             </div>
                             <div class="flex justify-between text-sm">
                                 <span class="text-gray-600">Tax (8%)</span>
@@ -1819,8 +1826,26 @@ class CartManager {
     constructor() {
         this.cart = this.loadCart();
         this.TAX_RATE = 0.08;
-        this.SHIPPING_COST = 1977;
+        this.deliveryCharges = { colombo: 350, suburban: 400, other: 450 };
+        this.selectedRegion = 'colombo';
         this.FREE_SHIPPING_THRESHOLD = 16500;
+    }
+
+    async loadDeliveryCharges() {
+        try {
+            const response = await fetch('data/products.json');
+            if (!response.ok) throw new Error('Failed to load products');
+            const data = await response.json();
+            if (data.deliveryCharges) {
+                this.deliveryCharges = data.deliveryCharges;
+            }
+        } catch (error) {
+            console.error('Error loading delivery charges:', error);
+        }
+    }
+
+    setDeliveryRegion(region) {
+        this.selectedRegion = region;
     }
 
     loadCart() {
@@ -1877,7 +1902,8 @@ class CartManager {
 
     getShippingCost() {
         const subtotal = this.getCartTotal();
-        return subtotal >= this.FREE_SHIPPING_THRESHOLD ? 0 : this.SHIPPING_COST;
+        if (subtotal >= this.FREE_SHIPPING_THRESHOLD) return 0;
+        return this.deliveryCharges[this.selectedRegion] || this.deliveryCharges.colombo || 350;
     }
 
     getTax() {
@@ -2511,8 +2537,20 @@ document.addEventListener('keydown', (e) => {
 // ==========================================
 // INITIALIZE PAGE
 // ==========================================
-cartManager.updateCartBadge();
-renderCart();
+(async function initCart() {
+    await cartManager.loadDeliveryCharges();
+    cartManager.updateCartBadge();
+    renderCart();
+
+    // Wire up delivery region selector
+    const regionSelect = document.getElementById('delivery-region');
+    if (regionSelect) {
+        regionSelect.addEventListener('change', function() {
+            cartManager.setDeliveryRegion(this.value);
+            updateOrderSummary();
+        });
+    }
+})();
 
 console.log('✅ GT Nutri Bites Cart System Initialized');
 console.log('📧 EmailJS Configuration:', {

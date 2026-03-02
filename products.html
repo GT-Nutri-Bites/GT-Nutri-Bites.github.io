@@ -937,6 +937,17 @@
         let products = [];
         let iconColors = {};
         let weightOptions = [];
+        let packagingCosts = {};
+        let deliveryCharges = {};
+
+        // Get packaging cost for a product at a given weight
+        function getPackagingCost(product, weight) {
+            const packagingType = product.packagingType || 'zipLockBag';
+            if (packagingCosts[packagingType] && packagingCosts[packagingType][weight] !== undefined) {
+                return packagingCosts[packagingType][weight];
+            }
+            return 0;
+        }
 
         // Load products from JSON file
         async function loadProducts() {
@@ -949,6 +960,8 @@
                 products = data.products;
                 iconColors = data.iconColors;
                 weightOptions = data.weightOptions || ["100g", "250g", "500g", "750g", "1kg"];
+                packagingCosts = data.packagingCosts || {};
+                deliveryCharges = data.deliveryCharges || {};
                 return true;
             } catch (error) {
                 console.error('Error loading products:', error);
@@ -1003,8 +1016,10 @@
             grid.innerHTML = filteredProducts.map(product => {
                 const defaultWeight = getDefaultWeight(product);
                 const variant = product.weightVariants ? product.weightVariants[defaultWeight] : null;
-                const displayPrice = variant ? variant.price : product.price;
+                const rawPrice = variant ? variant.price : product.price;
                 const displayOldPrice = variant ? variant.oldPrice : product.oldPrice;
+                const pkgCost = getPackagingCost(product, defaultWeight);
+                const displayPrice = rawPrice + pkgCost;
                 
                 return `
                 <div class="product-card rounded-2xl overflow-hidden animate-fade-in-up" data-product-id="${product.id}">
@@ -1028,13 +1043,14 @@
                         <div class="text-sm text-green-700 font-semibold mb-2">${product.category}</div>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">${product.name}</h3>
                         <p class="text-gray-600 text-sm mb-4">${product.description}</p>
-                        <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center justify-between mb-1">
                             <div class="price-display">
                                 <span class="price-tag" data-product="${product.id}">Rs. ${displayPrice.toLocaleString('en-LK')}</span>
                                 <span class="old-price ml-2${displayOldPrice ? '' : ' hidden'}" data-product="${product.id}">${displayOldPrice ? `Rs. ${displayOldPrice.toLocaleString('en-LK')}` : ''}</span>
                             </div>
                             ${generateWeightSelector(product, defaultWeight)}
                         </div>
+                        <p class="text-xs text-gray-400 mb-3">Product: Rs. ${rawPrice.toLocaleString('en-LK')} + Packaging: Rs. ${pkgCost.toLocaleString('en-LK')}</p>
                         <div class="flex gap-2">
                             <button class="btn-primary flex-1 py-3 rounded-full font-semibold text-sm add-to-cart-btn" data-product="${product.id}" data-weight="${defaultWeight}">
                                 <span>Add to Cart</span>
@@ -1059,8 +1075,10 @@
             
             const defaultWeight = getDefaultWeight(product);
             const variant = product.weightVariants ? product.weightVariants[defaultWeight] : null;
-            const displayPrice = variant ? variant.price : product.price;
+            const rawPrice = variant ? variant.price : product.price;
             const displayOldPrice = variant ? variant.oldPrice : product.oldPrice;
+            const pkgCost = getPackagingCost(product, defaultWeight);
+            const displayPrice = rawPrice + pkgCost;
 
             const modalContent = document.getElementById('modal-content');
             modalContent.innerHTML = `
@@ -1089,7 +1107,8 @@
                                 ${weightOptions.map(weight => {
                                     const v = product.weightVariants[weight];
                                     if (v) {
-                                        return `<button class="weight-option-btn px-4 py-2 rounded-full border-2 font-semibold text-sm transition ${weight === defaultWeight ? 'border-green-700 bg-green-700 text-white' : 'border-gray-300 text-gray-700 hover:border-green-700'}" data-weight="${weight}" data-price="${v.price}" data-old-price="${v.oldPrice || ''}">
+                                        const wpkg = getPackagingCost(product, weight);
+                                        return `<button class="weight-option-btn px-4 py-2 rounded-full border-2 font-semibold text-sm transition ${weight === defaultWeight ? 'border-green-700 bg-green-700 text-white' : 'border-gray-300 text-gray-700 hover:border-green-700'}" data-weight="${weight}" data-price="${v.price}" data-old-price="${v.oldPrice || ''}" data-pkg-cost="${wpkg}">
                                             ${weight}
                                         </button>`;
                                     }
@@ -1099,9 +1118,12 @@
                         </div>
                         ` : ''}
                         
-                        <div class="flex items-center gap-4 mb-6">
+                        <div class="flex items-center gap-4 mb-2">
                             <span class="price-tag modal-price">Rs. ${displayPrice.toLocaleString('en-LK')}</span>
                             ${displayOldPrice ? `<span class="old-price modal-old-price">Rs. ${displayOldPrice.toLocaleString('en-LK')}</span>` : '<span class="old-price modal-old-price hidden"></span>'}
+                        </div>
+                        <div class="mb-6">
+                            <p class="text-xs text-gray-400 modal-price-breakdown">Product: Rs. ${rawPrice.toLocaleString('en-LK')} + Packaging: Rs. ${pkgCost.toLocaleString('en-LK')} + Delivery: Rs. ${(deliveryCharges.colombo || 350).toLocaleString('en-LK')}–${(deliveryCharges.other || 450).toLocaleString('en-LK')}</p>
                         </div>
                         
                         <p class="text-gray-600 leading-relaxed mb-6">${product.fullDescription}</p>
@@ -1146,8 +1168,10 @@
             weightButtons.forEach(btn => {
                 btn.addEventListener('click', function() {
                     const weight = this.dataset.weight;
-                    const price = parseInt(this.dataset.price);
+                    const rawPrice = parseInt(this.dataset.price);
                     const oldPrice = this.dataset.oldPrice ? parseInt(this.dataset.oldPrice) : null;
+                    const pkgCostVal = parseInt(this.dataset.pkgCost) || 0;
+                    const finalPrice = rawPrice + pkgCostVal;
                     
                     // Update button states
                     weightButtons.forEach(b => {
@@ -1157,9 +1181,15 @@
                     this.classList.remove('border-gray-300', 'text-gray-700');
                     this.classList.add('border-green-700', 'bg-green-700', 'text-white');
                     
-                    // Update price display
-                    document.querySelector('.modal-price').textContent = `Rs. ${price.toLocaleString('en-LK')}`;
-                    document.querySelector('.modal-btn-price').textContent = price.toLocaleString('en-LK');
+                    // Update price display with final price (raw + packaging)
+                    document.querySelector('.modal-price').textContent = `Rs. ${finalPrice.toLocaleString('en-LK')}`;
+                    document.querySelector('.modal-btn-price').textContent = finalPrice.toLocaleString('en-LK');
+                    
+                    // Update price breakdown
+                    const breakdownEl = document.querySelector('.modal-price-breakdown');
+                    if (breakdownEl) {
+                        breakdownEl.textContent = `Product: Rs. ${rawPrice.toLocaleString('en-LK')} + Packaging: Rs. ${pkgCostVal.toLocaleString('en-LK')} + Delivery: Rs. ${(deliveryCharges.colombo || 350).toLocaleString('en-LK')}–${(deliveryCharges.other || 450).toLocaleString('en-LK')}`;
+                    }
                     
                     const oldPriceEl = document.querySelector('.modal-old-price');
                     if (oldPrice) {
@@ -1189,14 +1219,17 @@
             
             if (!product) return;
             
-            // Determine price based on selected weight
-            let price = product.price;
+            // Determine price based on selected weight (raw price + packaging)
+            let rawPrice = product.price;
             let weight = product.weight;
             
             if (product.weightVariants && selectedWeight && product.weightVariants[selectedWeight]) {
-                price = product.weightVariants[selectedWeight].price;
+                rawPrice = product.weightVariants[selectedWeight].price;
                 weight = selectedWeight;
             }
+            
+            const pkgCost = getPackagingCost(product, weight);
+            const price = rawPrice + pkgCost;
             
             // Add to cart in localStorage
             let cart = [];
@@ -1217,6 +1250,8 @@
                     id: product.id,
                     name: product.name,
                     price: price,
+                    rawPrice: rawPrice,
+                    packagingCost: pkgCost,
                     weight: weight,
                     category: product.category,
                     quantity: 1
@@ -1340,11 +1375,13 @@
                     if (product && product.weightVariants && product.weightVariants[selectedWeight]) {
                         const variant = product.weightVariants[selectedWeight];
                         const card = this.closest('.product-card');
+                        const pkgCostVal = getPackagingCost(product, selectedWeight);
+                        const finalPrice = variant.price + pkgCostVal;
                         
-                        // Update price display in the card
+                        // Update price display in the card (raw + packaging)
                         const priceTag = card.querySelector('.price-tag');
                         if (priceTag) {
-                            priceTag.textContent = `Rs. ${variant.price.toLocaleString('en-LK')}`;
+                            priceTag.textContent = `Rs. ${finalPrice.toLocaleString('en-LK')}`;
                         }
                         
                         // Update old price display (element always exists, toggle visibility)
@@ -1356,6 +1393,12 @@
                             } else {
                                 oldPriceTag.classList.add('hidden');
                             }
+                        }
+                        
+                        // Update price breakdown text
+                        const breakdownEl = card.querySelector('.text-xs.text-gray-400');
+                        if (breakdownEl) {
+                            breakdownEl.textContent = `Product: Rs. ${variant.price.toLocaleString('en-LK')} + Packaging: Rs. ${pkgCostVal.toLocaleString('en-LK')}`;
                         }
                         
                         // Update add to cart button's weight data

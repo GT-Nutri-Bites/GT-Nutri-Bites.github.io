@@ -939,6 +939,8 @@
         let weightOptions = [];
         let packagingCosts = {};
         let deliveryCharges = {};
+        const DEFAULT_DELIVERY_MIN = 350;
+        const DEFAULT_DELIVERY_MAX = 450;
 
         // Get packaging cost for a product at a given weight
         function getPackagingCost(product, weight) {
@@ -1123,7 +1125,7 @@
                             ${displayOldPrice ? `<span class="old-price modal-old-price">Rs. ${displayOldPrice.toLocaleString('en-LK')}</span>` : '<span class="old-price modal-old-price hidden"></span>'}
                         </div>
                         <div class="mb-6">
-                            <p class="text-xs text-gray-400 modal-price-breakdown">Product: Rs. ${rawPrice.toLocaleString('en-LK')} + Packaging: Rs. ${pkgCost.toLocaleString('en-LK')} + Delivery: Rs. ${(deliveryCharges.colombo || 350).toLocaleString('en-LK')}–${(deliveryCharges.other || 450).toLocaleString('en-LK')}</p>
+                            <p class="text-xs text-gray-400 modal-price-breakdown">Product: Rs. ${rawPrice.toLocaleString('en-LK')} + Packaging: Rs. ${pkgCost.toLocaleString('en-LK')} + Delivery: Rs. ${(deliveryCharges.colombo || DEFAULT_DELIVERY_MIN).toLocaleString('en-LK')}–${(deliveryCharges.other || DEFAULT_DELIVERY_MAX).toLocaleString('en-LK')}</p>
                         </div>
                         
                         <p class="text-gray-600 leading-relaxed mb-6">${product.fullDescription}</p>
@@ -1188,7 +1190,7 @@
                     // Update price breakdown
                     const breakdownEl = document.querySelector('.modal-price-breakdown');
                     if (breakdownEl) {
-                        breakdownEl.textContent = `Product: Rs. ${rawPrice.toLocaleString('en-LK')} + Packaging: Rs. ${pkgCostVal.toLocaleString('en-LK')} + Delivery: Rs. ${(deliveryCharges.colombo || 350).toLocaleString('en-LK')}–${(deliveryCharges.other || 450).toLocaleString('en-LK')}`;
+                        breakdownEl.textContent = `Product: Rs. ${rawPrice.toLocaleString('en-LK')} + Packaging: Rs. ${pkgCostVal.toLocaleString('en-LK')} + Delivery: Rs. ${(deliveryCharges.colombo || DEFAULT_DELIVERY_MIN).toLocaleString('en-LK')}–${(deliveryCharges.other || DEFAULT_DELIVERY_MAX).toLocaleString('en-LK')}`;
                     }
                     
                     const oldPriceEl = document.querySelector('.modal-old-price');

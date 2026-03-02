@@ -1822,6 +1822,8 @@ const EMAILJS_CONFIG = {
 // ==========================================
 // CART MANAGEMENT SYSTEM
 // ==========================================
+const DEFAULT_DELIVERY_CHARGE = 350;
+
 class CartManager {
     constructor() {
         this.cart = this.loadCart();
@@ -1903,7 +1905,7 @@ class CartManager {
     getShippingCost() {
         const subtotal = this.getCartTotal();
         if (subtotal >= this.FREE_SHIPPING_THRESHOLD) return 0;
-        return this.deliveryCharges[this.selectedRegion] || this.deliveryCharges.colombo || 350;
+        return this.deliveryCharges[this.selectedRegion] || this.deliveryCharges.colombo || DEFAULT_DELIVERY_CHARGE;
     }
 
     getTax() {

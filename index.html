@@ -1279,12 +1279,12 @@
                 <p class="text-gray-600">Discover our carefully curated selection</p>
             </div>
             <div class="flex flex-wrap justify-center gap-3">
-                <button class="category-pill active px-6 py-2.5 rounded-full font-semibold text-sm" role="button" aria-pressed="true">All Products</button>
-                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" role="button" aria-pressed="false">Nuts</button>
-                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" role="button" aria-pressed="false">Seeds</button>
-                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" role="button" aria-pressed="false">Mix & Trail</button>
-                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" role="button" aria-pressed="false">Dried Fruits</button>
-                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" role="button" aria-pressed="false">Best Sellers</button>
+                <button class="category-pill active px-6 py-2.5 rounded-full font-semibold text-sm" data-category="all" role="button" aria-pressed="true">All Products</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" data-category="nuts" role="button" aria-pressed="false">Nuts</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" data-category="seeds" role="button" aria-pressed="false">Seeds</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" data-category="mix" role="button" aria-pressed="false">Mix & Trail</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" data-category="dried_fruits" role="button" aria-pressed="false">Dried Fruits</button>
+                <button class="category-pill px-6 py-2.5 rounded-full font-semibold text-sm" data-category="best_sellers" role="button" aria-pressed="false">Best Sellers</button>
             </div>
         </div>
     </section>
@@ -1857,6 +1857,7 @@
                 });
                 this.classList.add('active');
                 this.setAttribute('aria-pressed', 'true');
+                renderFeaturedProducts(this.dataset.category);
             });
         });
 
@@ -1894,6 +1895,81 @@
             return 0;
         }
 
+        // Render featured products with optional category filter
+        function renderFeaturedProducts(filter = 'all') {
+            const grid = document.getElementById('featured-products-grid');
+            let filteredProducts;
+            if (filter === 'all') {
+                filteredProducts = indexProducts;
+            } else if (filter === 'best_sellers') {
+                filteredProducts = indexProducts.filter(p => p.badge === 'BEST SELLER');
+            } else {
+                filteredProducts = indexProducts.filter(p => p.type === filter);
+            }
+
+            const delays = ['delay-100', 'delay-200', 'delay-300', 'delay-400', 'delay-500', 'delay-600', 'delay-100', 'delay-200'];
+
+            if (filteredProducts.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-gray-600">No products found in this category.</p></div>';
+                return;
+            }
+
+            grid.innerHTML = filteredProducts.map((product, idx) => {
+                const defaultWeight = product.weightVariants && product.weightVariants['500g'] ? '500g' : (product.weight || '1kg');
+                const variant = product.weightVariants ? product.weightVariants[defaultWeight] : null;
+                const rawPrice = variant ? variant.price : product.price;
+                const oldPrice = variant ? variant.oldPrice : product.oldPrice;
+                const pkgCost = getIndexPackagingCost(product, defaultWeight);
+                const finalPrice = rawPrice + pkgCost;
+
+                return `
+                <div class="product-card rounded-2xl overflow-hidden animate-fade-in-up ${delays[idx % delays.length]}">
+                    ${product.badge ? `<div class="product-badge ${product.badgeColor || ''}">${product.badge}</div>` : ''}
+                    <button class="wishlist-btn" aria-label="Add to wishlist" data-product="${product.id}">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </button>
+                    <div class="product-image-placeholder aspect-square flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+                        ${product.image ? 
+                            `<img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" loading="lazy">` :
+                            product.useEmoji ? `<span class="text-8xl" role="img" aria-label="${product.name}">${product.emoji}</span>` : ''}
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-green-700 font-semibold mb-2">${product.category}</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">${product.name}</h3>
+                        <p class="text-gray-600 text-sm mb-4">${product.description}</p>
+                        <div class="flex items-center justify-between mb-1">
+                            <div>
+                                <span class="price-tag">Rs. ${finalPrice.toLocaleString('en-LK')}</span>
+                                ${oldPrice ? `<span class="old-price ml-2">Rs. ${oldPrice.toLocaleString('en-LK')}</span>` : ''}
+                            </div>
+                            <div class="text-sm text-gray-500">${defaultWeight}</div>
+                        </div>
+                        <p class="text-xs text-gray-400 mb-3">Product: Rs. ${rawPrice.toLocaleString('en-LK')} + Packaging: Rs. ${pkgCost.toLocaleString('en-LK')}</p>
+                        <button class="btn-primary w-full py-3 rounded-full font-semibold text-sm add-to-cart-btn" data-product-id="${product.id}" data-weight="${defaultWeight}">
+                            <span>Add to Cart</span>
+                        </button>
+                    </div>
+                </div>`;
+            }).join('');
+
+            // Attach event listeners after rendering
+            attachFeaturedCartListeners();
+            attachFeaturedWishlistListeners();
+
+            // Observe new cards for animation
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('#featured-products-grid .product-card').forEach(el => observer.observe(el));
+        }
+
         // Load and render featured products from products.json
         async function loadFeaturedProducts() {
             try {
@@ -1923,63 +1999,7 @@
                     }
                 }
 
-                const grid = document.getElementById('featured-products-grid');
-                const delays = ['delay-100', 'delay-200', 'delay-300', 'delay-400', 'delay-500', 'delay-600', 'delay-100', 'delay-200'];
-
-                grid.innerHTML = indexProducts.map((product, idx) => {
-                    const defaultWeight = product.weightVariants && product.weightVariants['500g'] ? '500g' : (product.weight || '1kg');
-                    const variant = product.weightVariants ? product.weightVariants[defaultWeight] : null;
-                    const rawPrice = variant ? variant.price : product.price;
-                    const oldPrice = variant ? variant.oldPrice : product.oldPrice;
-                    const pkgCost = getIndexPackagingCost(product, defaultWeight);
-                    const finalPrice = rawPrice + pkgCost;
-
-                    return `
-                    <div class="product-card rounded-2xl overflow-hidden animate-fade-in-up ${delays[idx % delays.length]}">
-                        ${product.badge ? `<div class="product-badge ${product.badgeColor || ''}">${product.badge}</div>` : ''}
-                        <button class="wishlist-btn" aria-label="Add to wishlist" data-product="${product.id}">
-                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
-                        </button>
-                        <div class="product-image-placeholder aspect-square flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
-                            ${product.image ? 
-                                `<img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" loading="lazy">` :
-                                product.useEmoji ? `<span class="text-8xl" role="img" aria-label="${product.name}">${product.emoji}</span>` : ''}
-                        </div>
-                        <div class="p-6">
-                            <div class="text-sm text-green-700 font-semibold mb-2">${product.category}</div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">${product.name}</h3>
-                            <p class="text-gray-600 text-sm mb-4">${product.description}</p>
-                            <div class="flex items-center justify-between mb-1">
-                                <div>
-                                    <span class="price-tag">Rs. ${finalPrice.toLocaleString('en-LK')}</span>
-                                    ${oldPrice ? `<span class="old-price ml-2">Rs. ${oldPrice.toLocaleString('en-LK')}</span>` : ''}
-                                </div>
-                                <div class="text-sm text-gray-500">${defaultWeight}</div>
-                            </div>
-                            <p class="text-xs text-gray-400 mb-3">Product: Rs. ${rawPrice.toLocaleString('en-LK')} + Packaging: Rs. ${pkgCost.toLocaleString('en-LK')}</p>
-                            <button class="btn-primary w-full py-3 rounded-full font-semibold text-sm add-to-cart-btn" data-product-id="${product.id}" data-weight="${defaultWeight}">
-                                <span>Add to Cart</span>
-                            </button>
-                        </div>
-                    </div>`;
-                }).join('');
-
-                // Attach event listeners after rendering
-                attachFeaturedCartListeners();
-                attachFeaturedWishlistListeners();
-
-                // Observe new cards for animation
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateY(0)';
-                        }
-                    });
-                }, { threshold: 0.1 });
-                document.querySelectorAll('#featured-products-grid .product-card').forEach(el => observer.observe(el));
+                renderFeaturedProducts('all');
 
             } catch (error) {
                 console.error('Error loading featured products:', error);

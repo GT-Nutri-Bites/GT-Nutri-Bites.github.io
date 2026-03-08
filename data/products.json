@@ -410,64 +410,6 @@
       "packagingType": "zipLockBag"
     },
     {
-      "id": 10,
-      "name": "Premium Plums",
-      "category": "Dried Fruits",
-      "type": "dried_fruits",
-      "price": 4500,
-      "oldPrice": 5500,
-      "weight": "1kg",
-      "weightVariants": {
-        "100g": {
-          "price": 905,
-          "oldPrice": 1015
-        },
-        "250g": {
-          "price": 1531,
-          "oldPrice": 1795
-        },
-        "500g": {
-          "price": 2557,
-          "oldPrice": 3075
-        },
-        "750g": {
-          "price": 3056,
-          "oldPrice": 3820
-        },
-        "1kg": {
-          "price": 4500,
-          "oldPrice": 5500
-        }
-      },
-      "badge": "NEW",
-      "badgeColor": "bg-amber-500",
-      "description": "Sweet, tangy & naturally nutritious",
-      "fullDescription": "Our Premium Plums are carefully selected and dried to preserve their natural sweetness and nutritional value. Rich in antioxidants and dietary fiber, they make a perfect healthy snack.",
-      "benefits": [
-        "Rich in antioxidants",
-        "High in dietary fiber",
-        "Supports digestive health",
-        "Natural source of vitamins"
-      ],
-      "nutrition": {
-        "calories": "240 per 100g",
-        "protein": "2.2g",
-        "fat": "0.4g",
-        "carbs": "64g",
-        "fiber": "7g"
-      },
-      "image": "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985974/Plums-1_pemclt.jpg",
-      "images": [
-        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985974/Plums-1_pemclt.jpg",
-        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772986024/Plums-2_hkhaw3.jpg",
-        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772986009/Plums-3_kn7btm.jpg",
-        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985956/Plums-4_n3npbi.jpg"
-      ],
-      "emoji": "🍑",
-      "useEmoji": false,
-      "packagingType": "zipLockBag"
-    },
-    {
       "id": 11,
       "name": "Premium Dried Fruits",
       "category": "Dried Fruits",

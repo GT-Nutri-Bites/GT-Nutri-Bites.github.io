@@ -1917,7 +1917,6 @@
                         heroImg.loading = 'eager';
                         heroImg.onload = function() {
                             heroPlaceholder.remove();
-                            if (heroTextOverlay) heroTextOverlay.remove();
                             heroContainer.style.padding = '0';
                             heroContainer.insertBefore(heroImg, heroContainer.firstChild);
                         };

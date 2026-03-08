@@ -1,4 +1,5 @@
 {
+  "heroImage": "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985967/All_Nuts_and_Seeds-1_mdzjtb.jpg",
   "weightOptions": [
     "100g",
     "250g",
@@ -54,8 +55,14 @@
         "carbs": "6g",
         "fiber": "3.5g"
       },
+      "image": "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985951/Almond-1_djbbu0.jpg",
+      "images": [
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985951/Almond-1_djbbu0.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985960/Almond-2_ndugf4.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985965/Almond-3_hax5co.jpg"
+      ],
       "emoji": "🥜",
-      "useEmoji": true,
+      "useEmoji": false,
       "packagingType": "zipLockBag"
     },
     {
@@ -205,8 +212,14 @@
         "carbs": "7g",
         "fiber": "3g"
       },
+      "image": "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985976/Sunflower_Seeds-1_jb7aus.jpg",
+      "images": [
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985976/Sunflower_Seeds-1_jb7aus.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772986076/Sunflower_Seeds-2_xixl77.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772986023/Sunflower_Seeds-3_kfzr83.jpg"
+      ],
       "emoji": "🌻",
-      "useEmoji": true
+      "useEmoji": false
     },
     {
       "id": 6,
@@ -305,8 +318,14 @@
         "carbs": "5g",
         "fiber": "1.7g"
       },
+      "image": "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985957/Pumpkin_Seeds-1_a9poqy.jpg",
+      "images": [
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985957/Pumpkin_Seeds-1_a9poqy.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985950/Pumpkin_Seeds-2_ydz5sk.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985952/Pumpkin_Seeds-3_ife235.jpg"
+      ],
       "emoji": "🎃",
-      "useEmoji": true
+      "useEmoji": false
     },
     {
       "id": 8,
@@ -359,8 +378,21 @@
         "carbs": "7g",
         "fiber": "2.5g"
       },
+      "image": "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985955/Mixed_Nuts_and_Seeds-1_zt8atl.jpg",
+      "images": [
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985955/Mixed_Nuts_and_Seeds-1_zt8atl.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772986017/Mixed_Nuts_and_Seeds-_ctwga9.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985969/Mixed_Nuts_and_Seeds-3_mzzqw5.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985954/Dried_Fruits-1_njulje.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985969/Dried_Fruits-2_dz8ouo.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985964/Dried_Fruits-3_bqout3.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985974/Plums-1_pemclt.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772986024/Plums-2_hkhaw3.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772986009/Plums-3_kn7btm.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985956/Plums-4_n3npbi.jpg"
+      ],
       "emoji": "🥗",
-      "useEmoji": true,
+      "useEmoji": false,
       "packagingType": "zipLockBag"
     },
     {

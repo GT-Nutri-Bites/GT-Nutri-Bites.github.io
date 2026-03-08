@@ -61,109 +61,9 @@
         "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985960/Almond-2_ndugf4.jpg",
         "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985965/Almond-3_hax5co.jpg"
       ],
-      "emoji": "🥜",
+      "emoji": "\ud83e\udd5c",
       "useEmoji": false,
       "packagingType": "zipLockBag"
-    },
-    {
-      "id": 2,
-      "name": "Chia Seeds Super Pack",
-      "category": "Organic Seeds",
-      "type": "seeds",
-      "price": 4500,
-      "oldPrice": 5500,
-      "weight": "1kg",
-      "weightVariants": {
-        "100g": {
-          "price": 905,
-          "oldPrice": 1015
-        },
-        "250g": {
-          "price": 1531,
-          "oldPrice": 1795
-        },
-        "500g": {
-          "price": 2557,
-          "oldPrice": 3075
-        },
-        "750g": {
-          "price": 3056,
-          "oldPrice": 3820
-        },
-        "1kg": {
-          "price": 4500,
-          "oldPrice": 5500
-        }
-      },
-      "badge": "NEW",
-      "badgeColor": "bg-amber-500",
-      "description": "Omega-3 rich superfood",
-      "fullDescription": "Experience the power of ancient nutrition with our Chia Seeds Super Pack.",
-      "benefits": [
-        "Extremely high in Omega-3",
-        "Loaded with antioxidants",
-        "High in quality protein",
-        "May reduce heart disease risk"
-      ],
-      "nutrition": {
-        "calories": "138 per 28g",
-        "protein": "4.7g",
-        "fat": "8.7g",
-        "carbs": "12g",
-        "fiber": "9.8g"
-      },
-      "emoji": "🫘",
-      "useEmoji": true
-    },
-    {
-      "id": 3,
-      "name": "Roasted Cashews",
-      "category": "Premium Nuts",
-      "type": "nuts",
-      "price": 7500,
-      "oldPrice": null,
-      "weight": "1kg",
-      "weightVariants": {
-        "100g": {
-          "price": 1235,
-          "oldPrice": null
-        },
-        "250g": {
-          "price": 2323,
-          "oldPrice": null
-        },
-        "500g": {
-          "price": 4111,
-          "oldPrice": null
-        },
-        "750g": {
-          "price": 5348,
-          "oldPrice": null
-        },
-        "1kg": {
-          "price": 7500,
-          "oldPrice": null
-        }
-      },
-      "badge": null,
-      "badgeColor": null,
-      "description": "Lightly salted perfection",
-      "fullDescription": "Indulge in our perfectly roasted cashews, lightly salted to enhance their natural buttery flavor.",
-      "benefits": [
-        "Heart-healthy fats",
-        "Rich in copper and magnesium",
-        "Supports bone health",
-        "May help with weight management"
-      ],
-      "nutrition": {
-        "calories": "157 per 28g",
-        "protein": "5g",
-        "fat": "12g",
-        "carbs": "9g",
-        "fiber": "1g"
-      },
-      "emoji": "🥜",
-      "useEmoji": true
     },
     {
       "id": 5,
@@ -218,58 +118,8 @@
         "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772986076/Sunflower_Seeds-2_xixl77.jpg",
         "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772986023/Sunflower_Seeds-3_kfzr83.jpg"
       ],
-      "emoji": "🌻",
+      "emoji": "\ud83c\udf3b",
       "useEmoji": false
-    },
-    {
-      "id": 6,
-      "name": "Raw Walnuts",
-      "category": "Organic Nuts",
-      "type": "nuts",
-      "price": 5500,
-      "oldPrice": 7500,
-      "weight": "1kg",
-      "weightVariants": {
-        "100g": {
-          "price": 1015,
-          "oldPrice": 1235
-        },
-        "250g": {
-          "price": 1795,
-          "oldPrice": 2323
-        },
-        "500g": {
-          "price": 3075,
-          "oldPrice": 4111
-        },
-        "750g": {
-          "price": 3820,
-          "oldPrice": 5348
-        },
-        "1kg": {
-          "price": 5500,
-          "oldPrice": 7500
-        }
-      },
-      "badge": null,
-      "badgeColor": null,
-      "description": "Heart-healthy omega-3",
-      "fullDescription": "Our raw organic walnuts are nature's brain food.",
-      "benefits": [
-        "Rich in Omega-3 ALA",
-        "Supports brain health",
-        "Anti-inflammatory",
-        "Good for heart health"
-      ],
-      "nutrition": {
-        "calories": "185 per 28g",
-        "protein": "4.3g",
-        "fat": "18.5g",
-        "carbs": "4g",
-        "fiber": "1.9g"
-      },
-      "emoji": "🧠",
-      "useEmoji": true
     },
     {
       "id": 7,
@@ -324,7 +174,7 @@
         "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985950/Pumpkin_Seeds-2_ydz5sk.jpg",
         "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985952/Pumpkin_Seeds-3_ife235.jpg"
       ],
-      "emoji": "🎃",
+      "emoji": "\ud83c\udf83",
       "useEmoji": false
     },
     {
@@ -382,74 +232,17 @@
       "images": [
         "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985955/Mixed_Nuts_and_Seeds-1_zt8atl.jpg",
         "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772986017/Mixed_Nuts_and_Seeds-_ctwga9.jpg",
-        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985969/Mixed_Nuts_and_Seeds-3_mzzqw5.jpg",
-        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985954/Dried_Fruits-1_njulje.jpg",
-        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985969/Dried_Fruits-2_dz8ouo.jpg",
-        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985964/Dried_Fruits-3_bqout3.jpg",
-        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985974/Plums-1_pemclt.jpg",
-        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772986024/Plums-2_hkhaw3.jpg",
-        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772986009/Plums-3_kn7btm.jpg",
-        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985956/Plums-4_n3npbi.jpg"
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985969/Mixed_Nuts_and_Seeds-3_mzzqw5.jpg"
       ],
-      "emoji": "🥗",
+      "emoji": "\ud83e\udd57",
       "useEmoji": false,
       "packagingType": "zipLockBag"
     },
     {
-      "id": 9,
-      "name": "Premium Pistachios",
-      "category": "Gourmet Nuts",
-      "type": "nuts",
-      "price": 7500,
-      "oldPrice": 8500,
-      "weight": "1kg",
-      "weightVariants": {
-        "100g": {
-          "price": 1235,
-          "oldPrice": 1345
-        },
-        "250g": {
-          "price": 2323,
-          "oldPrice": 2587
-        },
-        "500g": {
-          "price": 4111,
-          "oldPrice": 4629
-        },
-        "750g": {
-          "price": 5348,
-          "oldPrice": 6112
-        },
-        "1kg": {
-          "price": 7500,
-          "oldPrice": 8500
-        }
-      },
-      "badge": null,
-      "badgeColor": null,
-      "description": "Roasted & lightly salted green gems",
-      "fullDescription": "Our Premium Pistachios are carefully selected from the finest orchards.",
-      "benefits": [
-        "Rich in antioxidants",
-        "Supports eye health",
-        "High in protein and fiber",
-        "May aid in weight management"
-      ],
-      "nutrition": {
-        "calories": "159 per 28g",
-        "protein": "6g",
-        "fat": "13g",
-        "carbs": "8g",
-        "fiber": "3g"
-      },
-      "emoji": "💚",
-      "useEmoji": true
-    },
-    {
-      "id": 13,
-      "name": "Organic Flax Seeds",
-      "category": "Superfood Seeds",
-      "type": "seeds",
+      "id": 10,
+      "name": "Premium Plums",
+      "category": "Dried Fruits",
+      "type": "dried_fruits",
       "price": 4500,
       "oldPrice": 5500,
       "weight": "1kg",
@@ -477,23 +270,88 @@
       },
       "badge": "NEW",
       "badgeColor": "bg-amber-500",
-      "description": "Omega-3 powerhouse for wellness",
-      "fullDescription": "Our Organic Flax Seeds are a nutritional powerhouse.",
+      "description": "Sweet, tangy & naturally nutritious",
+      "fullDescription": "Our Premium Plums are carefully selected and dried to preserve their natural sweetness and nutritional value. Rich in antioxidants and dietary fiber, they make a perfect healthy snack.",
       "benefits": [
-        "Richest plant source of Omega-3",
+        "Rich in antioxidants",
         "High in dietary fiber",
-        "Contains lignans",
-        "Supports digestive health"
+        "Supports digestive health",
+        "Natural source of vitamins"
       ],
       "nutrition": {
-        "calories": "150 per 28g",
-        "protein": "5.1g",
-        "fat": "12g",
-        "carbs": "8g",
-        "fiber": "7.6g"
+        "calories": "240 per 100g",
+        "protein": "2.2g",
+        "fat": "0.4g",
+        "carbs": "64g",
+        "fiber": "7g"
       },
-      "emoji": "🌾",
-      "useEmoji": true
+      "image": "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985974/Plums-1_pemclt.jpg",
+      "images": [
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985974/Plums-1_pemclt.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772986024/Plums-2_hkhaw3.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772986009/Plums-3_kn7btm.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985956/Plums-4_n3npbi.jpg"
+      ],
+      "emoji": "\ud83e\uded0",
+      "useEmoji": false,
+      "packagingType": "zipLockBag"
+    },
+    {
+      "id": 11,
+      "name": "Premium Dried Fruits",
+      "category": "Dried Fruits",
+      "type": "dried_fruits",
+      "price": 5500,
+      "oldPrice": 6500,
+      "weight": "1kg",
+      "weightVariants": {
+        "100g": {
+          "price": 1015,
+          "oldPrice": 1125
+        },
+        "250g": {
+          "price": 1795,
+          "oldPrice": 2059
+        },
+        "500g": {
+          "price": 3075,
+          "oldPrice": 3593
+        },
+        "750g": {
+          "price": 3820,
+          "oldPrice": 4584
+        },
+        "1kg": {
+          "price": 5500,
+          "oldPrice": 6500
+        }
+      },
+      "badge": "NEW",
+      "badgeColor": "bg-amber-500",
+      "description": "A wholesome mix of nature's finest dried fruits",
+      "fullDescription": "Our Premium Dried Fruits collection features a carefully curated selection of the finest dried fruits. Each piece is naturally dried to retain its nutrients and flavor, making it the perfect healthy snack.",
+      "benefits": [
+        "Rich in natural vitamins",
+        "High in dietary fiber",
+        "Excellent source of energy",
+        "Packed with essential minerals"
+      ],
+      "nutrition": {
+        "calories": "280 per 100g",
+        "protein": "3g",
+        "fat": "0.5g",
+        "carbs": "68g",
+        "fiber": "5g"
+      },
+      "image": "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985954/Dried_Fruits-1_njulje.jpg",
+      "images": [
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985954/Dried_Fruits-1_njulje.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985969/Dried_Fruits-2_dz8ouo.jpg",
+        "https://res.cloudinary.com/dkj22lm1g/image/upload/v1772985964/Dried_Fruits-3_bqout3.jpg"
+      ],
+      "emoji": "\ud83c\udf47",
+      "useEmoji": false,
+      "packagingType": "zipLockBag"
     }
   ],
   "iconColors": {

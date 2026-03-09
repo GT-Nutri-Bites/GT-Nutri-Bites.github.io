@@ -977,12 +977,12 @@
             }
         }
 
-        // Get default weight for product (use 500g as default, or first available)
-        // Get default weight for product (prefer 500g, or first available)
+        // Get default weight for product (use 100g as default, or first available)
+        // Get default weight for product (prefer 100g, or first available)
         function getDefaultWeight(product) {
             if (product.weightVariants) {
-                // Prefer 500g if available, otherwise use first available weight
-                if (product.weightVariants["500g"]) return "500g";
+                // Prefer 100g if available, otherwise use first available weight
+                if (product.weightVariants["100g"]) return "100g";
                 // Find first available weight from weightOptions
                 const firstAvailable = weightOptions.find(w => product.weightVariants[w]);
                 return firstAvailable || product.weight;

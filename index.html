@@ -1915,7 +1915,7 @@
             }
 
             grid.innerHTML = filteredProducts.map((product, idx) => {
-                const defaultWeight = product.weightVariants && product.weightVariants['500g'] ? '500g' : (product.weight || '1kg');
+                const defaultWeight = product.weightVariants && product.weightVariants['100g'] ? '100g' : (product.weight || '1kg');
                 const variant = product.weightVariants ? product.weightVariants[defaultWeight] : null;
                 const rawPrice = variant ? variant.price : product.price;
                 const oldPrice = variant ? variant.oldPrice : product.oldPrice;

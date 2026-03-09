@@ -13,12 +13,12 @@
       "name": "Premium California Almonds",
       "category": "Organic Almonds",
       "type": "nuts",
-      "price": 438,
+      "price": 440,
       "oldPrice": 498,
       "weight": "100g",
       "weightVariants": {
         "100g": {
-          "price": 438,
+          "price": 440,
           "oldPrice": 498
         },
         "250g": {
@@ -74,12 +74,12 @@
       "name": "Premium Pistachios",
       "category": "Organic Nuts",
       "type": "nuts",
-      "price": 678,
+      "price": 680,
       "oldPrice": 738,
       "weight": "100g",
       "weightVariants": {
         "100g": {
-          "price": 678,
+          "price": 680,
           "oldPrice": 738
         },
         "250g": {
@@ -135,12 +135,12 @@
       "name": "Sunflower Seeds (Without Shell)",
       "category": "Premium Seeds",
       "type": "seeds",
-      "price": 408,
+      "price": 410,
       "oldPrice": 498,
       "weight": "100g",
       "weightVariants": {
         "100g": {
-          "price": 408,
+          "price": 410,
           "oldPrice": 498
         },
         "250g": {
@@ -195,12 +195,12 @@
       "name": "Sunflower Seeds (With Shell)",
       "category": "Premium Seeds",
       "type": "seeds",
-      "price": 408,
+      "price": 410,
       "oldPrice": 498,
       "weight": "100g",
       "weightVariants": {
         "100g": {
-          "price": 408,
+          "price": 410,
           "oldPrice": 498
         },
         "250g": {
@@ -256,12 +256,12 @@
       "name": "Pumpkin Seeds",
       "category": "Superfood Seeds",
       "type": "seeds",
-      "price": 408,
+      "price": 410,
       "oldPrice": 498,
       "weight": "100g",
       "weightVariants": {
         "100g": {
-          "price": 408,
+          "price": 410,
           "oldPrice": 498
         },
         "250g": {
@@ -316,12 +316,12 @@
       "name": "Mix Nuts, Seeds & Dried Fruits",
       "category": "Premium Mix",
       "type": "mix",
-      "price": 558,
+      "price": 560,
       "oldPrice": 618,
       "weight": "100g",
       "weightVariants": {
         "100g": {
-          "price": 558,
+          "price": 560,
           "oldPrice": 618
         },
         "250g": {
@@ -377,12 +377,12 @@
       "name": "Black Raisins",
       "category": "Dried Fruits",
       "type": "dried_fruits",
-      "price": 498,
+      "price": 500,
       "oldPrice": 558,
       "weight": "100g",
       "weightVariants": {
         "100g": {
-          "price": 498,
+          "price": 500,
           "oldPrice": 558
         },
         "250g": {
@@ -438,12 +438,12 @@
       "name": "Premium Dried Fruits",
       "category": "Dried Fruits",
       "type": "dried_fruits",
-      "price": 618,
+      "price": 620,
       "oldPrice": 678,
       "weight": "100g",
       "weightVariants": {
         "100g": {
-          "price": 618,
+          "price": 620,
           "oldPrice": 678
         },
         "250g": {
@@ -499,12 +499,12 @@
       "name": "Golden Raisins",
       "category": "Dried Fruits",
       "type": "dried_fruits",
-      "price": 618,
+      "price": 620,
       "oldPrice": 678,
       "weight": "100g",
       "weightVariants": {
         "100g": {
-          "price": 618,
+          "price": 620,
           "oldPrice": 678
         },
         "250g": {

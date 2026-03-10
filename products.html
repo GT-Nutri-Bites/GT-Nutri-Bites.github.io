@@ -1053,7 +1053,7 @@
                             </div>
                             ${generateWeightSelector(product, defaultWeight)}
                         </div>
-                        <p class="text-xs text-gray-400 mb-3">Product: Rs. ${rawPrice.toLocaleString('en-LK')} + Packaging: Rs. ${pkgCost.toLocaleString('en-LK')}</p>
+                        <p class="text-xs text-gray-400 mb-3">Cash on Delivery Available</p>
                         <div class="flex gap-2">
                             <button class="btn-primary flex-1 py-3 rounded-full font-semibold text-sm add-to-cart-btn" data-product="${product.id}" data-weight="${defaultWeight}">
                                 <span>Add to Cart</span>
@@ -1134,7 +1134,7 @@
                             ${displayOldPrice ? `<span class="old-price modal-old-price">Rs. ${displayOldPrice.toLocaleString('en-LK')}</span>` : '<span class="old-price modal-old-price hidden"></span>'}
                         </div>
                         <div class="mb-6">
-                            <p class="text-xs text-gray-400 modal-price-breakdown">Product: Rs. ${rawPrice.toLocaleString('en-LK')} + Packaging: Rs. ${pkgCost.toLocaleString('en-LK')} + Delivery: Rs. ${(deliveryCharges.colombo || DEFAULT_DELIVERY_MIN).toLocaleString('en-LK')}–${(deliveryCharges.other || DEFAULT_DELIVERY_MAX).toLocaleString('en-LK')}</p>
+                            <p class="text-xs text-gray-400 modal-price-breakdown">Cash on Delivery Available</p>
                         </div>
                         
                         <p class="text-gray-600 leading-relaxed mb-6">${product.fullDescription}</p>
@@ -1199,7 +1199,7 @@
                     // Update price breakdown
                     const breakdownEl = document.querySelector('.modal-price-breakdown');
                     if (breakdownEl) {
-                        breakdownEl.textContent = `Product: Rs. ${rawPrice.toLocaleString('en-LK')} + Packaging: Rs. ${pkgCostVal.toLocaleString('en-LK')} + Delivery: Rs. ${(deliveryCharges.colombo || DEFAULT_DELIVERY_MIN).toLocaleString('en-LK')}–${(deliveryCharges.other || DEFAULT_DELIVERY_MAX).toLocaleString('en-LK')}`;
+                        breakdownEl.textContent = 'Cash on Delivery Available';
                     }
                     
                     const oldPriceEl = document.querySelector('.modal-old-price');
@@ -1428,7 +1428,7 @@
                         // Update price breakdown text
                         const breakdownEl = card.querySelector('.text-xs.text-gray-400');
                         if (breakdownEl) {
-                            breakdownEl.textContent = `Product: Rs. ${variant.price.toLocaleString('en-LK')} + Packaging: Rs. ${pkgCostVal.toLocaleString('en-LK')}`;
+                            breakdownEl.textContent = 'Cash on Delivery Available';
                         }
                         
                         // Update add to cart button's weight data

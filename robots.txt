@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /cart.html
+
+Sitemap: https://gt-nutri-bites.github.io/sitemap.xml

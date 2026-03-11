@@ -13,32 +13,32 @@
       "name": "Premium California Almonds",
       "category": "Organic Almonds",
       "type": "nuts",
-      "price": 440,
+      "price": 460,
       "oldPrice": 498,
       "weight": "100g",
       "weightVariants": {
         "100g": {
-          "price": 440,
+          "price": 460,
           "oldPrice": 498
         },
         "250g": {
-          "price": 1080,
+          "price": 1129,
           "oldPrice": 1230
         },
         "500g": {
-          "price": 2142,
+          "price": 2239,
           "oldPrice": 2442
         },
         "750g": {
-          "price": 3200,
+          "price": 3345,
           "oldPrice": 3650
         },
         "1kg": {
-          "price": 4260,
+          "price": 4454,
           "oldPrice": 4860
         },
         "2kg": {
-          "price": 7000,
+          "price": 7318,
           "oldPrice": 8000
         }
       },
